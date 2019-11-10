@@ -1,6 +1,6 @@
 package dbse.entity;
 
-import dbse.service.RelationService;
+import dbse.service.AbstractService;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,15 +8,15 @@ import javax.persistence.Id;
 import javax.persistence.NamedQuery;
 
 @Entity
-@NamedQuery(name = RelationService.getAll, query = "SELECT r FROM RelationEntity r")
-public class RelationEntity {
+@NamedQuery(name = AbstractService.getAll, query = "SELECT r FROM AbstractEntity r")
+public class AbstractEntity {
 
     @Id
     @GeneratedValue
     private Long id;
-    private String name;
+    private String attribute;
 
-    public RelationEntity() {
+    public AbstractEntity() {
     }
 
     public Long getId() {
@@ -27,11 +27,11 @@ public class RelationEntity {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getAttribute() {
+        return attribute;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setAttribute(String name) {
+        this.attribute = name;
     }
 }
