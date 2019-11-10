@@ -13,17 +13,17 @@ public class AbstractEntity {
 
     @Id
     @GeneratedValue
-    private Long id;
+    private long id;
     private String attribute;
 
     public AbstractEntity() {
     }
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -33,5 +33,16 @@ public class AbstractEntity {
 
     public void setAttribute(String name) {
         this.attribute = name;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+        if (obj instanceof AbstractEntity) {
+            return obj.getClass() == this.getClass() && ((AbstractEntity) obj).id == this.id;
+        }
+        return false;
     }
 }

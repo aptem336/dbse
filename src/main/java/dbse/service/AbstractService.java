@@ -18,12 +18,16 @@ public class AbstractService {
         em.persist(entity);
     }
 
-    public void remove(Long id) {
-        em.remove(em.merge(em.find(AbstractEntity.class, id)));
+    public void remove(AbstractEntity abstractEntity) {
+        em.remove(em.merge(abstractEntity));
     }
 
     public void save(AbstractEntity entity) {
         em.merge(entity);
+    }
+
+    public AbstractEntity getById(long id) {
+        return em.find(AbstractEntity.class, id);
     }
 
     public List<AbstractEntity> getAll() {

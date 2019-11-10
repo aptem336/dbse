@@ -25,8 +25,9 @@ public class AbstractController {
     }
 
     public void remove(long id) {
-        abstractEntityList = abstractEntityList.stream().filter(abstractEntity -> abstractEntity.getId() != id).collect(Collectors.toList());
-        abstractService.remove(id);
+        AbstractEntity abstractEntity = abstractService.getById(id);
+        abstractEntityList.remove(abstractEntity);
+        abstractService.remove(abstractEntity);
     }
 
     public void save() {
