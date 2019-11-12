@@ -1,49 +1,43 @@
 package dbse.controller;
 
-import dbse.entity.AbstractEntity;
 import dbse.service.AbstractService;
-
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.RequestScoped;
-import javax.inject.Inject;
-import javax.inject.Named;
 import java.util.List;
-import java.util.stream.Collectors;
 
-@Named
-@RequestScoped
-public class AbstractController {
+public abstract class AbstractController<AbstractEntity> {
 
-    private List<AbstractEntity> abstractEntityList;
-    @Inject
-    private AbstractService abstractService;
+    private List<AbstractEntity> list;
+
+    abstract AbstractService<AbstractEntity> getService();
+
+    abstract AbstractEntity getEntity();
 
     public void add() {
-        AbstractEntity abstractEntity = new AbstractEntity();
-        abstractEntityList.add(abstractEntity);
-        abstractService.add(abstractEntity);
+        AbstractEntity abstractEntity = getEntity();
+        list.add(abstractEntity);
+        getService().add(abstractEntity);
     }
 
     public void remove(long id) {
-        AbstractEntity abstractEntity = abstractService.getById(id);
-        abstractEntityList.remove(abstractEntity);
-        abstractService.remove(abstractEntity);
+        AbstractEntity abstractEntity = getService().getById(id);
+        list.remove(abstractEntity);
+        getService().remove(abstractEntity);
     }
 
     public void save() {
-        abstractEntityList.forEach(abstractService::save);
+        list.forEach(getService()::save);
+    }
+
+    public List<AbstractEntity> getList() {
+        return list;
+    }
+
+    public void setList(List<AbstractEntity> list) {
+        this.list = list;
     }
 
     @PostConstruct
     private void postConstruct() {
-        abstractEntityList = abstractService.getAll();
-    }
-
-    public List<AbstractEntity> getAbstractEntityList() {
-        return abstractEntityList;
-    }
-
-    public void setAbstractEntityList(List<AbstractEntity> abstractEntityList) {
-        this.abstractEntityList = abstractEntityList;
+        list = getService().getAll();
     }
 }

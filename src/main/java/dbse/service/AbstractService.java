@@ -1,36 +1,37 @@
 package dbse.service;
 
-import dbse.entity.AbstractEntity;
-
-import javax.ejb.Stateless;
-import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import java.util.List;
 
-@Stateless
-public class AbstractService {
+public abstract class AbstractService<AbstractEntity> {
 
-    public final static String getAll = "getAll";
-    @Inject
-    private EntityManager em;
+    private Class<AbstractEntity> abstractEntityClass;
 
-    public void add(AbstractEntity entity) {
-        em.persist(entity);
+    AbstractService(Class<AbstractEntity> abstractEntityClass){
+        this.abstractEntityClass = abstractEntityClass;
+    }
+
+    abstract EntityManager getEntityManager();
+
+    public void add(AbstractEntity abstractEntity) {
+        getEntityManager().persist(abstractEntity);
     }
 
     public void remove(AbstractEntity abstractEntity) {
-        em.remove(em.merge(abstractEntity));
+        getEntityManager().remove(getEntityManager().merge(abstractEntity));
     }
 
-    public void save(AbstractEntity entity) {
-        em.merge(entity);
+    public void save(AbstractEntity abstractEntity) {
+        getEntityManager().merge(abstractEntity);
     }
 
     public AbstractEntity getById(long id) {
-        return em.find(AbstractEntity.class, id);
+        return getEntityManager().find(abstractEntityClass, id);
     }
 
     public List<AbstractEntity> getAll() {
-        return em.createNamedQuery(getAll, AbstractEntity.class).getResultList();
+        return getEntityManager().createNamedQuery(getAll, abstractEntityClass).getResultList();
     }
+
+    public final static String getAll = "getAll";
 }

@@ -9,21 +9,27 @@
 </h:head>
 <h:body>
     <h:form id="dataForm">
-        <h:commandButton value="+" action="#{abstractController.add}">
+        <h:commandButton value="+" action="#{relationController.add}">
             <f:ajax execute="@form" render=":dataForm"/>
         </h:commandButton>
-        <h:commandButton value="save" action="#{abstractController.save}">
+        <h:commandButton value="save" action="#{relationController.save}">
             <f:ajax execute="@form"/>
         </h:commandButton>
-        <h:dataTable id="dataTable" var="dataRow" value="#{abstractController.abstractEntityList}" border="1">
+        <h:dataTable id="dataTable" var="dataRow" value="#{relationController.list}" border="1">
             <h:column>
                 <f:facet name="header">
                     <h:outputText value="name"/>
                 </f:facet>
-                <h:inputText value="#{dataRow.attribute}"/>
+                <h:inputText value="#{dataRow.id}"/>
             </h:column>
             <h:column>
-                <h:commandButton value="x" action="#{abstractController.remove(dataRow.id)}">
+                <f:facet name="header">
+                    <h:outputText value="name"/>
+                </f:facet>
+                <h:inputText value="#{dataRow.name}"/>
+            </h:column>
+            <h:column>
+                <h:commandButton value="x" action="#{relationController.remove(dataRow.id)}">
                     <f:ajax execute="@form" render=":dataForm"/>
                 </h:commandButton>
             </h:column>
