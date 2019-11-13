@@ -6,38 +6,42 @@ import java.util.List;
 
 public abstract class AbstractController<AbstractEntity> {
 
-    private List<AbstractEntity> list;
+    private List<AbstractEntity> abstractEntityList;
+
+    private Class<AbstractEntity> abstractEntityClass;
+
+    AbstractController(Class<AbstractEntity> abstractEntityClass){
+        this.abstractEntityClass = abstractEntityClass;
+    }
 
     abstract AbstractService<AbstractEntity> getService();
 
-    abstract AbstractEntity getEntity();
-
-    public void add() {
-        AbstractEntity abstractEntity = getEntity();
-        list.add(abstractEntity);
+    public void add() throws IllegalAccessException, InstantiationException {
+        AbstractEntity abstractEntity = abstractEntityClass.newInstance();
+        abstractEntityList.add(abstractEntity);
         getService().add(abstractEntity);
     }
 
     public void remove(long id) {
         AbstractEntity abstractEntity = getService().getById(id);
-        list.remove(abstractEntity);
+        abstractEntityList.remove(abstractEntity);
         getService().remove(abstractEntity);
     }
 
     public void save() {
-        list.forEach(getService()::save);
+        abstractEntityList.forEach(getService()::save);
     }
 
-    public List<AbstractEntity> getList() {
-        return list;
+    public List<AbstractEntity> getAbstractEntityList() {
+        return abstractEntityList;
     }
 
-    public void setList(List<AbstractEntity> list) {
-        this.list = list;
+    public void setAbstractEntityList(List<AbstractEntity> abstractEntityList) {
+        this.abstractEntityList = abstractEntityList;
     }
 
     @PostConstruct
     private void postConstruct() {
-        list = getService().getAll();
+        abstractEntityList = getService().getAll();
     }
 }

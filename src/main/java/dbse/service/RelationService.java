@@ -1,7 +1,6 @@
 package dbse.service;
 
 import dbse.entity.Relation;
-
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
