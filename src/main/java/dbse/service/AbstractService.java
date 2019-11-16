@@ -7,11 +7,11 @@ public abstract class AbstractService<AbstractEntity> {
 
     private Class<AbstractEntity> abstractEntityClass;
 
-    AbstractService(Class<AbstractEntity> abstractEntityClass){
+    AbstractService(Class<AbstractEntity> abstractEntityClass) {
         this.abstractEntityClass = abstractEntityClass;
     }
 
-    abstract EntityManager getEntityManager();
+    protected abstract EntityManager getEntityManager();
 
     public void add(AbstractEntity abstractEntity) {
         getEntityManager().persist(abstractEntity);
@@ -30,8 +30,9 @@ public abstract class AbstractService<AbstractEntity> {
     }
 
     public List<AbstractEntity> getAll() {
-        return getEntityManager().createNamedQuery(getAll, abstractEntityClass).getResultList();
+        return getEntityManager().createNamedQuery(getAllNamedQueryName(), abstractEntityClass).getResultList();
     }
 
-    public final static String getAll = "getAll";
+    public abstract String getAllNamedQueryName();
+
 }

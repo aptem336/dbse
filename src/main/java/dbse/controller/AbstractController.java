@@ -1,6 +1,7 @@
 package dbse.controller;
 
 import dbse.service.AbstractService;
+
 import javax.annotation.PostConstruct;
 import java.util.List;
 
@@ -10,7 +11,7 @@ public abstract class AbstractController<AbstractEntity> {
 
     private Class<AbstractEntity> abstractEntityClass;
 
-    AbstractController(Class<AbstractEntity> abstractEntityClass){
+    AbstractController(Class<AbstractEntity> abstractEntityClass) {
         this.abstractEntityClass = abstractEntityClass;
     }
 

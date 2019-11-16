@@ -1,19 +1,19 @@
 package dbse.service;
 
-import dbse.entity.Relation;
+import dbse.entity.Attribute;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 
 @Stateless
-public class RelationService extends AbstractService<Relation> {
+public class AttributeService extends AbstractService<Attribute> {
 
     @Inject
     private EntityManager em;
 
-    public RelationService() {
-        super(Relation.class);
+    public AttributeService() {
+        super(Attribute.class);
     }
 
     @Override
@@ -26,5 +26,5 @@ public class RelationService extends AbstractService<Relation> {
         return getAllNamedQueryName;
     }
 
-    public static final String getAllNamedQueryName = "getAllRelation";
+    public static final String getAllNamedQueryName = "getAllAttribute";
 }
