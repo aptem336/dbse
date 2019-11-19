@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence xmlns="http://java.sun.com/xml/ns/persistence">
     <persistence-unit name="dbse_pu">
-        <!--TODO: создание пула тут?-->
-        <jta-data-source>jdbc/dbse_db</jta-data-source>
+        <jta-data-source>java:global/jdbc/dbse_db</jta-data-source>
         <class>dbse.entity.Relation</class>
         <class>dbse.entity.Attribute</class>
         <properties>
