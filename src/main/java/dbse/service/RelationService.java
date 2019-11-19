@@ -13,17 +13,12 @@ public class RelationService extends AbstractService<Relation> {
     private EntityManager em;
 
     public RelationService() {
-        super(Relation.class);
+        super(Relation.class, getAllNamedQueryName);
     }
 
     @Override
     protected EntityManager getEntityManager() {
         return em;
-    }
-
-    @Override
-    public String getAllNamedQueryName() {
-        return getAllNamedQueryName;
     }
 
     public static final String getAllNamedQueryName = "getAllRelation";

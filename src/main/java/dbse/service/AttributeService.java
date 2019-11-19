@@ -13,17 +13,12 @@ public class AttributeService extends AbstractService<Attribute> {
     private EntityManager em;
 
     public AttributeService() {
-        super(Attribute.class);
+        super(Attribute.class, getAllNamedQueryName);
     }
 
     @Override
     protected EntityManager getEntityManager() {
         return em;
-    }
-
-    @Override
-    public String getAllNamedQueryName() {
-        return getAllNamedQueryName;
     }
 
     public static final String getAllNamedQueryName = "getAllAttribute";

@@ -5,10 +5,12 @@ import java.util.List;
 
 public abstract class AbstractService<AbstractEntity> {
 
-    private Class<AbstractEntity> abstractEntityClass;
+    private final Class<AbstractEntity> abstractEntityClass;
+    private final String getAllNamedQueryName;
 
-    AbstractService(Class<AbstractEntity> abstractEntityClass) {
+    AbstractService(Class<AbstractEntity> abstractEntityClass, String getAllNamedQueryName) {
         this.abstractEntityClass = abstractEntityClass;
+        this.getAllNamedQueryName = getAllNamedQueryName;
     }
 
     protected abstract EntityManager getEntityManager();
@@ -30,9 +32,6 @@ public abstract class AbstractService<AbstractEntity> {
     }
 
     public List<AbstractEntity> getAll() {
-        return getEntityManager().createNamedQuery(getAllNamedQueryName(), abstractEntityClass).getResultList();
+        return getEntityManager().createNamedQuery(getAllNamedQueryName, abstractEntityClass).getResultList();
     }
-
-    public abstract String getAllNamedQueryName();
-
 }
