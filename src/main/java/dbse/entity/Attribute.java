@@ -10,6 +10,8 @@ import javax.persistence.NamedQuery;
 @NamedQuery(name = AttributeService.getAllNamedQueryName, query = "SELECT a FROM Attribute a")
 public class Attribute extends AbstractEntity {
 
+    private String name;
+
     @ManyToOne
     private Relation relation;
 
@@ -19,5 +21,13 @@ public class Attribute extends AbstractEntity {
 
     public void setRelation(Relation relation) {
         this.relation = relation;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }
