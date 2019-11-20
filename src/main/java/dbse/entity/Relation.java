@@ -9,11 +9,11 @@ import java.util.List;
 @NamedQuery(name = RelationService.getAllNamedQueryName, query = "SELECT r FROM Relation r")
 public class Relation extends AbstractEntity {
 
-    public void addAttribute() {
-        Attribute attribute = new Attribute();
-        attribute.setRelation(this);
-        attributeList.add(attribute);
-    }
+//    public void addAttribute() {
+//        Attribute attribute = new Attribute();
+//        attribute.setRelation(this);
+//        attributeList.add(attribute);
+//    }
 
     private String name;
     @OneToMany(mappedBy = "relation", cascade = CascadeType.ALL)
