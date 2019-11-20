@@ -12,26 +12,14 @@
 <h:body>
     <h:form id="entityesForm">
         <ui:repeat var="relation" value="#{relationController.abstractEntityList}">
-            <h:panelGroup styleClass="relation" layout="block">
+            <h:panelGroup styleClass="relation-block" layout="block"
+                          style="left:#{relation.x}px; top:#{relation.y}px">
                 <h:inputText value="#{relation.name}"/>
-                <f:passThroughAttribute name="x" value="#{relation.x}"/>
-                <f:passThroughAttribute name="y" value="#{relation.y}"/>
-                <h:dataTable styleClass="attributes" var="attribute" value="#{relation.attributeList}">
+                <h:dataTable var="attribute" value="#{relation.attributeList}">
                     <h:column>
-                        <f:facet name="header">
-                            <h:outputText value="name"/>
-                        </f:facet>
                         <h:inputText value="#{attribute.name}"/>
                     </h:column>
-<!--                    <h:column>-->
-<!--                        <h:commandButton value="x" action="#{attributeController.remove(attribute.id)}">-->
-<!--                            <f:ajax execute="@form" render=":entityesForm"/>-->
-<!--                        </h:commandButton>-->
-<!--                    </h:column>-->
                 </h:dataTable>
-<!--                <h:commandButton value="+" action="#{relation.addAttribute}">-->
-<!--                    <f:ajax execute="@form" render=":entityesForm"/>-->
-<!--                </h:commandButton>-->
             </h:panelGroup>
         </ui:repeat>
     </h:form>
