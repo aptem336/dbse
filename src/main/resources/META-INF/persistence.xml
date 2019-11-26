@@ -2,8 +2,6 @@
 <persistence xmlns="http://java.sun.com/xml/ns/persistence">
     <persistence-unit name="dbse_pu">
         <jta-data-source>java:global/jdbc/dbse_db</jta-data-source>
-        <class>dbse.entity.Relation</class>
-        <class>dbse.entity.Attribute</class>
         <properties>
             <property name="javax.persistence.schema-generation.database.action" value="none"/>
         </properties>

@@ -3,15 +3,14 @@ package dbse.entity;
 import dbse.service.RelationService;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
-@NamedQuery(name = RelationService.getAllNamedQueryName, query = "SELECT r FROM Relation r")
+@NamedQueries({
+        @NamedQuery(name = RelationService.getAllNamedQueryName, query = "SELECT r FROM Relation r")
+})
 public class Relation extends AbstractEntity {
 
     private String name;
-    @OneToMany(mappedBy = "relation", cascade = CascadeType.ALL)
-    private List<Attribute> attributeList;
     private int x, y;
 
     public String getName() {
@@ -20,14 +19,6 @@ public class Relation extends AbstractEntity {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public List<Attribute> getAttributeList() {
-        return attributeList;
-    }
-
-    public void setAttributeList(List<Attribute> attributeList) {
-        this.attributeList = attributeList;
     }
 
     public int getX() {

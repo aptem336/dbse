@@ -6,7 +6,6 @@ import java.util.List;
 public abstract class AbstractService<AbstractEntity> {
 
     private final Class<AbstractEntity> abstractEntityClass;
-    private final String getAllNamedQueryName;
 
     AbstractService(Class<AbstractEntity> abstractEntityClass, String getAllNamedQueryName) {
         this.abstractEntityClass = abstractEntityClass;
@@ -34,4 +33,6 @@ public abstract class AbstractService<AbstractEntity> {
     public List<AbstractEntity> getAll() {
         return getEntityManager().createNamedQuery(getAllNamedQueryName, abstractEntityClass).getResultList();
     }
+
+    private final String getAllNamedQueryName;
 }
