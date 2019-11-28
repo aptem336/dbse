@@ -25,6 +25,13 @@ public class AttributeController extends AbstractController<Attribute> {
     AbstractService<Attribute> getService() {
         return service;
     }
+    //TODO: или всё же через управление коллекциями?
+    public void addForRelation(Relation relation) {
+        Attribute attribute = new Attribute();
+        attribute.setRelation(relation);
+        //TODO: persist|merge?
+        service.save(attribute);
+    }
     public List<Attribute> getAllForRelation(Relation relation) {
         return service.getAllForRelation(relation);
     }

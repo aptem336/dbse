@@ -2,7 +2,8 @@
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xml:lang="en" lang="en"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 <h:head>
     <title>DBSE</title>
     <h:outputScript library="js" name="dbse.js"/>
@@ -18,7 +19,15 @@
                     <h:column>
                         <h:inputText value="#{attribute.name}"/>
                     </h:column>
+                    <h:column>
+                        <h:commandButton value="x" action="#{attributeController.remove(attribute.id)}">
+                            <f:ajax execute="@form" render=":entityesForm"/>
+                        </h:commandButton>
+                    </h:column>
                 </h:dataTable>
+                <h:commandButton value="+" action="#{attributeController.addForRelation(relation)}">
+                    <f:ajax execute="@form" render=":entityesForm"/>
+                </h:commandButton>
             </h:panelGroup>
         </ui:repeat>
     </h:form>
