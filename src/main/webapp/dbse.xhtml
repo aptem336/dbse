@@ -10,7 +10,7 @@
     <h:outputStylesheet library="css" name="dbse.css"/>
 </h:head>
 <h:body>
-    <h:form id="entityesForm">
+    <h:form id="relations-form">
         <ui:repeat var="relation" value="#{relationController.abstractEntityList}">
             <h:panelGroup styleClass="relation-block" layout="block"
                           style="left:#{relation.x}px; top:#{relation.y}px">
@@ -21,12 +21,12 @@
                     </h:column>
                     <h:column>
                         <h:commandButton value="x" action="#{attributeController.remove(attribute.id)}">
-                            <f:ajax execute="@form" render=":entityesForm"/>
+                            <f:ajax execute="@form" render=":relationsForm"/>
                         </h:commandButton>
                     </h:column>
                 </h:dataTable>
                 <h:commandButton value="+" action="#{attributeController.addForRelation(relation)}">
-                    <f:ajax execute="@form" render=":entityesForm"/>
+                    <f:ajax execute="@form" render=":relationsForm"/>
                 </h:commandButton>
             </h:panelGroup>
         </ui:repeat>
