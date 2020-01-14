@@ -1,8 +1,11 @@
 document.addEventListener(
+    //TODO: передача пармаметров не через dragData?
+    //TODO: избавиться от дубликатов
     'DOMContentLoaded',
     () => {
-        //TODO: перенести методы и аттрибуты в объекты
         const form = document.getElementById('relations-form');
+        //FIXME: return NamedNodeMap!
+        form.relations = [...document.getElementsByClassName('relation-block')];
         form.relationFormDragOverListener = (e) => {
             e.preventDefault();
         };
@@ -43,8 +46,9 @@ document.addEventListener(
             form.removeEventListener('drop', form.attributeFormDropListener);
             //TODO: ...
         };
-        form.relationsCount = 0;
-        const animateRelation = (relation) => {
+        form.animateRelation = (relation) => {
+            //FIXME: слишком неточно, нужен выбор по классу
+            relation.attributes = [...relation.getElementsByTagName('tr')];
             relation.attributeRelationDragOverListener = (e) => {
                 e.preventDefault();
                 //TODO: ...
@@ -62,8 +66,7 @@ document.addEventListener(
                 relation.removeEventListener('drop', relation.attributeRelationDropListener);
                 //TODO: ...
             };
-            relation.attributeCount = 0;
-            const animateAttribute = (attribute) => {
+            relation.animateAttribute = (attribute) => {
                 attribute.attributeAttributeDragOverListener = (e) => {
                     e.preventDefault();
                 };
@@ -83,7 +86,7 @@ document.addEventListener(
                 attribute.isSuitableAttribute = (target) => {
                     //TODO: фильтрация подходящих аттрибутов
                 };
-                attribute.id = 'attribute_' + form.relationsCount + '_' + relation.attributeCount;
+                attribute.id = 'attribute_' + form.relations.indexOf(relation) + '_' + relation.attributes.indexOf(attribute);
                 attribute.draggable = true;
                 attribute.ondragstart = (e) => {
                     e.stopPropagation();
@@ -92,47 +95,36 @@ document.addEventListener(
                     }));
                     e.dataTransfer.effectAllowed = 'all';
                     form.startAttributeFormDragging();
-                    [].forEach
-                        .call(document.getElementsByClassName('relation-block'),
-                            (relation) => {
-                                relation.startAttributeRelationDragging();
-                            }
-                        );
-                    [].filter
-                        //FIXME: слишком неточно, нужен выбор по классу
-                        .call(document.getElementsByTagName('tr'),
-                            (target) => {
-                                attribute.isSuitableAttribute(target);
-                            }
-                        ).forEach((target) => {
-                            target.startAttributeAttributeDragging();
-                        }
-                    );
+                    form.relations.forEach((relation) => {
+                        relation.startAttributeRelationDragging();
+                    });
+                    form.relations.forEach((relation) => {
+                        relation.attributes.filter((target) => {
+                            attribute.isSuitableAttribute(target)
+                        }).forEach((target) => {
+                            target.startAttributeAttributeDragging()
+                        })
+                    })
                 };
                 attribute.ondragend = (e) => {
                     form.stopAttributeFormDragging();
-                    [].forEach
-                        .call(document.getElementsByClassName('relation-block'),
-                            (relation) => {
-                                relation.stopAttributeRelationDragging();
-                            }
-                        );
-                    [].filter
-                        //FIXME: слишком неточно, нужен выбор по классу
-                        .call(document.getElementsByTagName('tr'),
-                            (target) => {
-                                attribute.isSuitableAttribute(target);
-                            }
-                        ).forEach((target) => {
-                            target.startAttributeAttributeDragging();
-                        }
-                    );
+                    form.relations.forEach((relation) => {
+                        relation.stopAttributeRelationDragging();
+                    });
+                    form.relations.forEach((relation) => {
+                        relation.attributes.filter((target) => {
+                            attribute.isSuitableAttribute(target)
+                        }).forEach((target) => {
+                            target.stopAttributeAttributeDragging();
+                        })
+                    })
                 };
-                relation.attributeCount++;
             };
             //FIXME: слишком неточно, нужен выбор по классу
-            [].forEach.call(relation.getElementsByTagName('tr'), animateAttribute);
-            relation.id = 'relation_' + form.relationsCount;
+            relation.attributes.forEach((attribute) => {
+                relation.animateAttribute(attribute);
+            });
+            relation.id = 'relation_' + form.relations.indexOf(relation);
             relation.draggable = true;
             relation.ondragstart = (e) => {
                 e.dataTransfer.setData('text/plain', JSON.stringify({
@@ -146,7 +138,8 @@ document.addEventListener(
             relation.ondragend = (e) => {
                 form.stopRelationFormDragging();
             };
-            form.relationsCount++;
         };
-        [].forEach.call(document.getElementsByClassName('relation-block'), animateRelation);
+        form.relations.forEach((relation) => {
+            form.animateRelation(relation);
+        });
     });
