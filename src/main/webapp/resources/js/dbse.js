@@ -4,8 +4,7 @@ document.addEventListener(
     'DOMContentLoaded',
     () => {
         const form = document.getElementById('relations-form');
-        //FIXME: return NamedNodeMap!
-        form.relations = [...document.getElementsByClassName('relation-block')];
+        form.relationsList = [...document.getElementsByClassName('relation-block')];
         form.relationFormDragOverListener = (e) => {
             e.preventDefault();
         };
@@ -21,9 +20,11 @@ document.addEventListener(
             //TODO: перетаскивание строки
         };
         form.attributeFormDropListener = (e) => {
+            e.stopPropagation();
             const dragData = JSON.parse(e.dataTransfer.getData('text/plain'));
             const attribute = document.getElementById(dragData.attributeId);
             attribute.remove();
+            console.log('afd');
             //TODO: удаление с бэка
         };
         form.startRelationFormDragging = () => {
@@ -48,12 +49,13 @@ document.addEventListener(
         };
         form.animateRelation = (relation) => {
             //FIXME: слишком неточно, нужен выбор по классу
-            relation.attributes = [...relation.getElementsByTagName('tr')];
+            relation.attributesList = [...relation.getElementsByTagName('tr')];
             relation.attributeRelationDragOverListener = (e) => {
                 e.preventDefault();
                 //TODO: ...
             };
             relation.attributeRelationDropListener = (e) => {
+                e.stopPropagation();
                 //TODO: перетаскивание аттрибута в таблицу
             };
             relation.startAttributeRelationDragging = () => {
@@ -71,6 +73,7 @@ document.addEventListener(
                     e.preventDefault();
                 };
                 attribute.attributeAttributeDropListener = (e) => {
+                    e.stopPropagation();
                     //TODO: соединение аттрибутов
                 };
                 attribute.startAttributeAttributeDragging = () => {
@@ -86,7 +89,7 @@ document.addEventListener(
                 attribute.isSuitableAttribute = (target) => {
                     //TODO: фильтрация подходящих аттрибутов
                 };
-                attribute.id = 'attribute_' + form.relations.indexOf(relation) + '_' + relation.attributes.indexOf(attribute);
+                attribute.id = 'attribute_' + form.relationsList.indexOf(relation) + '_' + relation.attributesList.indexOf(attribute);
                 attribute.draggable = true;
                 attribute.ondragstart = (e) => {
                     e.stopPropagation();
@@ -95,25 +98,26 @@ document.addEventListener(
                     }));
                     e.dataTransfer.effectAllowed = 'all';
                     form.startAttributeFormDragging();
-                    form.relations.forEach((relation) => {
+                    form.relationsList.forEach((relation) => {
                         relation.startAttributeRelationDragging();
                     });
-                    form.relations.forEach((relation) => {
-                        relation.attributes.filter((target) => {
-                            attribute.isSuitableAttribute(target)
+                    form.relationsList.forEach((relation) => {
+                        relation.attributesList.filter((target) => {
+                            return true //TODO: заменить на фильтр
                         }).forEach((target) => {
                             target.startAttributeAttributeDragging()
                         })
                     })
                 };
                 attribute.ondragend = (e) => {
+                    e.stopPropagation();
                     form.stopAttributeFormDragging();
-                    form.relations.forEach((relation) => {
+                    form.relationsList.forEach((relation) => {
                         relation.stopAttributeRelationDragging();
                     });
-                    form.relations.forEach((relation) => {
-                        relation.attributes.filter((target) => {
-                            attribute.isSuitableAttribute(target)
+                    form.relationsList.forEach((relation) => {
+                        relation.attributesList.filter((target) => {
+                            return true //TODO: заменить на фильтр
                         }).forEach((target) => {
                             target.stopAttributeAttributeDragging();
                         })
@@ -121,10 +125,10 @@ document.addEventListener(
                 };
             };
             //FIXME: слишком неточно, нужен выбор по классу
-            relation.attributes.forEach((attribute) => {
+            relation.attributesList.forEach((attribute) => {
                 relation.animateAttribute(attribute);
             });
-            relation.id = 'relation_' + form.relations.indexOf(relation);
+            relation.id = 'relation_' + form.relationsList.indexOf(relation);
             relation.draggable = true;
             relation.ondragstart = (e) => {
                 e.dataTransfer.setData('text/plain', JSON.stringify({
@@ -139,7 +143,7 @@ document.addEventListener(
                 form.stopRelationFormDragging();
             };
         };
-        form.relations.forEach((relation) => {
+        form.relationsList.forEach((relation) => {
             form.animateRelation(relation);
         });
     });
