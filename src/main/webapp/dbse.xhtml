@@ -10,30 +10,37 @@
     <h:outputStylesheet library="css" name="dbse.css"/>
 </h:head>
 <h:body>
-    <!--TODO: API для js || выносить в js-->
+    <!--TODO: обновление не всей формы (execute, render, js)-->
     <h:form id="relations-form">
-        <ui:repeat var="relation" value="#{relationController.abstractEntityList}">
-            <h:panelGroup styleClass="relation-block" layout="block"
+        <ui:repeat id="relation" var="relation" value="#{relationController.abstractEntityList}">
+            <h:panelGroup id='block'
+                          styleClass="relation-block" layout="block"
                           style="left:#{relation.x}px; top:#{relation.y}px">
-                <h:inputText value="#{relation.name}"/>
-                <h:commandButton value="+" action="#{attributeController.addForRelation(relation)}">
-                    <!--TODO: дёргать js (м.б. обновлять страницу целиком) || выносить в js, т.к. при обновлении интерактивность теряется-->
-                    <f:ajax render="@form"/>
+                <h:inputText id="relation_name" value="#{relation.name}"/>
+                <h:inputText id="relation_x" value="#{relation.x}"/>
+                <h:inputText id="relation_y" value="#{relation.y}"/>
+                <h:commandButton id="add_attribute" value="+" action="#{attributeController.addForRelation(relation)}">
+                    <f:ajax execute="@form" render="@form"/>
                 </h:commandButton>
-                <!--TODO: добавить класс к каждой строке таблицы-->
-                <h:dataTable var="attribute" value="#{attributeController.getAllForRelation(relation)}">
+                <h:dataTable id="table" var="attribute" value="#{attributeController.getAllForRelation(relation)}">
                     <h:column>
-                        <h:inputText value="#{attribute.name}"/>
+                        <h:inputText id="attribute_name" value="#{attribute.name}"/>
                     </h:column>
                     <h:column>
-                        <h:commandButton value="x" action="#{attributeController.remove(attribute.id)}">
-                            <!--TODO: дёргать js (м.б. обновлять страницу целиком) || выносить в js, т.к. при обновлении интерактивность теряется-->
-                            <f:ajax render="@form"/>
+                        <!--TODO: проверить, возможно установленное значение не переконвертируется в relation-->
+                        <h:inputText id="attribute_relation" value="#{attribute.relation}"
+                                     converter="#{relationController}"/>
+                    </h:column>
+                    <h:column>
+                        <h:commandButton id="remove_attribute" value="x"
+                                         action="#{attributeController.remove(attribute.id)}">
+                            <f:ajax execute="@form" render="@form"/>
                         </h:commandButton>
                     </h:column>
                 </h:dataTable>
             </h:panelGroup>
         </ui:repeat>
+        <h:outputScript>animateForm();</h:outputScript>
     </h:form>
 </h:body>
 </html>

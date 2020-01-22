@@ -9,6 +9,7 @@ import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RequestScoped
 @Named
@@ -25,14 +26,18 @@ public class AttributeController extends AbstractController<Attribute> {
     AbstractService<Attribute> getService() {
         return service;
     }
-    //TODO: или всё же через управление коллекциями?
+
+    //TODO: не лаконично как-то :(
     public void addForRelation(Relation relation) {
         Attribute attribute = new Attribute();
         attribute.setRelation(relation);
-        //TODO: persist|merge?
-        service.save(attribute);
+        add(attribute);
     }
+
+    //TODO: или из БД?
     public List<Attribute> getAllForRelation(Relation relation) {
-        return service.getAllForRelation(relation);
+        return getAbstractEntityList().stream().filter(
+                attribute -> relation.equals(attribute.getRelation())
+        ).collect(Collectors.toList());
     }
 }

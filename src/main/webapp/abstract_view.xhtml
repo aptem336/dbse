@@ -14,10 +14,10 @@
     <ui:insert name="controller"/>
     <h:form id="entityesForm">
         <h:commandButton value="+" action="#{controller.add}">
-            <f:ajax execute="@form" render=":entityesForm"/>
+            <f:ajax execute="@form" render="@form"/>
         </h:commandButton>
         <h:commandButton value="save" action="#{controller.save}">
-            <f:ajax execute="@form"/>
+            <f:ajax execute="@form" render="@form"/>
         </h:commandButton>
         <h:dataTable id="entityesTable" var="entity" value="#{controller.abstractEntityList}" border="1">
             <h:column>
@@ -29,7 +29,7 @@
             <ui:insert name="columns"/>
             <h:column>
                 <h:commandButton value="x" action="#{controller.remove(entity.id)}">
-                    <f:ajax execute="@form" render=":entityesForm"/>
+                    <f:ajax execute="@form" render="@form"/>
                 </h:commandButton>
             </h:column>
         </h:dataTable>

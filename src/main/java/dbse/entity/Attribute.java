@@ -10,7 +10,7 @@ import javax.persistence.NamedQuery;
 @Entity
 @NamedQueries({
         @NamedQuery(name = AttributeService.getAllNamedQueryName, query = "SELECT a FROM Attribute a"),
-        @NamedQuery(name = AttributeService.getAllForRelationNamedQueryName, query = "SELECT a FROM Attribute a WHERE a.relation = :relation")
+//        @NamedQuery(name = AttributeService.getAllForRelationNamedQueryName, query = "SELECT a FROM Attribute a WHERE a.relation = :relation")
 })
 public class Attribute extends AbstractEntity {
 

@@ -5,7 +5,6 @@ import javax.enterprise.inject.Produces;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-//TODO: можно-ли перенести в persistence.xml?
 @DataSourceDefinition(name = "java:global/jdbc/dbse_db",
         className = "org.sqlite.JDBC",
         url = "jdbc:sqlite:D:\\dbse_db.db"

@@ -14,8 +14,7 @@ public abstract class AbstractService<AbstractEntity> {
 
     protected abstract EntityManager getEntityManager();
 
-    //TODO: persist|merge?
-    public void add(AbstractEntity abstractEntity) {
+    public void persist(AbstractEntity abstractEntity) {
         getEntityManager().persist(abstractEntity);
     }
 
@@ -23,7 +22,7 @@ public abstract class AbstractService<AbstractEntity> {
         getEntityManager().remove(getEntityManager().merge(abstractEntity));
     }
 
-    public void save(AbstractEntity abstractEntity) {
+    public void merge(AbstractEntity abstractEntity) {
         getEntityManager().merge(abstractEntity);
     }
 

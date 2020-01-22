@@ -24,12 +24,12 @@ public class AttributeService extends AbstractService<Attribute> {
         return em;
     }
 
-    public List<Attribute> getAllForRelation(Relation relation) {
-        TypedQuery<Attribute> allForRelation = em.createNamedQuery(getAllForRelationNamedQueryName, Attribute.class);
-        allForRelation.setParameter("relation", relation);
-        return allForRelation.getResultList();
-    }
+//    public List<Attribute> getAllForRelation(Relation relation) {
+//        TypedQuery<Attribute> allForRelation = em.createNamedQuery(getAllForRelationNamedQueryName, Attribute.class);
+//        allForRelation.setParameter("relation", relation);
+//        return allForRelation.getResultList();
+//    }
 
     public static final String getAllNamedQueryName = "getAllAttribute";
-    public static final String getAllForRelationNamedQueryName = "getAllAttributeForRelation";
+//    public static final String getAllForRelationNamedQueryName = "getAllAttributeForRelation";
 }

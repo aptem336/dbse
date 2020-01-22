@@ -20,20 +20,31 @@ public abstract class AbstractController<AbstractEntity> implements Converter {
 
     abstract AbstractService<AbstractEntity> getService();
 
-    public void add() throws IllegalAccessException, InstantiationException {
-        AbstractEntity abstractEntity = abstractEntityClass.newInstance();
+    public AbstractEntity add(AbstractEntity abstractEntity) {
         abstractEntityList.add(abstractEntity);
-        getService().add(abstractEntity);
+        getService().persist(abstractEntity);
+        return abstractEntity;
     }
 
-    public void remove(long id) {
-        AbstractEntity abstractEntity = getService().getById(id);
+    public AbstractEntity add() throws IllegalAccessException, InstantiationException {
+        return add(abstractEntityClass.newInstance());
+    }
+
+    public void remove(AbstractEntity abstractEntity) {
         abstractEntityList.remove(abstractEntity);
         getService().remove(abstractEntity);
     }
 
+    public void remove(long id) {
+        remove(getService().getById(id));
+    }
+
+    public void save(AbstractEntity abstractEntity) {
+        getService().merge(abstractEntity);
+    }
+
     public void save() {
-        abstractEntityList.forEach(getService()::save);
+        abstractEntityList.forEach(this::save);
     }
 
     public List<AbstractEntity> getAbstractEntityList() {
@@ -56,6 +67,6 @@ public abstract class AbstractController<AbstractEntity> implements Converter {
 
     @Override
     public String getAsString(FacesContext context, UIComponent component, Object abstractEntity) {
-        return ((dbse.entity.AbstractEntity)abstractEntity).getId() + "";
+        return ((dbse.entity.AbstractEntity) abstractEntity).getId() + "";
     }
 }
