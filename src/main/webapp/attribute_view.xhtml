@@ -22,7 +22,7 @@
             <f:facet name="header">
                 <h:outputText value="relation"/>
             </f:facet>
-            <!--TODO: применение конвертера обязательно?-->
+            <!--Q: применение конвертера обязательно?-->
             <h:selectOneMenu value="#{entity.relation}" converter="#{relationController}">
                 <f:selectItems value="#{relationController.abstractEntityList}" var="relation"
                                itemValue="#{relation}"

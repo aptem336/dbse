@@ -36,4 +36,13 @@ public class Relation extends AbstractEntity {
     public void setY(int y) {
         this.y = y;
     }
+
+    @Override
+    public String toString() {
+        return "Relation{" +
+                "name='" + name + '\'' +
+                ", x=" + x +
+                ", y=" + y +
+                '}';
+    }
 }

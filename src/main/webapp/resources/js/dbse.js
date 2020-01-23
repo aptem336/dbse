@@ -1,8 +1,11 @@
 const animateForm = () => {
-    //TODO: передача пармаметров не через dragData?
-    //TODO: избавиться от дубликатов
-    //TODO: вынести методы
-    //TODO: получение по id?
+    const test = '#{relation.id}';
+    //TODO:
+    // избавиться от дубликатов
+    // вынести методы
+    //Q:
+    // получение по id?
+    // через inputы             ?
     const form = document.getElementById('relations-form');
     form.relationsList = [...document.getElementsByClassName('relation-block')];
     form.relationFormDragOverListener = (e) => {
@@ -55,7 +58,7 @@ const animateForm = () => {
         };
         relation.attributeRelationDropListener = (e) => {
             e.stopPropagation();
-            // TODO: перемещение из списка в список аттрибутов
+            // IMPL: перемещение из списка в список аттрибутов
             // const dragData = JSON.parse(e.dataTransfer.getData('text/plain'));
             // const attribute = document.getElementById(dragData.attributeId);
             // attribute.remove();
@@ -78,7 +81,7 @@ const animateForm = () => {
             };
             attribute.attributeAttributeDropListener = (e) => {
                 e.stopPropagation();
-                //TODO: соединение аттрибутов
+                //IMPL: соединение аттрибутов
             };
             attribute.startAttributeAttributeDragging = () => {
                 attribute.addEventListener('dragover', attribute.attributeAttributeDragOverListener);
@@ -89,7 +92,7 @@ const animateForm = () => {
                 attribute.removeEventListener('drop', attribute.attributeAttributeDropListener);
             };
             attribute.isSuitableAttribute = (target) => {
-                //TODO: фильтрация подходящих аттрибутов
+                //IMPL: фильтрация подходящих аттрибутов
             };
             attribute.id = attribute.parentElement.parentElement.id + ':' + relation.attributesList.indexOf(attribute) + ':';
             attribute.draggable = true;
@@ -105,7 +108,7 @@ const animateForm = () => {
                 });
                 form.relationsList.forEach((relation) => {
                     relation.attributesList.filter((target) => {
-                        return true //TODO: заменить на фильтр
+                        return true //FIXME: заменить на фильтр
                     }).forEach((target) => {
                         target.startAttributeAttributeDragging()
                     })
@@ -119,7 +122,7 @@ const animateForm = () => {
                 });
                 form.relationsList.forEach((relation) => {
                     relation.attributesList.filter((target) => {
-                        return true //TODO: заменить на фильтр
+                        return true //FIXME: заменить на фильтр
                     }).forEach((target) => {
                         target.stopAttributeAttributeDragging();
                     })

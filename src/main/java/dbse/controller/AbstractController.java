@@ -22,8 +22,7 @@ public abstract class AbstractController<AbstractEntity> implements Converter {
 
     public AbstractEntity add(AbstractEntity abstractEntity) {
         abstractEntityList.add(abstractEntity);
-        getService().persist(abstractEntity);
-        return abstractEntity;
+        return getService().persist(abstractEntity);
     }
 
     public AbstractEntity add() throws IllegalAccessException, InstantiationException {

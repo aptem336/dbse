@@ -14,13 +14,16 @@
     <h:form id="relations-form">
         <ui:repeat id="relation" var="relation" value="#{relationController.abstractEntityList}">
             <h:panelGroup id='block'
-                          styleClass="relation-block" layout="block"
+                          styleClass="relation-block"
+                          layout="block"
                           style="left:#{relation.x}px; top:#{relation.y}px">
                 <h:inputText id="relation_id" value="#{relation.id}"/>
                 <h:inputText id="relation_name" value="#{relation.name}"/>
                 <h:inputText id="relation_x" value="#{relation.x}"/>
                 <h:inputText id="relation_y" value="#{relation.y}"/>
-                <h:commandButton id="add_attribute" value="+" action="#{attributeController.addForRelation(relation)}">
+                <h:commandButton id="add_attribute"
+                                 value="+"
+                                 action="#{attributeController.addForRelation(relation)}">
                     <f:ajax execute="@form" render="@form"/>
                 </h:commandButton>
                 <h:dataTable id="table" var="attribute" value="#{attributeController.getAllForRelation(relation)}">
@@ -29,11 +32,13 @@
                     </h:column>
                     <h:column>
                         <!--TODO: проверить, возможно установленное значение не переконвертируется в relation-->
-                        <h:inputText id="attribute_relation" value="#{attribute.relation}"
+                        <h:inputText id="attribute_relation"
+                                     value="#{attribute.relation}"
                                      converter="#{relationController}"/>
                     </h:column>
                     <h:column>
-                        <h:commandButton id="remove_attribute" value="x"
+                        <h:commandButton id="remove_attribute"
+                                         value="x"
                                          action="#{attributeController.remove(attribute.id)}">
                             <f:ajax execute="@form" render="@form"/>
                         </h:commandButton>
@@ -41,7 +46,16 @@
                 </h:dataTable>
             </h:panelGroup>
         </ui:repeat>
-        <h:outputScript>animateForm();</h:outputScript>
+        <!--DEL?-->
+        <h:commandButton id="save_all"
+                         value="save"
+                         action="#{dbseController.save}">
+            <f:ajax execute="@form" render="@form"/>
+        </h:commandButton>
+        <!--DEL-->
+        <h:outputScript>
+            animateForm();
+        </h:outputScript>
     </h:form>
 </h:body>
 </html>
