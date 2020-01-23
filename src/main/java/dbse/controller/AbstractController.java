@@ -39,11 +39,11 @@ public abstract class AbstractController<AbstractEntity> implements Converter {
         remove(getService().getById(id));
     }
 
-    public void save(AbstractEntity abstractEntity) {
-        getService().merge(abstractEntity);
+    public AbstractEntity save(AbstractEntity abstractEntity) {
+        return getService().merge(abstractEntity);
     }
 
-    public void save() {
+    public void saveAbstractEntityList() {
         abstractEntityList.forEach(this::save);
     }
 

@@ -2,6 +2,7 @@ const animateForm = () => {
     //TODO: передача пармаметров не через dragData?
     //TODO: избавиться от дубликатов
     //TODO: вынести методы
+    //TODO: получение по id?
     const form = document.getElementById('relations-form');
     form.relationsList = [...document.getElementsByClassName('relation-block')];
     form.relationFormDragOverListener = (e) => {
@@ -12,20 +13,22 @@ const animateForm = () => {
         const relation = document.getElementById(dragData.relationId);
         const x = relation.offsetLeft + (e.pageX - dragData.x);
         const y = relation.offsetTop + (e.pageY - dragData.y);
-        relation.style.left = x + 'px';
-        relation.style.top = y + 'px';
+
         const index = form.relationsList.indexOf(relation);
         document.getElementById('relations-form:relation:' + index + ':relation_x').value = x;
         document.getElementById('relations-form:relation:' + index + ':relation_y').value = y;
+
+        relation.style.left = x + 'px';
+        relation.style.top = y + 'px';
     };
     form.attributeFormDragOverListener = (e) => {
         e.preventDefault();
-        //TODO: перетаскивание строки
     };
     form.attributeFormDropListener = (e) => {
         e.stopPropagation();
         const dragData = JSON.parse(e.dataTransfer.getData('text/plain'));
         const attribute = document.getElementById(dragData.attributeId);
+        document.getElementById(attribute.id + 'remove_attribute').click();
         attribute.remove();
     };
     form.startRelationFormDragging = () => {
@@ -52,7 +55,14 @@ const animateForm = () => {
         };
         relation.attributeRelationDropListener = (e) => {
             e.stopPropagation();
-            //TODO: перетаскивание аттрибута в таблицу
+            // TODO: перемещение из списка в список аттрибутов
+            // const dragData = JSON.parse(e.dataTransfer.getData('text/plain'));
+            // const attribute = document.getElementById(dragData.attributeId);
+            // attribute.remove();
+            // relation.appendChild(attribute);
+            // const index = form.relationsList.indexOf(relation);
+            // document.getElementById(attribute.id + 'attribute_relation').value =
+            //     document.getElementById('relations-form:relation:' + index + ':relation_id').value;
         };
         relation.startAttributeRelationDragging = () => {
             relation.addEventListener('dragover', relation.attributeRelationDragOverListener);
@@ -81,7 +91,7 @@ const animateForm = () => {
             attribute.isSuitableAttribute = (target) => {
                 //TODO: фильтрация подходящих аттрибутов
             };
-            attribute.id = attribute.parentElement.parentElement.id + ':' + relation.attributesList.indexOf(attribute) + ':attribute';
+            attribute.id = attribute.parentElement.parentElement.id + ':' + relation.attributesList.indexOf(attribute) + ':';
             attribute.draggable = true;
             attribute.ondragstart = (e) => {
                 e.stopPropagation();

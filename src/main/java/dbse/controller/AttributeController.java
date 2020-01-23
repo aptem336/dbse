@@ -27,14 +27,11 @@ public class AttributeController extends AbstractController<Attribute> {
         return service;
     }
 
-    //TODO: не лаконично как-то :(
     public void addForRelation(Relation relation) {
-        Attribute attribute = new Attribute();
-        attribute.setRelation(relation);
-        add(attribute);
+        add(new Attribute(relation));
     }
 
-    //TODO: или из БД?
+    //TODO: или из БД запросом?
     public List<Attribute> getAllForRelation(Relation relation) {
         return getAbstractEntityList().stream().filter(
                 attribute -> relation.equals(attribute.getRelation())

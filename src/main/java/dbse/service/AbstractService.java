@@ -14,16 +14,17 @@ public abstract class AbstractService<AbstractEntity> {
 
     protected abstract EntityManager getEntityManager();
 
-    public void persist(AbstractEntity abstractEntity) {
+    public AbstractEntity persist(AbstractEntity abstractEntity) {
         getEntityManager().persist(abstractEntity);
+        return abstractEntity;
     }
 
     public void remove(AbstractEntity abstractEntity) {
         getEntityManager().remove(getEntityManager().merge(abstractEntity));
     }
 
-    public void merge(AbstractEntity abstractEntity) {
-        getEntityManager().merge(abstractEntity);
+    public AbstractEntity merge(AbstractEntity abstractEntity) {
+        return getEntityManager().merge(abstractEntity);
     }
 
     public AbstractEntity getById(long id) {

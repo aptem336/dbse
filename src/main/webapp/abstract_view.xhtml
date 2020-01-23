@@ -16,7 +16,7 @@
         <h:commandButton value="+" action="#{controller.add}">
             <f:ajax execute="@form" render="@form"/>
         </h:commandButton>
-        <h:commandButton value="save" action="#{controller.save}">
+        <h:commandButton value="save" action="#{controller.saveAbstractEntityList}">
             <f:ajax execute="@form" render="@form"/>
         </h:commandButton>
         <h:dataTable id="entityesTable" var="entity" value="#{controller.abstractEntityList}" border="1">
