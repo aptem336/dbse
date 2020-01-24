@@ -12,21 +12,17 @@ public abstract class AbstractController<AbstractEntity> implements Converter {
 
     private List<AbstractEntity> abstractEntityList;
 
-    private Class<AbstractEntity> abstractEntityClass;
-
-    AbstractController(Class<AbstractEntity> abstractEntityClass) {
-        this.abstractEntityClass = abstractEntityClass;
-    }
+    abstract AbstractEntity getEntity();
 
     abstract AbstractService<AbstractEntity> getService();
+
+    public AbstractEntity create() {
+        return add(getEntity());
+    }
 
     public AbstractEntity add(AbstractEntity abstractEntity) {
         abstractEntityList.add(abstractEntity);
         return getService().persist(abstractEntity);
-    }
-
-    public AbstractEntity add() throws IllegalAccessException, InstantiationException {
-        return add(abstractEntityClass.newInstance());
     }
 
     public void remove(AbstractEntity abstractEntity) {

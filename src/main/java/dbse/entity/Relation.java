@@ -37,12 +37,12 @@ public class Relation extends AbstractEntity {
         this.y = y;
     }
 
-    @Override
-    public String toString() {
-        return "Relation{" +
-                "name='" + name + '\'' +
-                ", x=" + x +
-                ", y=" + y +
-                '}';
-    }
+//    @Override
+//    public String toString() {
+//        return "Relation{" +
+//                "name='" + name + '\'' +
+//                ", x=" + x +
+//                ", y=" + y +
+//                '}';
+//    }
 }

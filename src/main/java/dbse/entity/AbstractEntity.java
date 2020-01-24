@@ -10,9 +10,6 @@ public abstract class AbstractEntity {
     @GeneratedValue
     private long id;
 
-    public AbstractEntity() {
-    }
-
     public long getId() {
         return id;
     }

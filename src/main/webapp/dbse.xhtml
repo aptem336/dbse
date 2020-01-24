@@ -26,9 +26,11 @@
                                  action="#{attributeController.addForRelation(relation)}">
                     <f:ajax execute="@form" render="@form"/>
                 </h:commandButton>
-                <h:dataTable id="table" var="attribute" value="#{attributeController.getAllForRelation(relation)}">
+                <h:dataTable id="table" var="attribute"
+                             value="#{attributeController.getAllForRelation(relation)}">
                     <h:column>
-                        <h:inputText id="attribute_name" value="#{attribute.name}"/>
+                        <h:inputText id="attribute_name"
+                                     value="#{attribute.name}"/>
                     </h:column>
                     <h:column>
                         <!--TODO: проверить, возможно установленное значение не переконвертируется в relation-->
@@ -46,16 +48,8 @@
                 </h:dataTable>
             </h:panelGroup>
         </ui:repeat>
-        <!--DEL?-->
-        <h:commandButton id="save_all"
-                         value="save"
-                         action="#{dbseController.save}">
-            <f:ajax execute="@form" render="@form"/>
-        </h:commandButton>
         <!--DEL-->
-        <h:outputScript>
-            animateForm();
-        </h:outputScript>
+        <h:outputScript>animateForm();</h:outputScript>
     </h:form>
 </h:body>
 </html>

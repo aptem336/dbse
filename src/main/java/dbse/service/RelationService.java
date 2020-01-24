@@ -9,12 +9,12 @@ import javax.persistence.EntityManager;
 @Stateless
 public class RelationService extends AbstractService<Relation> {
 
-    @Inject
-    private EntityManager em;
-
     public RelationService() {
         super(Relation.class, getAllNamedQueryName);
     }
+
+    @Inject
+    private EntityManager em;
 
     @Override
     protected EntityManager getEntityManager() {

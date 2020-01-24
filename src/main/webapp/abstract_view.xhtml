@@ -15,7 +15,7 @@
 <h:body>
     <ui:insert name="controller"/>
     <h:form id="entityesForm">
-        <h:commandButton value="+" action="#{controller.add}">
+        <h:commandButton value="+" action="#{controller.create}">
             <f:ajax execute="@form" render="@form"/>
         </h:commandButton>
         <h:commandButton value="save" action="#{controller.saveAbstractEntityList}">

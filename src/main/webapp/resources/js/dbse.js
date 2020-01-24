@@ -5,7 +5,7 @@ const animateForm = () => {
     // вынести методы
     //Q:
     // получение по id?
-    // через inputы             ?
+    // через input?
     const form = document.getElementById('relations-form');
     form.relationsList = [...document.getElementsByClassName('relation-block')];
     form.relationFormDragOverListener = (e) => {

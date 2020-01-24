@@ -12,12 +12,13 @@ import javax.inject.Named;
 @Named
 public class RelationController extends AbstractController<Relation> {
 
+    @Override
+    Relation getEntity() {
+        return new Relation();
+    }
+
     @Inject
     private RelationService service;
-
-    RelationController() {
-        super(Relation.class);
-    }
 
     @Override
     AbstractService<Relation> getService() {

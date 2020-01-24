@@ -15,12 +15,19 @@ import java.util.stream.Collectors;
 @Named
 public class AttributeController extends AbstractController<Attribute> {
 
+    @Override
+    Attribute getEntity() {
+        return new Attribute();
+    }
+
+    Attribute getEntity(Relation relation) {
+        Attribute attribute = new Attribute();
+        attribute.setRelation(relation);
+        return attribute;
+    }
+
     @Inject
     private AttributeService service;
-
-    AttributeController() {
-        super(Attribute.class);
-    }
 
     @Override
     AbstractService<Attribute> getService() {
@@ -28,7 +35,7 @@ public class AttributeController extends AbstractController<Attribute> {
     }
 
     public void addForRelation(Relation relation) {
-        add(new Attribute(relation));
+        add(getEntity(relation));
     }
 
     //Q: или из БД запросом?

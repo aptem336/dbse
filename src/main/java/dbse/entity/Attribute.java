@@ -10,7 +10,6 @@ import javax.persistence.NamedQuery;
 @Entity
 @NamedQueries({
         @NamedQuery(name = AttributeService.getAllNamedQueryName, query = "SELECT a FROM Attribute a"),
-//        @NamedQuery(name = AttributeService.getAllForRelationNamedQueryName, query = "SELECT a FROM Attribute a WHERE a.relation = :relation")
 })
 public class Attribute extends AbstractEntity {
 
@@ -19,11 +18,12 @@ public class Attribute extends AbstractEntity {
     @ManyToOne
     private Relation relation;
 
-    public Attribute() {
+    public String getName() {
+        return name;
     }
 
-    public Attribute(Relation relation) {
-        setRelation(relation);
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Relation getRelation() {
@@ -34,20 +34,12 @@ public class Attribute extends AbstractEntity {
         this.relation = relation;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    @Override
-    public String toString() {
-        return "Relation{" +
-                "id=" + getId() +
-                ", name=" + name +
-                ", relation=" + relation.getId() +
-                '}';
-    }
+//    @Override
+//    public String toString() {
+//        return "Relation{" +
+//                "id=" + getId() +
+//                ", name=" + name +
+//                ", relation=" + relation.getId() +
+//                '}';
+//    }
 }
