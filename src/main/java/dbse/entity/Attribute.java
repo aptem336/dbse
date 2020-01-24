@@ -2,10 +2,7 @@ package dbse.entity;
 
 import dbse.service.AttributeService;
 
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
+import javax.persistence.*;
 
 @Entity
 @NamedQueries({
@@ -34,12 +31,12 @@ public class Attribute extends AbstractEntity {
         this.relation = relation;
     }
 
-//    @Override
-//    public String toString() {
-//        return "Relation{" +
-//                "id=" + getId() +
-//                ", name=" + name +
-//                ", relation=" + relation.getId() +
-//                '}';
-//    }
+    @Override
+    public String toString() {
+        return "Relation{" +
+                "id=" + getId() +
+                ", name=" + name +
+                ", relation=" + relation +
+                '}';
+    }
 }

@@ -33,7 +33,7 @@
                                      value="#{attribute.name}"/>
                     </h:column>
                     <h:column>
-                        <!--TODO: проверить, возможно установленное значение не переконвертируется в relation-->
+                        <!--FIXME: возвращается-->
                         <h:inputText id="attribute_relation"
                                      value="#{attribute.relation}"
                                      converter="#{relationController}"/>
@@ -48,6 +48,15 @@
                 </h:dataTable>
             </h:panelGroup>
         </ui:repeat>
+        <h:commandButton id="update"
+                         value="update">
+            <f:ajax execute="@form" render="@form"/>
+        </h:commandButton>
+        <h:commandButton id="save"
+                         value="save"
+                         actionListener="#{relationController.saveAbstractEntityList}">
+            <f:ajax execute="@form" render="@form"/>
+        </h:commandButton>
         <!--DEL-->
         <h:outputScript>animateForm();</h:outputScript>
     </h:form>
