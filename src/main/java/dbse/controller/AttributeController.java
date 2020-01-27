@@ -38,7 +38,6 @@ public class AttributeController extends AbstractController<Attribute> {
         add(getEntity(relation));
     }
 
-    //Q: или из БД запросом?
     public List<Attribute> getAllForRelation(Relation relation) {
         return getAbstractEntityList().stream().filter(
                 attribute -> relation.equals(attribute.getRelation())

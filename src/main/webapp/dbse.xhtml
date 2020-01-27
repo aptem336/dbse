@@ -7,58 +7,94 @@
 <h:head>
     <title>DBSE</title>
     <h:outputScript library="js" name="dbse.js"/>
+    <h:outputStylesheet library="css" name="common.css"/>
     <h:outputStylesheet library="css" name="dbse.css"/>
 </h:head>
 <h:body>
-    <!--TODO: обновление не всей формы (execute, render, js)-->
     <h:form id="relations-form">
-        <ui:repeat id="relation" var="relation" value="#{relationController.abstractEntityList}">
-            <h:panelGroup id='block'
+        <h:commandButton id="update_form"
+                         value="update">
+            <f:ajax execute=":relations-form"
+                    render=":relations-form"/>
+        </h:commandButton>
+        <h:commandButton id="add_relation"
+                         value="+"
+                         action="#{relationController.add()}">
+            <f:ajax execute=":relations-form"
+                    render=":relations-form"/>
+        </h:commandButton>
+        <ui:repeat id="relation"
+                   var="relation"
+                   value="#{relationController.abstractEntityList}">
+            <h:panelGroup id="block"
                           styleClass="relation-block"
                           layout="block"
                           style="left:#{relation.x}px; top:#{relation.y}px">
-                <h:inputText id="relation_id" value="#{relation.id}"/>
-                <h:inputText id="relation_name" value="#{relation.name}"/>
-                <h:inputText id="relation_x" value="#{relation.x}"/>
-                <h:inputText id="relation_y" value="#{relation.y}"/>
+                <h:commandButton id="update_relation"
+                                 value="update">
+                    <f:ajax execute=":relations-form:relation:block"
+                            render=":relations-form:relation:block"/>
+                </h:commandButton>
+                <h:commandButton id="save_relation"
+                                 value="save"
+                                 actionListener="#{relationController.save(relation)}">
+                    <f:ajax execute=":relations-form:relation:block"
+                            render=":relations-form:relation:block"/>
+                </h:commandButton>
+                <h:commandButton id="remove_relation"
+                                 value="x"
+                                 actionListener="#{relationController.remove(relation)}">
+                    <f:ajax execute=":relations-form"
+                            render=":relations-form"/>
+                </h:commandButton>
+                <h:inputText id="id"
+                             value="#{relation.id}"/>
+                <h:inputText id="name"
+                             value="#{relation.name}"/>
+                <h:inputText id="x"
+                             value="#{relation.x}"/>
+                <h:inputText id="y"
+                             value="#{relation.y}"/>
                 <h:commandButton id="add_attribute"
                                  value="+"
                                  action="#{attributeController.addForRelation(relation)}">
-                    <f:ajax execute="@form" render="@form"/>
+                    <f:ajax execute=":relations-form:relation:block"
+                            render=":relations-form:relation:block"/>
                 </h:commandButton>
-                <h:dataTable id="table" var="attribute"
+                <h:dataTable id="table"
+                             var="attribute"
                              value="#{attributeController.getAllForRelation(relation)}">
                     <h:column>
-                        <h:inputText id="attribute_name"
-                                     value="#{attribute.name}"/>
+                        <h:commandButton id="update_attribute"
+                                         value="update">
+                            <f:ajax execute=":relations-form:relation:block"
+                                    render=":relations-form:relation:block"/>
+                        </h:commandButton>
+                        <h:commandButton id="save_attribute"
+                                         value="save"
+                                         actionListener="#{attributeController.save(attribute)}">
+                            <f:ajax execute=":relations-form:relation:block"
+                                    render=":relations-form:relation:block"/>
+                        </h:commandButton>
+                        <h:commandButton id="remove_attribute"
+                                         value="x"
+                                         action="#{attributeController.remove(attribute)}">
+                            <f:ajax execute=":relations-form:relation:block"
+                                    render=":relations-form:relation:block"/>
+                        </h:commandButton>
                     </h:column>
                     <h:column>
-                        <!--FIXME: возвращается-->
-                        <h:inputText id="attribute_relation"
+                        <h:inputText value="#{attribute.name}"/>
+                    </h:column>
+                    <h:column>
+                        <h:inputText id="relation"
                                      value="#{attribute.relation}"
                                      converter="#{relationController}"/>
                     </h:column>
-                    <h:column>
-                        <h:commandButton id="remove_attribute"
-                                         value="x"
-                                         action="#{attributeController.remove(attribute.id)}">
-                            <f:ajax execute="@form" render="@form"/>
-                        </h:commandButton>
-                    </h:column>
                 </h:dataTable>
+                <h:outputScript>animateForm();</h:outputScript>
             </h:panelGroup>
         </ui:repeat>
-        <h:commandButton id="update"
-                         value="update">
-            <f:ajax execute="@form" render="@form"/>
-        </h:commandButton>
-        <h:commandButton id="save"
-                         value="save"
-                         actionListener="#{relationController.saveAbstractEntityList}">
-            <f:ajax execute="@form" render="@form"/>
-        </h:commandButton>
-        <!--DEL-->
-        <h:outputScript>animateForm();</h:outputScript>
     </h:form>
 </h:body>
 </html>
