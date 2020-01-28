@@ -20,10 +20,6 @@ public abstract class AbstractController<AbstractEntity> implements Converter {
         return add(getEntity());
     }
 
-    public AbstractEntity add() {
-        return add(getEntity());
-    }
-
     public AbstractEntity add(AbstractEntity abstractEntity) {
         abstractEntityList.add(abstractEntity);
         return getService().persist(abstractEntity);

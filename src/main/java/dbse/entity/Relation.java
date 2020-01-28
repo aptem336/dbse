@@ -13,6 +13,14 @@ public class Relation extends AbstractEntity {
     private String name;
     private int x, y;
 
+    public Relation() {
+    }
+
+    public Relation(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
+
     public String getName() {
         return name;
     }

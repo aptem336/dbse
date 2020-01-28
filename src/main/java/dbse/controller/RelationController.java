@@ -24,4 +24,8 @@ public class RelationController extends AbstractController<Relation> {
     AbstractService<Relation> getService() {
         return service;
     }
+
+    public Relation create(int x, int y) {
+        return add(new Relation(x, y));
+    }
 }

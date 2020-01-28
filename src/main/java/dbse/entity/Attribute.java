@@ -15,6 +15,13 @@ public class Attribute extends AbstractEntity {
     @ManyToOne
     private Relation relation;
 
+    public Attribute() {
+    }
+
+    public Attribute(Relation relation) {
+        this.relation = relation;
+    }
+
     public String getName() {
         return name;
     }

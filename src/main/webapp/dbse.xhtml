@@ -11,15 +11,12 @@
     <h:outputStylesheet library="css" name="dbse.css"/>
 </h:head>
 <h:body>
-    <h:form id="relations-form">
-        <h:commandButton id="update_form"
-                         value="update">
-            <f:ajax execute=":relations-form"
-                    render=":relations-form"/>
-        </h:commandButton>
+    <h:form id="relations-form"
+            styleClass="relation-form">
+        <!--TODO: pass x, y-->
         <h:commandButton id="add_relation"
                          value="+"
-                         action="#{relationController.add()}">
+                         action="#{relationController.create(100, 100)}">
             <f:ajax execute=":relations-form"
                     render=":relations-form"/>
         </h:commandButton>
@@ -30,6 +27,7 @@
                           styleClass="relation-block"
                           layout="block"
                           style="left:#{relation.x}px; top:#{relation.y}px">
+
                 <h:commandButton id="update_relation"
                                  value="update">
                     <f:ajax execute=":relations-form:relation:block"
@@ -47,34 +45,39 @@
                     <f:ajax execute=":relations-form"
                             render=":relations-form"/>
                 </h:commandButton>
-                <h:inputText id="id"
+
+                <h:inputText id="relation_id"
                              value="#{relation.id}"/>
-                <h:inputText id="name"
+                <h:inputText id="relation_name"
                              value="#{relation.name}"/>
-                <h:inputText id="x"
+                <h:inputText id="relation_x"
                              value="#{relation.x}"/>
-                <h:inputText id="y"
+                <h:inputText id="relation_y"
                              value="#{relation.y}"/>
+
                 <h:commandButton id="add_attribute"
                                  value="+"
-                                 action="#{attributeController.addForRelation(relation)}">
+                                 action="#{attributeController.create(relation)}">
                     <f:ajax execute=":relations-form:relation:block"
                             render=":relations-form:relation:block"/>
                 </h:commandButton>
                 <h:dataTable id="table"
                              var="attribute"
+                             styleClass="relation-table"
+                             rowClasses="attribute-row"
                              value="#{attributeController.getAllForRelation(relation)}">
+
                     <h:column>
                         <h:commandButton id="update_attribute"
                                          value="update">
-                            <f:ajax execute=":relations-form:relation:block"
-                                    render=":relations-form:relation:block"/>
+                            <f:ajax execute=":relations-form:relation:table"
+                                    render=":relations-form:relation:table"/>
                         </h:commandButton>
                         <h:commandButton id="save_attribute"
                                          value="save"
                                          actionListener="#{attributeController.save(attribute)}">
-                            <f:ajax execute=":relations-form:relation:block"
-                                    render=":relations-form:relation:block"/>
+                            <f:ajax execute=":relations-form:relation:table"
+                                    render=":relations-form:relation:table"/>
                         </h:commandButton>
                         <h:commandButton id="remove_attribute"
                                          value="x"
@@ -83,16 +86,23 @@
                                     render=":relations-form:relation:block"/>
                         </h:commandButton>
                     </h:column>
+
                     <h:column>
-                        <h:inputText value="#{attribute.name}"/>
+                        <h:inputText id="attribute_id"
+                                     value="#{attribute.id}"/>
                     </h:column>
                     <h:column>
-                        <h:inputText id="relation"
+                        <h:inputText id="attribute_name"
+                                     value="#{attribute.name}"/>
+                    </h:column>
+                    <h:column>
+                        <h:inputText id="attribute_relation"
                                      value="#{attribute.relation}"
                                      converter="#{relationController}"/>
                     </h:column>
+
                 </h:dataTable>
-                <h:outputScript>animateForm();</h:outputScript>
+                <h:outputScript>animate()</h:outputScript>
             </h:panelGroup>
         </ui:repeat>
     </h:form>

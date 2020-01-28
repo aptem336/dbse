@@ -20,12 +20,6 @@ public class AttributeController extends AbstractController<Attribute> {
         return new Attribute();
     }
 
-    Attribute getEntity(Relation relation) {
-        Attribute attribute = new Attribute();
-        attribute.setRelation(relation);
-        return attribute;
-    }
-
     @Inject
     private AttributeService service;
 
@@ -34,8 +28,8 @@ public class AttributeController extends AbstractController<Attribute> {
         return service;
     }
 
-    public void addForRelation(Relation relation) {
-        add(getEntity(relation));
+    public Attribute create(Relation relation) {
+        return add(new Attribute(relation));
     }
 
     public List<Attribute> getAllForRelation(Relation relation) {
