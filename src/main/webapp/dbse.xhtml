@@ -11,6 +11,7 @@
     <h:outputStylesheet library="css" name="dbse.css"/>
 </h:head>
 <h:body>
+    <!--TODO listeners for mojarra.ab (form, relation)-->
     <h:form id="relations-form"
             styleClass="relation-form">
         <!--TODO: pass x, y-->
@@ -102,9 +103,9 @@
                     </h:column>
 
                 </h:dataTable>
-                <h:outputScript>animate()</h:outputScript>
             </h:panelGroup>
         </ui:repeat>
+        <h:outputScript>animate()</h:outputScript>
     </h:form>
 </h:body>
 </html>

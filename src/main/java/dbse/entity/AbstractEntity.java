@@ -6,6 +6,7 @@ import javax.persistence.*;
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class AbstractEntity {
 
+    //Q разделить для наслдеников?
     @Id
     @GeneratedValue
     private long id;

@@ -1,9 +1,9 @@
-//TODO: rework
+//TODO: mojarra.ab || jsf.ajax
 const animate = () => {
     animateForm(document.getElementById("relations-form"));
 };
 const animateForm = (form) => {
-    form.add_relation = document.getElementById('relations-form:add_relation');
+    form.add_relation = document.getElementById("relations-form:add_relation");
     // form.ondblclick = () => {
     //     form.add_relation.click();
     // };
@@ -23,7 +23,7 @@ const animateForm = (form) => {
         e.stopPropagation();
         const dragData = JSON.parse(e.dataTransfer.getData("text/plain"));
         const attribute = document.getElementById(dragData.attributeId);
-        attribute.remove();
+        attribute.remove.click();
     };
     form.startRelationFormDragging = () => {
         form.addEventListener("dragover", form.relationFormDragOverListener);
@@ -42,15 +42,16 @@ const animateForm = (form) => {
         form.removeEventListener("drop", form.attributeFormDropListener);
     };
 
-    [...document.getElementsByClassName("relation-block")].forEach((relation, index) => {
+    form.relationsList = [...document.getElementsByClassName("relation-block")];
+    form.relationsList.forEach((relation, index) => {
         animateRelation(form, relation, index);
     });
 };
 const animateRelation = (form, relation, index) => {
-    relation.update = () => document.getElementById("relations-form:relation:" + index + ":update_relation").click();
-    relation.save = () => document.getElementById("relations-form:relation:" + index + ":save_relation").click();
-    relation.delete = () => document.getElementById("relations-form:relation:" + index + ":delete_relation").click();
-
+    relation.update = document.getElementById("relations-form:relation:" + index + ":update_relation");
+    relation.save =  document.getElementById("relations-form:relation:" + index + ":save_relation");
+    relation.delete = document.getElementById("relations-form:relation:" + index + ":delete_relation");
+    //TODO: rename
     relation.i = document.getElementById("relations-form:relation:" + index + ":relation_id").value;
     relation.name = document.getElementById("relations-form:relation:" + index + ":relation_name").value;
     relation.x = document.getElementById("relations-form:relation:" + index + ":relation_x");
@@ -60,7 +61,7 @@ const animateRelation = (form, relation, index) => {
         relation.x.value = relation.offsetLeft + shiftX;
         relation.y.value = relation.offsetTop + shiftY;
         //Q save?
-        relation.update();
+        relation.update.click();
     };
 
     relation.attributeRelationDragOverListener = (e) => {
@@ -71,11 +72,6 @@ const animateRelation = (form, relation, index) => {
         // IMPL
         // const dragData = JSON.parse(e.dataTransfer.getData("text/plain"));
         // const attribute = document.getElementById(dragData.attributeId);
-        // attribute.relation.value = relation.i;
-        // const previousRelation = document.getElementById(dragData.relationId);
-        // previousRelation.update();
-        // attribute.save();
-        // relation.update();
     };
     relation.startAttributeRelationDragging = () => {
         relation.addEventListener("dragover", relation.attributeRelationDragOverListener);
@@ -100,14 +96,15 @@ const animateRelation = (form, relation, index) => {
         form.stopRelationFormDragging();
     };
 
-    [...relation.getElementsByClassName("attribute-row")].forEach((attribute, index) => {
+    relation.attributesList = [...relation.getElementsByClassName("attribute-row")];
+    relation.attributesList.forEach((attribute, index) => {
         animateAttribute(form, relation, attribute, index);
     });
 };
 const animateAttribute = (form, relation, attribute, index) => {
-    attribute.update = () => document.getElementById(attribute.id + "update_attribute").click();
-    attribute.save = () => document.getElementById(attribute.id + "save_attribute").click();
-    attribute.remove = () => document.getElementById(attribute.id + "remove_attribute").click();
+    attribute.update = document.getElementById(attribute.id + ":update_attribute");
+    attribute.save = document.getElementById(attribute.id + ":save_attribute");
+    attribute.remove = document.getElementById(attribute.id + ":remove_attribute");
 
     attribute.id = attribute.parentElement.parentElement.id + ":" + index;
     attribute.name = document.getElementById(attribute.id + ":attribute_name");
