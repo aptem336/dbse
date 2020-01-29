@@ -48,20 +48,19 @@ const animateForm = (form) => {
     });
 };
 const animateRelation = (form, relation, index) => {
-    relation.update = document.getElementById("relations-form:relation:" + index + ":update_relation");
-    relation.save =  document.getElementById("relations-form:relation:" + index + ":save_relation");
-    relation.delete = document.getElementById("relations-form:relation:" + index + ":delete_relation");
-    //TODO: rename
-    relation.i = document.getElementById("relations-form:relation:" + index + ":relation_id").value;
-    relation.name = document.getElementById("relations-form:relation:" + index + ":relation_name").value;
+    // relation.update = document.getElementById("relations-form:relation:" + index + ":update_relation");
+    // relation.save =  document.getElementById("relations-form:relation:" + index + ":save_relation");
+    // relation.delete = document.getElementById("relations-form:relation:" + index + ":delete_relation");
+    // TODO: rename
+    // relation.i = document.getElementById("relations-form:relation:" + index + ":relation_id").value;
+    // relation.name = document.getElementById("relations-form:relation:" + index + ":relation_name").value;
     relation.x = document.getElementById("relations-form:relation:" + index + ":relation_x");
     relation.y = document.getElementById("relations-form:relation:" + index + ":relation_y");
 
     relation.shift = (shiftX, shiftY) => {
         relation.x.value = relation.offsetLeft + shiftX;
         relation.y.value = relation.offsetTop + shiftY;
-        //Q save?
-        relation.update.click();
+        // Q update || save
     };
 
     relation.attributeRelationDragOverListener = (e) => {
@@ -102,13 +101,13 @@ const animateRelation = (form, relation, index) => {
     });
 };
 const animateAttribute = (form, relation, attribute, index) => {
-    attribute.update = document.getElementById(attribute.id + ":update_attribute");
-    attribute.save = document.getElementById(attribute.id + ":save_attribute");
+    // attribute.update = document.getElementById(attribute.id + ":update_attribute");
+    // attribute.save = document.getElementById(attribute.id + ":save_attribute");
     attribute.remove = document.getElementById(attribute.id + ":remove_attribute");
 
-    attribute.id = attribute.parentElement.parentElement.id + ":" + index;
-    attribute.name = document.getElementById(attribute.id + ":attribute_name");
-    attribute.relation = document.getElementById(attribute.id + ":attribute_relation");
+    // attribute.id = attribute.parentElement.parentElement.id + ":" + index;
+    // attribute.name = document.getElementById(attribute.id + ":attribute_name");
+    // attribute.relation = document.getElementById(attribute.id + ":attribute_relation");
 
     attribute.isSuitableAttribute = (target) => {
         // IMPL
@@ -135,7 +134,7 @@ const animateAttribute = (form, relation, attribute, index) => {
         e.stopPropagation();
         e.dataTransfer.setData("text/plain", JSON.stringify({
             attributeId: attribute.id,
-            relationId: relation.id
+            // relationId: relation.id
         }));
         e.dataTransfer.effectAllowed = "all";
         form.startAttributeFormDragging();

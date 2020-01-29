@@ -29,17 +29,17 @@
                           layout="block"
                           style="left:#{relation.x}px; top:#{relation.y}px">
 
-                <h:commandButton id="update_relation"
-                                 value="update">
-                    <f:ajax execute=":relations-form:relation:block"
-                            render=":relations-form:relation:block"/>
-                </h:commandButton>
-                <h:commandButton id="save_relation"
-                                 value="save"
-                                 actionListener="#{relationController.save(relation)}">
-                    <f:ajax execute=":relations-form:relation:block"
-                            render=":relations-form:relation:block"/>
-                </h:commandButton>
+                <!--                <h:commandButton id="update_relation"-->
+                <!--                                 value="update">-->
+                <!--                    <f:ajax execute=":relations-form:relation:block"-->
+                <!--                            render=":relations-form:relation:block"/>-->
+                <!--                </h:commandButton>-->
+                <!--                <h:commandButton id="save_relation"-->
+                <!--                                 value="save"-->
+                <!--                                 actionListener="#{relationController.save(relation)}">-->
+                <!--                    <f:ajax execute=":relations-form:relation:block"-->
+                <!--                            render=":relations-form:relation:block"/>-->
+                <!--                </h:commandButton>-->
                 <h:commandButton id="remove_relation"
                                  value="x"
                                  actionListener="#{relationController.remove(relation)}">
@@ -69,17 +69,17 @@
                              value="#{attributeController.getAllForRelation(relation)}">
 
                     <h:column>
-                        <h:commandButton id="update_attribute"
-                                         value="update">
-                            <f:ajax execute=":relations-form:relation:table"
-                                    render=":relations-form:relation:table"/>
-                        </h:commandButton>
-                        <h:commandButton id="save_attribute"
-                                         value="save"
-                                         actionListener="#{attributeController.save(attribute)}">
-                            <f:ajax execute=":relations-form:relation:table"
-                                    render=":relations-form:relation:table"/>
-                        </h:commandButton>
+                        <!--                        <h:commandButton id="update_attribute"-->
+                        <!--                                         value="update">-->
+                        <!--                            <f:ajax execute=":relations-form:relation:table"-->
+                        <!--                                    render=":relations-form:relation:table"/>-->
+                        <!--                        </h:commandButton>-->
+                        <!--                        <h:commandButton id="save_attribute"-->
+                        <!--                                         value="save"-->
+                        <!--                                         actionListener="#{attributeController.save(attribute)}">-->
+                        <!--                            <f:ajax execute=":relations-form:relation:table"-->
+                        <!--                                    render=":relations-form:relation:table"/>-->
+                        <!--                        </h:commandButton>-->
                         <h:commandButton id="remove_attribute"
                                          value="x"
                                          action="#{attributeController.remove(attribute)}">
