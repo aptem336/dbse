@@ -7,11 +7,13 @@
 <h:head>
     <title>DBSE</title>
     <h:outputScript library="js" name="dbse.js"/>
+    <h:outputScript library="js" name="form.js"/>
+    <h:outputScript library="js" name="relation.js"/>
+    <h:outputScript library="js" name="attributes.js"/>
     <h:outputStylesheet library="css" name="common.css"/>
     <h:outputStylesheet library="css" name="dbse.css"/>
 </h:head>
 <h:body>
-    <!--TODO listeners for mojarra.ab (form, relation)-->
     <h:form id="relations-form"
             styleClass="relation-form">
         <!--TODO: pass x, y-->
@@ -29,17 +31,6 @@
                           layout="block"
                           style="left:#{relation.x}px; top:#{relation.y}px">
 
-                <!--                <h:commandButton id="update_relation"-->
-                <!--                                 value="update">-->
-                <!--                    <f:ajax execute=":relations-form:relation:block"-->
-                <!--                            render=":relations-form:relation:block"/>-->
-                <!--                </h:commandButton>-->
-                <!--                <h:commandButton id="save_relation"-->
-                <!--                                 value="save"-->
-                <!--                                 actionListener="#{relationController.save(relation)}">-->
-                <!--                    <f:ajax execute=":relations-form:relation:block"-->
-                <!--                            render=":relations-form:relation:block"/>-->
-                <!--                </h:commandButton>-->
                 <h:commandButton id="remove_relation"
                                  value="x"
                                  actionListener="#{relationController.remove(relation)}">
@@ -59,53 +50,41 @@
                 <h:commandButton id="add_attribute"
                                  value="+"
                                  action="#{attributeController.create(relation)}">
-                    <f:ajax execute=":relations-form:relation:block"
-                            render=":relations-form:relation:block"/>
+                    <f:ajax render=":relations-form:relation:table-wrapper"/>
                 </h:commandButton>
-                <h:dataTable id="table"
-                             var="attribute"
-                             styleClass="relation-table"
-                             rowClasses="attribute-row"
-                             value="#{attributeController.getAllForRelation(relation)}">
-
-                    <h:column>
-                        <!--                        <h:commandButton id="update_attribute"-->
-                        <!--                                         value="update">-->
-                        <!--                            <f:ajax execute=":relations-form:relation:table"-->
-                        <!--                                    render=":relations-form:relation:table"/>-->
-                        <!--                        </h:commandButton>-->
-                        <!--                        <h:commandButton id="save_attribute"-->
-                        <!--                                         value="save"-->
-                        <!--                                         actionListener="#{attributeController.save(attribute)}">-->
-                        <!--                            <f:ajax execute=":relations-form:relation:table"-->
-                        <!--                                    render=":relations-form:relation:table"/>-->
-                        <!--                        </h:commandButton>-->
-                        <h:commandButton id="remove_attribute"
-                                         value="x"
-                                         action="#{attributeController.remove(attribute)}">
-                            <f:ajax execute=":relations-form:relation:block"
-                                    render=":relations-form:relation:block"/>
-                        </h:commandButton>
-                    </h:column>
-
-                    <h:column>
-                        <h:inputText id="attribute_id"
-                                     value="#{attribute.id}"/>
-                    </h:column>
-                    <h:column>
-                        <h:inputText id="attribute_name"
-                                     value="#{attribute.name}"/>
-                    </h:column>
-                    <h:column>
-                        <h:inputText id="attribute_relation"
-                                     value="#{attribute.relation}"
-                                     converter="#{relationController}"/>
-                    </h:column>
-
-                </h:dataTable>
+                <h:panelGroup id="table-wrapper">
+                    <h:dataTable id="table"
+                                 var="attribute"
+                                 styleClass="relation-table"
+                                 rowClasses="attribute-row"
+                                 value="#{attributeController.getAllForRelation(relation)}">
+                        <h:column>
+                            <h:commandButton id="remove_attribute"
+                                             value="x"
+                                             action="#{attributeController.remove(attribute)}">
+                                <f:ajax render=":relations-form:relation:table-wrapper"/>
+                            </h:commandButton>
+                        </h:column>
+                        <h:column>
+                            <h:inputText id="attribute_id"
+                                         value="#{attribute.id}"/>
+                        </h:column>
+                        <h:column>
+                            <h:inputText id="attribute_name"
+                                         value="#{attribute.name}"/>
+                        </h:column>
+                        <h:column>
+                            <h:inputText id="attribute_relation"
+                                         value="#{attribute.relation}"
+                                         converter="#{relationController}"/>
+                        </h:column>
+<!--                        <h:outputScript>animateAttribute("${component.clientId}")</h:outputScript>-->
+                    </h:dataTable>
+                </h:panelGroup>
+                <h:outputScript>animateRelation("${component.parent.clientId}")</h:outputScript>
             </h:panelGroup>
         </ui:repeat>
-        <h:outputScript>animate()</h:outputScript>
+        <h:outputScript>animateForm("${component.parent.clientId}")</h:outputScript>
     </h:form>
 </h:body>
 </html>

@@ -8,7 +8,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import java.util.List;
 
-public abstract class AbstractController<AbstractEntity> implements Converter {
+public abstract class AbstractController<AbstractEntity> implements Converter<AbstractEntity> {
 
     private List<AbstractEntity> abstractEntityList;
 
