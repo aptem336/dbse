@@ -5,8 +5,6 @@ const animateRelation = (relation_block, relation_x_input, relation_y_input/*, r
         //Q unresolved in idea :(
         mojarra.ab(relation_block, null, 'action', null, relation_block.id);
     };
-    // relation_block.relation_id = relation_id;
-    // relation_block.relation_attributes_wrapper = relation_attributes_wrapper;
 
     relation_block.draggable = true;
     relation_block.ondragstart = (e) => {
@@ -27,9 +25,7 @@ const animateRelation = (relation_block, relation_x_input, relation_y_input/*, r
     };
     relation_block.attributeRelationDropListener = (e) => {
         e.stopPropagation();
-        const data = JSON.parse(e.dataTransfer.getData("text/plain"));
-        const attribute = document.getElementById(data.attribute_block_id);
-        // attribute.reattach(relation_block);
+        //IMPL
     };
 };
 

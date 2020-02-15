@@ -13,6 +13,9 @@ import javax.inject.Named;
 @Named
 public class AttributeController extends AbstractController<Attribute> {
 
+    @Inject
+    private RelationController relationController;
+
     @Override
     Attribute getEntity() {
         return new Attribute();
@@ -26,7 +29,17 @@ public class AttributeController extends AbstractController<Attribute> {
         return service;
     }
 
-    public Attribute create(Relation relation) {
-        return add(new Attribute(relation));
+    public void create(Relation relation) {
+        Attribute attribute = new Attribute();
+        attribute.setRelation(relation);
+        getService().persist(attribute);
+
+        relation.addAttribute(attribute);
+        relationController.getService().merge(relation);
+    }
+
+    public void remove(Attribute attribute, Relation relation) {
+        relation.removeAttribute(attribute);
+        relationController.getService().merge(relation);
     }
 }

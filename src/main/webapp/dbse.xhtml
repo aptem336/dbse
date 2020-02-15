@@ -40,7 +40,7 @@
 
                 <h:commandButton id="attribute-add"
                                  value="+"
-                                 action="#{relation.addAttribute(attributeController.create(relation))}">
+                                 action="#{attributeController.create(relation)}">
                     <f:ajax execute=":relations-wrapper:relation:attributes-wrapper"
                             render=":relations-wrapper:relation:attributes-wrapper"/>
                 </h:commandButton>
@@ -58,7 +58,7 @@
                                          value="#{attribute.name}"/>
                             <h:commandButton id="attribute-remove"
                                              value="x"
-                                             action="#{relation.removeAttribute(attribute)}">
+                                             action="#{attributeController.remove(attribute, relation)}">
                                 <f:ajax execute=":relations-wrapper:relation:attributes-wrapper"
                                         render=":relations-wrapper:relation:attributes-wrapper"/>
                             </h:commandButton>
@@ -75,9 +75,8 @@
 
                                 const attribute_block = document.getElementById(attribute_id_prefix + ":attribute-block");
                                 const attribute_remove = document.getElementById(attribute_id_prefix + ":attribute-remove");
-                                // const attribute_relation_id_input = document.getElementById(attribute_id_prefix + ":attribute-relation");
 
-                                animateAttribute(attribute_block, attribute_remove/*, attribute_relation_id_input*/);
+                                animateAttribute(attribute_block, attribute_remove);
                                 }
                             </h:outputScript>
                         </h:panelGroup>
@@ -98,10 +97,8 @@
                     const relation_block = document.getElementById(relation_id_prefix + ":relation-block");
                     const relation_x_input = document.getElementById(relation_id_prefix + ":relation-x");
                     const relation_y_input = document.getElementById(relation_id_prefix + ":relation-y");
-                    // const relation_id = document.getElementById(relation_id_prefix + ":relation-id").value;
-                    // const relation_attributes_wrapper = document.getElementById(relation_id_prefix + ":attributes-wrapper");
 
-                    animateRelation(relation_block, relation_x_input, relation_y_input/*, relation_id, relation_attributes_wrapper*/);
+                    animateRelation(relation_block, relation_x_input, relation_y_input);
                     }
                 </h:outputScript>
             </h:panelGroup>

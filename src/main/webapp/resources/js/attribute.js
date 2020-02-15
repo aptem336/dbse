@@ -1,9 +1,4 @@
-const animateAttribute = (attribute_block, attribute_remove/*, attribute_relation_id_input*/) => {
-    // attribute_block.reattach = (new_relation) => {
-        // attribute_relation_id_input.value = new_relation.relation_id;
-        //  Q unresolved in idea :(
-        // mojarra.ab(attribute_block, null, 'action', null, attribute_block.parentElement.id + " " + new_relation.relation_attributes_wrapper.id);
-    // };
+const animateAttribute = (attribute_block, attribute_remove) => {
     attribute_block.attribute_remove = attribute_remove;
 
     attribute_block.draggable = true;

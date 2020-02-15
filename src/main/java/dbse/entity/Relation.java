@@ -13,9 +13,7 @@ import java.util.List;
 public class Relation extends AbstractEntity {
 
     private String name;
-
     private int x, y;
-
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "relation")
     private List<Attribute> attributes = new ArrayList<>();
 

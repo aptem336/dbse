@@ -11,7 +11,6 @@ import javax.persistence.*;
 public class Attribute extends AbstractEntity {
 
     private String name;
-
     @ManyToOne
     private Relation relation;
 
