@@ -1,29 +1,17 @@
-const relationsList = [];
-const animateRelation = (relationId) => {
-    const relation = document.getElementById(relationId);
-
-    let index = relationsList.indexOf(relationId);
-    index = index !== -1 ? index : relationsList.length;
-
-    //Q best way? ids?
-    relation.x = document.getElementById("relations-form:relation:" + index + ":relation_x");
-    relation.y = document.getElementById("relations-form:relation:" + index + ":relation_y");
-
-    relation.shift = (shiftX, shiftY) => {
-        relation.x.value = relation.offsetLeft + shiftX;
-        relation.y.value = relation.offsetTop + shiftY;
-        mojarra.ab(relation, null, 'action', null, relationId);//Q resolve!
+const animateRelation = (block, x, y) => {
+    block.shift = (shiftX, shiftY) => {
+        x.value = block.offsetLeft + shiftX;
+        y.value = block.offsetTop + shiftY;
+        mojarra.ab(block, null, 'action', null, block.id);
     };
 
-    relation.draggable = true;
-    relation.ondragstart = (e) => {
-        startRelationDragging(e, relation, e.pageX, e.pageY);
+    block.draggable = true;
+    block.ondragstart = (e) => {
+        startRelationFormDragging(e, block, e.pageX, e.pageY);
     };
-    relation.ondragend = (e) => {
-        stopRelationDragging(e, relation, e.pageX, e.pageY);
+    block.ondragend = (e) => {
+        stopRelationFormDragging(e, block, e.pageX, e.pageY);
     };
-
-    relationsList.push(relationId);
 };
 // const attributeRelationDropListener = (e, relation) => {
 //     e.stopPropagation();

@@ -9,82 +9,101 @@
     <h:outputScript library="js" name="dbse.js"/>
     <h:outputScript library="js" name="form.js"/>
     <h:outputScript library="js" name="relation.js"/>
-    <h:outputScript library="js" name="attributes.js"/>
+    <h:outputScript library="js" name="attribute.js"/>
     <h:outputStylesheet library="css" name="common.css"/>
     <h:outputStylesheet library="css" name="dbse.css"/>
 </h:head>
 <h:body>
-    <h:form id="relations-form"
-            styleClass="relation-form">
-        <!--TODO: pass x, y-->
-        <h:commandButton id="add_relation"
+    <h:form id="relations-wrapper"
+            styleClass="relations-wrapper">
+        <h:commandButton id="relation-add"
                          value="+"
                          action="#{relationController.create(100, 100)}">
-            <f:ajax execute=":relations-form"
-                    render=":relations-form"/>
+            <f:ajax execute=":relations-wrapper"
+                    render=":relations-wrapper"/>
         </h:commandButton>
         <ui:repeat id="relation"
                    var="relation"
                    value="#{relationController.abstractEntityList}">
-            <h:panelGroup id="block"
+            <h:panelGroup id="relation-block"
                           styleClass="relation-block"
                           layout="block"
                           style="left:#{relation.x}px; top:#{relation.y}px">
 
-                <h:commandButton id="remove_relation"
+                <h:inputText id="relation-name"
+                             value="#{relation.name}"/>
+                <h:commandButton id="relation-remove"
                                  value="x"
                                  actionListener="#{relationController.remove(relation)}">
-                    <f:ajax execute=":relations-form"
-                            render=":relations-form"/>
+                    <f:ajax execute=":relations-wrapper"
+                            render=":relations-wrapper"/>
                 </h:commandButton>
 
-                <h:inputText id="relation_id"
-                             value="#{relation.id}"/>
-                <h:inputText id="relation_name"
-                             value="#{relation.name}"/>
-                <h:inputText id="relation_x"
-                             value="#{relation.x}"/>
-                <h:inputText id="relation_y"
-                             value="#{relation.y}"/>
-
-                <h:commandButton id="add_attribute"
+                <h:commandButton id="attribute-add"
                                  value="+"
                                  action="#{attributeController.create(relation)}">
-                    <f:ajax render=":relations-form:relation:table-wrapper"/>
+                    <f:ajax execute=":relations-wrapper:relation:attributes-wrapper"
+                            render=":relations-wrapper:relation:attributes-wrapper"/>
                 </h:commandButton>
-                <h:panelGroup id="table-wrapper">
-                    <h:dataTable id="table"
-                                 var="attribute"
-                                 styleClass="relation-table"
-                                 rowClasses="attribute-row"
-                                 value="#{attributeController.getAllForRelation(relation)}">
-                        <h:column>
-                            <h:commandButton id="remove_attribute"
+
+                <h:panelGroup id="attributes-wrapper"
+                              styleClass="attributes-wrapper"
+                              layout="block">
+                    <ui:repeat id="attribute"
+                               var="attribute"
+                               value="#{attributeController.getAllForRelation(relation)}">
+                        <h:panelGroup id="attribute-block"
+                                      styleClass="attribite-block"
+                                      layout="block">
+                            <h:inputText id="attribute-name"
+                                         value="#{attribute.name}"/>
+                            <h:commandButton id="attribute-remove"
                                              value="x"
                                              action="#{attributeController.remove(attribute)}">
-                                <f:ajax render=":relations-form:relation:table-wrapper"/>
+                                <f:ajax execute=":relations-wrapper:relation:attributes-wrapper"
+                                        render=":relations-wrapper:relation:attributes-wrapper"/>
                             </h:commandButton>
-                        </h:column>
-                        <h:column>
-                            <h:inputText id="attribute_id"
-                                         value="#{attribute.id}"/>
-                        </h:column>
-                        <h:column>
-                            <h:inputText id="attribute_name"
-                                         value="#{attribute.name}"/>
-                        </h:column>
-                        <h:column>
-                            <h:inputText id="attribute_relation"
-                                         value="#{attribute.relation}"
-                                         converter="#{relationController}"/>
-                        </h:column>
-<!--                        <h:outputScript>animateAttribute("${component.clientId}")</h:outputScript>-->
-                    </h:dataTable>
+                            <h:panelGroup styleClass="debug-element">
+                                <h:inputText id="attribute-id"
+                                             value="#{attribute.id}"/>
+                                <h:inputText id="attribute-relation"
+                                             value="#{attribute.relation}"
+                                             converter="#{relationController}"/>
+                            </h:panelGroup>
+                            <h:outputScript>
+                                {
+                                const attribute_id = "${component.parent.parent.clientId}";
+                                const block = document.getElementById(attribute_id + ":attribute-block");
+                                const remove = () => document.getElementById(attribute_id + ":attribute-remove").click();
+                                animateAttribute(block, remove);
+                                }
+                            </h:outputScript>
+                        </h:panelGroup>
+                    </ui:repeat>
                 </h:panelGroup>
-                <h:outputScript>animateRelation("${component.parent.clientId}")</h:outputScript>
+                <h:panelGroup styleClass="debug-element">
+                    <h:inputText id="relation-id"
+                                 value="#{relation.id}"/>
+                    <h:inputText id="relation-x"
+                                 value="#{relation.x}"/>
+                    <h:inputText id="relation-y"
+                                 value="#{relation.y}"/>
+                </h:panelGroup>
+                <h:outputScript>
+                    {
+                    const relation_id = "${component.parent.parent.clientId}";
+                    const block = document.getElementById(relation_id + ":relation-block");
+                    const x = document.getElementById(relation_id + ":relation-x");
+                    const y = document.getElementById(relation_id + ":relation-y");
+                    animateRelation(block, x, y);
+                    }
+                </h:outputScript>
             </h:panelGroup>
         </ui:repeat>
-        <h:outputScript>animateForm("${component.parent.clientId}")</h:outputScript>
+        <h:outputScript>
+            //Q
+            form = document.getElementById("${component.parent.clientId}");
+        </h:outputScript>
     </h:form>
 </h:body>
 </html>

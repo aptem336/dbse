@@ -1,32 +1,30 @@
 let form;
-const animateForm = (formId) => {
-    form = document.getElementById(formId);
+const relationFormDragOverListener = (e, relation, x, y) => {
+    defaultDragOverListener(e);
 };
-const relationDropListener = (e, relation, x, y) => {
+const relationFormDropListener = (e, relation, x, y) => {
     e.stopPropagation();
     relation.shift(e.pageX - x, e.pageY - y);
 };
-const relationDragOverListener = (e, relation, x, y) => {
+const startRelationFormDragging = (e, relation, x, y) => {
+    form.addEventListener("drop", (e) => relationFormDropListener(e, relation, x, y), {once: true});
+    form.addEventListener("dragover", relationFormDragOverListener);//Q?
+};
+const stopRelationFormDragging = (e, relation, x, y) => {
+    form.removeEventListener("dragover", relationFormDragOverListener);//Q?
+};
+
+const attributeFormDragOverListener = (e, attribute) => {
     defaultDragOverListener(e);
 };
-const startRelationDragging = (e, relation, x, y) => {
-    form.addEventListener("drop", (e) => relationDropListener(e, relation, x, y), {once: true});
-    form.addEventListener("dragover", relationDragOverListener);//Q?
+const attributeFormDropListener = (e, attribute) => {
+    e.stopPropagation();
+    attribute.remove();
 };
-const stopRelationDragging = (e, relation, x, y) => {
-    form.removeEventListener("dragover", relationDragOverListener);//Q?
+const startAttributeFormDragging = (e, attribute) => {
+    form.addEventListener("drop", (e) => attributeFormDropListener(e, attribute), {once: true});
+    form.addEventListener("dragover", attributeFormDragOverListener);//Q
 };
-// const attributeFormDropListener = (e) => {
-//     e.stopPropagation();
-//     const dragData = JSON.parse(e.dataTransfer.getData("text/plain"));
-//     const attribute = document.getElementById(dragData.attributeId);
-//     attribute.remove();
-// };
-// const startAttributeFormDragging = (form) => {
-//     form.addEventListener("dragover", (e) => e.preventDefault());
-//     form.addEventListener("drop", (e) => attributeFormDropListener(e, form));
-// };
-// const stopAttributeFormDragging = (form) => {
-//     form.removeEventListener("dragover", (e) => e.preventDefault());
-//     form.removeEventListener("drop", (e) => attributeFormDropListener(e, form));
-// };
+const stopAttributeFormDragging = (e, attribute) => {
+    form.removeEventListener("dragover", attributeFormDragOverListener);//Q
+};

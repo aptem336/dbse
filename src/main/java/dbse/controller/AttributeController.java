@@ -32,7 +32,7 @@ public class AttributeController extends AbstractController<Attribute> {
         return add(new Attribute(relation));
     }
 
-    //Q или запрос?
+    //Q или запрос? перенести в relation?
     public List<Attribute> getAllForRelation(Relation relation) {
         return getAbstractEntityList().stream().filter(
                 attribute -> relation.equals(attribute.getRelation())

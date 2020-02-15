@@ -1,8 +1,15 @@
-// const attributeList = new Map();
-const animateAttribute = (attributeId) => {
-    const attribute = document.getElementById(attributeId);
-    //IMPL
-    // attributeList.set(attributeId, attribute);
+const animateAttribute = (block, remove) => {
+    block.remove = remove;
+
+    block.draggable = true;
+    block.ondragstart = (e) => {
+        e.stopPropagation();
+        startAttributeFormDragging(e, block);
+    };
+    block.ondragend = (e) => {
+        e.stopPropagation();
+        stopAttributeFormDragging(e, block);
+    };
 };
 // const attributeAttributeDropListener = (e, attribute) => {
 //     e.stopPropagation();
