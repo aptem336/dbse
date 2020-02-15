@@ -3,6 +3,8 @@ package dbse.entity;
 import dbse.service.RelationService;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @NamedQueries({
@@ -11,7 +13,11 @@ import javax.persistence.*;
 public class Relation extends AbstractEntity {
 
     private String name;
+
     private int x, y;
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "relation")
+    private List<Attribute> attributes = new ArrayList<>();
 
     public Relation() {
     }
@@ -43,6 +49,22 @@ public class Relation extends AbstractEntity {
 
     public void setY(int y) {
         this.y = y;
+    }
+
+    public List<Attribute> getAttributes() {
+        return attributes;
+    }
+
+    public void setAttributes(List<Attribute> attributes) {
+        this.attributes = attributes;
+    }
+
+    public void addAttribute(Attribute attribute) {
+        attributes.add(attribute);
+    }
+
+    public void removeAttribute(Attribute attribute) {
+        attributes.remove(attribute);
     }
 
     @Override

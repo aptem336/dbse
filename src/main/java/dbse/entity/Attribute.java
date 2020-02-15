@@ -41,7 +41,6 @@ public class Attribute extends AbstractEntity {
     @Override
     public String toString() {
         return "Relation{" +
-                "id=" + getId() +
                 ", name=" + name +
                 ", relation=" + relation +
                 '}';

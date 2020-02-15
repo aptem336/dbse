@@ -1,31 +1,49 @@
-const animateRelation = (block, x, y) => {
-    block.shift = (shiftX, shiftY) => {
-        x.value = block.offsetLeft + shiftX;
-        y.value = block.offsetTop + shiftY;
-        mojarra.ab(block, null, 'action', null, block.id);
+const animateRelation = (relation_block, relation_x_input, relation_y_input/*, relation_id, relation_attributes_wrapper*/) => {
+    relation_block.shift = (shiftX, shiftY) => {
+        relation_x_input.value = relation_block.offsetLeft + shiftX;
+        relation_y_input.value = relation_block.offsetTop + shiftY;
+        //Q unresolved in idea :(
+        mojarra.ab(relation_block, null, 'action', null, relation_block.id);
     };
+    // relation_block.relation_id = relation_id;
+    // relation_block.relation_attributes_wrapper = relation_attributes_wrapper;
 
-    block.draggable = true;
-    block.ondragstart = (e) => {
-        startRelationFormDragging(e, block, e.pageX, e.pageY);
+    relation_block.draggable = true;
+    relation_block.ondragstart = (e) => {
+        e.stopPropagation();
+        e.dataTransfer.setData("text/plain", JSON.stringify({
+            relation_block_id: relation_block.id,
+            x: e.pageX,
+            y: e.pageY
+        }));
+        startRelationFormDragging();
     };
-    block.ondragend = (e) => {
-        stopRelationFormDragging(e, block, e.pageX, e.pageY);
+    relation_block.ondragend = (e) => {
+        e.stopPropagation();
+        stopRelationFormDragging();
+    };
+    relation_block.attributeRelationDragOverListener = (e) => {
+        defaultDragOverListener(e);
+    };
+    relation_block.attributeRelationDropListener = (e) => {
+        e.stopPropagation();
+        const data = JSON.parse(e.dataTransfer.getData("text/plain"));
+        const attribute = document.getElementById(data.attribute_block_id);
+        // attribute.reattach(relation_block);
     };
 };
-// const attributeRelationDropListener = (e, relation) => {
-//     e.stopPropagation();
-//     // IMPL
-// };
-// const startAttributeRelationDragging = () => {
-//     relationsList.forEach((relation) => {
-//         relation.addEventListener("dragover", (e) => e.preventDefault());
-//         relation.addEventListener("drop", (e) => attributeRelationDropListener(e, relation));
-//     });
-// };
-// const stopAttributeRelationDragging = () => {
-//     relationsList.forEach((relation) => {
-//         relation.removeEventListener("dragover", (e) => e.preventDefault());
-//         relation.removeEventListener("drop", (e) => attributeRelationDropListener(e, relation));
-//     })
-// };
+
+const startAttributeRelationDragging = () => {
+    [...relations_wrapper.getElementsByClassName('attributes-wrapper')]
+        .forEach((attribute_wrapper) => {
+            attribute_wrapper.addEventListener("drop", attribute_wrapper.parentElement.attributeRelationDropListener);
+            attribute_wrapper.addEventListener("dragover", attribute_wrapper.parentElement.attributeRelationDragOverListener);
+        });
+};
+const stopAttributeRelationDragging = () => {
+    [...relations_wrapper.getElementsByClassName('attributes-wrapper')]
+        .forEach((attribute_wrapper) => {
+            attribute_wrapper.removeEventListener("drop", attribute_wrapper.parentElement.attributeRelationDropListener);
+            attribute_wrapper.removeEventListener("dragover", attribute_wrapper.parentElement.attributeRelationDragOverListener);
+        })
+};

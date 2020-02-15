@@ -7,7 +7,6 @@
 <h:head>
     <title>DBSE</title>
     <h:outputScript library="js" name="dbse.js"/>
-    <h:outputScript library="js" name="form.js"/>
     <h:outputScript library="js" name="relation.js"/>
     <h:outputScript library="js" name="attribute.js"/>
     <h:outputStylesheet library="css" name="common.css"/>
@@ -18,7 +17,7 @@
             styleClass="relations-wrapper">
         <h:commandButton id="relation-add"
                          value="+"
-                         action="#{relationController.create(100, 100)}">
+                         action="#{relationController.create(650, 400)}">
             <f:ajax execute=":relations-wrapper"
                     render=":relations-wrapper"/>
         </h:commandButton>
@@ -41,7 +40,7 @@
 
                 <h:commandButton id="attribute-add"
                                  value="+"
-                                 action="#{attributeController.create(relation)}">
+                                 action="#{relation.addAttribute(attributeController.create(relation))}">
                     <f:ajax execute=":relations-wrapper:relation:attributes-wrapper"
                             render=":relations-wrapper:relation:attributes-wrapper"/>
                 </h:commandButton>
@@ -51,15 +50,15 @@
                               layout="block">
                     <ui:repeat id="attribute"
                                var="attribute"
-                               value="#{attributeController.getAllForRelation(relation)}">
+                               value="#{relation.attributes}">
                         <h:panelGroup id="attribute-block"
-                                      styleClass="attribite-block"
+                                      styleClass="attribute-block"
                                       layout="block">
                             <h:inputText id="attribute-name"
                                          value="#{attribute.name}"/>
                             <h:commandButton id="attribute-remove"
                                              value="x"
-                                             action="#{attributeController.remove(attribute)}">
+                                             action="#{relation.removeAttribute(attribute)}">
                                 <f:ajax execute=":relations-wrapper:relation:attributes-wrapper"
                                         render=":relations-wrapper:relation:attributes-wrapper"/>
                             </h:commandButton>
@@ -72,10 +71,13 @@
                             </h:panelGroup>
                             <h:outputScript>
                                 {
-                                const attribute_id = "${component.parent.parent.clientId}";
-                                const block = document.getElementById(attribute_id + ":attribute-block");
-                                const remove = () => document.getElementById(attribute_id + ":attribute-remove").click();
-                                animateAttribute(block, remove);
+                                const attribute_id_prefix = "${component.parent.parent.clientId}";
+
+                                const attribute_block = document.getElementById(attribute_id_prefix + ":attribute-block");
+                                const attribute_remove = document.getElementById(attribute_id_prefix + ":attribute-remove");
+                                // const attribute_relation_id_input = document.getElementById(attribute_id_prefix + ":attribute-relation");
+
+                                animateAttribute(attribute_block, attribute_remove/*, attribute_relation_id_input*/);
                                 }
                             </h:outputScript>
                         </h:panelGroup>
@@ -91,18 +93,21 @@
                 </h:panelGroup>
                 <h:outputScript>
                     {
-                    const relation_id = "${component.parent.parent.clientId}";
-                    const block = document.getElementById(relation_id + ":relation-block");
-                    const x = document.getElementById(relation_id + ":relation-x");
-                    const y = document.getElementById(relation_id + ":relation-y");
-                    animateRelation(block, x, y);
+                    const relation_id_prefix = "${component.parent.parent.clientId}";
+
+                    const relation_block = document.getElementById(relation_id_prefix + ":relation-block");
+                    const relation_x_input = document.getElementById(relation_id_prefix + ":relation-x");
+                    const relation_y_input = document.getElementById(relation_id_prefix + ":relation-y");
+                    // const relation_id = document.getElementById(relation_id_prefix + ":relation-id").value;
+                    // const relation_attributes_wrapper = document.getElementById(relation_id_prefix + ":attributes-wrapper");
+
+                    animateRelation(relation_block, relation_x_input, relation_y_input/*, relation_id, relation_attributes_wrapper*/);
                     }
                 </h:outputScript>
             </h:panelGroup>
         </ui:repeat>
         <h:outputScript>
-            //Q
-            form = document.getElementById("${component.parent.clientId}");
+            relations_wrapper = document.getElementById("${component.parent.clientId}");
         </h:outputScript>
     </h:form>
 </h:body>
