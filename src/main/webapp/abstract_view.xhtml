@@ -29,7 +29,7 @@
             </h:column>
             <ui:insert name="columns"/>
             <h:column>
-                <h:commandButton value="x" action="#{controller.remove(entity.id)}">
+                <h:commandButton value="x" action="#{controller.remove(entity)}">
                     <f:ajax execute="@form" render="@form"/>
                 </h:commandButton>
             </h:column>

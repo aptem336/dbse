@@ -5,16 +5,13 @@ import dbse.entity.Relation;
 import dbse.service.AbstractService;
 import dbse.service.AttributeService;
 
-import javax.enterprise.context.RequestScoped;
+import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-@RequestScoped
+@ViewScoped
 @Named
 public class AttributeController extends AbstractController<Attribute> {
-
-    @Inject
-    private RelationController relationController;
 
     @Override
     Attribute getEntity() {
@@ -29,17 +26,21 @@ public class AttributeController extends AbstractController<Attribute> {
         return service;
     }
 
-    public void create(Relation relation) {
-        Attribute attribute = new Attribute();
-        attribute.setRelation(relation);
-        getService().persist(attribute);
-
-        relation.addAttribute(attribute);
-        relationController.getService().merge(relation);
-    }
-
-    public void remove(Attribute attribute, Relation relation) {
-        relation.removeAttribute(attribute);
-        relationController.getService().merge(relation);
-    }
+//    @Inject
+//    private RelationController relationController;
+//
+//    //TODO свернуть, в relation controller?
+//    public void create(Relation relation) {
+//        Attribute attribute = new Attribute();
+//        attribute.setRelation(relation);
+//        relation.addAttribute(attribute);
+//        add(attribute);
+//        relationController.save(relation);
+//    }
+//
+//    //TODO свернуть, в relation controller?
+//    public void remove(Attribute attribute, Relation relation) {
+//        relation.removeAttribute(attribute);
+//        relationController.save(relation);
+//    }
 }

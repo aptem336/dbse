@@ -20,10 +20,10 @@ public class Relation extends AbstractEntity {
     public Relation() {
     }
 
-    public Relation(int x, int y) {
-        this.x = x;
-        this.y = y;
-    }
+//    public Relation(int x, int y) {
+//        this.x = x;
+//        this.y = y;
+//    }
 
     public String getName() {
         return name;

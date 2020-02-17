@@ -6,9 +6,10 @@ import javax.annotation.PostConstruct;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
+import java.io.Serializable;
 import java.util.List;
 
-public abstract class AbstractController<AbstractEntity> implements Converter<AbstractEntity> {
+public abstract class AbstractController<AbstractEntity> implements Converter<AbstractEntity>, Serializable {
 
     private List<AbstractEntity> abstractEntityList;
 
@@ -22,16 +23,12 @@ public abstract class AbstractController<AbstractEntity> implements Converter<Ab
 
     public AbstractEntity add(AbstractEntity abstractEntity) {
         abstractEntityList.add(abstractEntity);
-        return getService().persist(abstractEntity);
+        return abstractEntity;
     }
 
     public void remove(AbstractEntity abstractEntity) {
         abstractEntityList.remove(abstractEntity);
         getService().remove(abstractEntity);
-    }
-
-    public void remove(long id) {
-        remove(getService().getById(id));
     }
 
     public AbstractEntity save(AbstractEntity abstractEntity) {

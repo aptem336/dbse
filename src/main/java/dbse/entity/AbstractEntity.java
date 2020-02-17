@@ -20,16 +20,6 @@ public abstract class AbstractEntity {
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (obj instanceof AbstractEntity) {
-            if (obj.getClass() == this.getClass()) {
-                return ((AbstractEntity) obj).id == this.id;
-            }
-        }
-        return false;
-    }
-
-    @Override
     public String toString() {
         return "AbstractEntity{" +
                 "id=" + id +

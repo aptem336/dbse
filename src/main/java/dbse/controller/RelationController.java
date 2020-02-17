@@ -4,11 +4,11 @@ import dbse.entity.Relation;
 import dbse.service.AbstractService;
 import dbse.service.RelationService;
 
-import javax.enterprise.context.RequestScoped;
+import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-@RequestScoped
+@ViewScoped
 @Named
 public class RelationController extends AbstractController<Relation> {
 
@@ -25,7 +25,7 @@ public class RelationController extends AbstractController<Relation> {
         return service;
     }
 
-    public Relation create(int x, int y) {
-        return add(new Relation(x, y));
-    }
+//    public Relation create(int x, int y) {
+//        return add(new Relation(x, y));
+//    }
 }
