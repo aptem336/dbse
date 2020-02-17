@@ -25,22 +25,4 @@ public class AttributeController extends AbstractController<Attribute> {
     AbstractService<Attribute> getService() {
         return service;
     }
-
-//    @Inject
-//    private RelationController relationController;
-//
-//    //TODO свернуть, в relation controller?
-//    public void create(Relation relation) {
-//        Attribute attribute = new Attribute();
-//        attribute.setRelation(relation);
-//        relation.addAttribute(attribute);
-//        add(attribute);
-//        relationController.save(relation);
-//    }
-//
-//    //TODO свернуть, в relation controller?
-//    public void remove(Attribute attribute, Relation relation) {
-//        relation.removeAttribute(attribute);
-//        relationController.save(relation);
-//    }
 }

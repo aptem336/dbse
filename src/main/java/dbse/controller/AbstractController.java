@@ -26,17 +26,22 @@ public abstract class AbstractController<AbstractEntity> implements Converter<Ab
         return abstractEntity;
     }
 
-    public void remove(AbstractEntity abstractEntity) {
+    public AbstractEntity remove(AbstractEntity abstractEntity) {
         abstractEntityList.remove(abstractEntity);
-        getService().remove(abstractEntity);
+        return abstractEntity;
     }
 
-    public AbstractEntity save(AbstractEntity abstractEntity) {
+    public AbstractEntity saveToDB(AbstractEntity abstractEntity) {
         return getService().merge(abstractEntity);
     }
 
-    public void saveAbstractEntityList() {
-        abstractEntityList.forEach(this::save);
+    public void saveAbstractEntityListToDB() {
+        abstractEntityList.forEach(this::saveToDB);
+    }
+
+    @PostConstruct
+    private void readEntityListFromDB() {
+        abstractEntityList = getService().getAll();
     }
 
     public List<AbstractEntity> getAbstractEntityList() {
@@ -45,11 +50,6 @@ public abstract class AbstractController<AbstractEntity> implements Converter<Ab
 
     public void setAbstractEntityList(List<AbstractEntity> abstractEntityList) {
         this.abstractEntityList = abstractEntityList;
-    }
-
-    @PostConstruct
-    private void postConstruct() {
-        abstractEntityList = getService().getAll();
     }
 
     @Override

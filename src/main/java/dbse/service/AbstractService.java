@@ -19,8 +19,9 @@ public abstract class AbstractService<AbstractEntity> {
         return abstractEntity;
     }
 
-    public void remove(AbstractEntity abstractEntity) {
+    public AbstractEntity remove(AbstractEntity abstractEntity) {
         getEntityManager().remove(getEntityManager().merge(abstractEntity));
+        return abstractEntity;
     }
 
     public AbstractEntity merge(AbstractEntity abstractEntity) {
