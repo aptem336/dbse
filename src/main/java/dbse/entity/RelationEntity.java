@@ -1,6 +1,6 @@
 package dbse.entity;
 
-import dbse.service.RelationService;
+import dbse.persist.RelationPersistService;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -8,16 +8,16 @@ import java.util.List;
 
 @Entity
 @NamedQueries({
-        @NamedQuery(name = RelationService.getAllNamedQueryName, query = "SELECT r FROM Relation r")
+        @NamedQuery(name = RelationPersistService.getAllNamedQueryName, query = "SELECT r FROM RelationEntity r")
 })
-public class Relation extends AbstractEntity {
+public class RelationEntity extends AbstractEntity {
 
     private String name;
     private int x, y;
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "relation")
-    private List<Attribute> attributes = new ArrayList<>();
+    private List<AttributeEntity> attributes = new ArrayList<>();
 
-    public Relation() {
+    public RelationEntity() {
     }
 
     public String getName() {
@@ -44,19 +44,19 @@ public class Relation extends AbstractEntity {
         this.y = y;
     }
 
-    public List<Attribute> getAttributes() {
+    public List<AttributeEntity> getAttributes() {
         return attributes;
     }
 
-    public void setAttributes(List<Attribute> attributes) {
+    public void setAttributes(List<AttributeEntity> attributes) {
         this.attributes = attributes;
     }
 
-    public void addAttribute(Attribute attribute) {
+    public void addAttribute(AttributeEntity attribute) {
         attributes.add(attribute);
     }
 
-    public void removeAttribute(Attribute attribute) {
+    public void removeAttribute(AttributeEntity attribute) {
         attributes.remove(attribute);
     }
 

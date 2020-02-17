@@ -9,7 +9,7 @@ import javax.persistence.PersistenceContext;
         className = "org.sqlite.JDBC",
         url = "jdbc:sqlite:dbse_db.db"
 )
-public class Producer {
+public class DataSourceProducer {
     @Produces
     @PersistenceContext(unitName = "dbse_pu")
     private EntityManager em;

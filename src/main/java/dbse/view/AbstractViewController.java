@@ -1,6 +1,6 @@
-package dbse.controller;
+package dbse.view;
 
-import dbse.service.AbstractService;
+import dbse.persist.AbstractPersistService;
 
 import javax.annotation.PostConstruct;
 import javax.faces.component.UIComponent;
@@ -9,15 +9,15 @@ import javax.faces.convert.Converter;
 import java.io.Serializable;
 import java.util.List;
 
-public abstract class AbstractController<AbstractEntity> implements Converter<AbstractEntity>, Serializable {
+public abstract class AbstractViewController<AbstractEntity extends dbse.entity.AbstractEntity> implements Converter<AbstractEntity>, Serializable {
 
     private List<AbstractEntity> abstractEntityList;
 
     abstract AbstractEntity getEntity();
 
-    abstract AbstractService<AbstractEntity> getService();
+    abstract AbstractPersistService<AbstractEntity> getService();
 
-    public AbstractEntity create() {
+    public AbstractEntity add() {
         return add(getEntity());
     }
 
@@ -31,16 +31,18 @@ public abstract class AbstractController<AbstractEntity> implements Converter<Ab
         return abstractEntity;
     }
 
-    public AbstractEntity saveToDB(AbstractEntity abstractEntity) {
-        return getService().merge(abstractEntity);
-    }
-
-    public void saveAbstractEntityListToDB() {
-        abstractEntityList.forEach(this::saveToDB);
+    public void saveAbstractEntityListToDataSource() {
+        abstractEntityList.forEach(abstractEntity -> {
+            if (abstractEntity.isDelete()) {
+                getService().remove(abstractEntity);
+            } else {
+                getService().merge(abstractEntity);
+            }
+        });
     }
 
     @PostConstruct
-    private void readEntityListFromDB() {
+    private void readEntityListFromDataSource() {
         abstractEntityList = getService().getAll();
     }
 
@@ -53,12 +55,12 @@ public abstract class AbstractController<AbstractEntity> implements Converter<Ab
     }
 
     @Override
-    public AbstractEntity getAsObject(FacesContext context, UIComponent component, String id) {
-        return getService().getById(Long.parseLong(id));
+    public String getAsString(FacesContext context, UIComponent component, AbstractEntity abstractEntity) {
+        return abstractEntity.getId() + "";
     }
 
     @Override
-    public String getAsString(FacesContext context, UIComponent component, Object abstractEntity) {
-        return ((dbse.entity.AbstractEntity) abstractEntity).getId() + "";
+    public AbstractEntity getAsObject(FacesContext context, UIComponent component, String id) {
+        return getService().getById(Long.parseLong(id));
     }
 }

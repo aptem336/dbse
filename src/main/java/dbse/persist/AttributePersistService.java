@@ -1,16 +1,16 @@
-package dbse.service;
+package dbse.persist;
 
-import dbse.entity.Attribute;
+import dbse.entity.AttributeEntity;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 
 @Stateless
-public class AttributeService extends AbstractService<Attribute> {
+public class AttributePersistService extends AbstractPersistService<AttributeEntity> {
 
-    public AttributeService() {
-        super(Attribute.class, getAllNamedQueryName);
+    public AttributePersistService() {
+        super(AttributeEntity.class, getAllNamedQueryName);
     }
 
     @Inject

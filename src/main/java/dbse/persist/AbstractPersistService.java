@@ -1,13 +1,13 @@
-package dbse.service;
+package dbse.persist;
 
 import javax.persistence.EntityManager;
 import java.util.List;
 
-public abstract class AbstractService<AbstractEntity> {
+public abstract class AbstractPersistService<AbstractEntity> {
 
     private final Class<AbstractEntity> abstractEntityClass;
 
-    AbstractService(Class<AbstractEntity> abstractEntityClass, String getAllNamedQueryName) {
+    AbstractPersistService(Class<AbstractEntity> abstractEntityClass, String getAllNamedQueryName) {
         this.abstractEntityClass = abstractEntityClass;
         this.getAllNamedQueryName = getAllNamedQueryName;
     }
@@ -19,17 +19,13 @@ public abstract class AbstractService<AbstractEntity> {
         return abstractEntity;
     }
 
-    public AbstractEntity remove(AbstractEntity abstractEntity) {
-        getEntityManager().remove(getEntityManager().merge(abstractEntity));
-        return abstractEntity;
-    }
-
     public AbstractEntity merge(AbstractEntity abstractEntity) {
         return getEntityManager().merge(abstractEntity);
     }
 
-    public AbstractEntity getById(long id) {
-        return getEntityManager().find(abstractEntityClass, id);
+    public AbstractEntity remove(AbstractEntity abstractEntity) {
+        getEntityManager().remove(getEntityManager().merge(abstractEntity));
+        return abstractEntity;
     }
 
     public List<AbstractEntity> getAll() {
@@ -37,4 +33,8 @@ public abstract class AbstractService<AbstractEntity> {
     }
 
     private final String getAllNamedQueryName;
+
+    public AbstractEntity getById(long id) {
+        return getEntityManager().find(abstractEntityClass, id);
+    }
 }

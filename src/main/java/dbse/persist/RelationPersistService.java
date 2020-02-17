@@ -1,16 +1,16 @@
-package dbse.service;
+package dbse.persist;
 
-import dbse.entity.Relation;
+import dbse.entity.RelationEntity;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 
 @Stateless
-public class RelationService extends AbstractService<Relation> {
+public class RelationPersistService extends AbstractPersistService<RelationEntity> {
 
-    public RelationService() {
-        super(Relation.class, getAllNamedQueryName);
+    public RelationPersistService() {
+        super(RelationEntity.class, getAllNamedQueryName);
     }
 
     @Inject

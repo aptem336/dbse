@@ -1,20 +1,20 @@
 package dbse.entity;
 
-import dbse.service.AttributeService;
+import dbse.persist.AttributePersistService;
 
 import javax.persistence.*;
 
 @Entity
 @NamedQueries({
-        @NamedQuery(name = AttributeService.getAllNamedQueryName, query = "SELECT a FROM Attribute a"),
+        @NamedQuery(name = AttributePersistService.getAllNamedQueryName, query = "SELECT a FROM AttributeEntity a"),
 })
-public class Attribute extends AbstractEntity {
+public class AttributeEntity extends AbstractEntity {
 
     private String name;
     @ManyToOne
-    private Relation relation;
+    private RelationEntity relation;
 
-    public Attribute() {
+    public AttributeEntity() {
     }
 
     public String getName() {
@@ -25,11 +25,11 @@ public class Attribute extends AbstractEntity {
         this.name = name;
     }
 
-    public Relation getRelation() {
+    public RelationEntity getRelation() {
         return relation;
     }
 
-    public void setRelation(Relation relation) {
+    public void setRelation(RelationEntity relation) {
         this.relation = relation;
     }
 
