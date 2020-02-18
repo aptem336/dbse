@@ -1,6 +1,6 @@
 package dbse.persist;
 
-import dbse.entity.AttributeEntity;
+import dbse.model.AttributeEntity;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -8,10 +8,6 @@ import javax.persistence.EntityManager;
 
 @Stateless
 public class AttributePersistService extends AbstractPersistService<AttributeEntity> {
-
-    public AttributePersistService() {
-        super(AttributeEntity.class, getAllNamedQueryName);
-    }
 
     @Inject
     private EntityManager em;
@@ -21,5 +17,15 @@ public class AttributePersistService extends AbstractPersistService<AttributeEnt
         return em;
     }
 
-    public static final String getAllNamedQueryName = "getAllAttribute";
+    public static final String allNamedQueryName = "getAllAttribute";
+
+    @Override
+    protected String getAllNamedQueryName() {
+        return allNamedQueryName;
+    }
+
+    @Override
+    protected Class<AttributeEntity> getAbstractEntityClass() {
+        return AttributeEntity.class;
+    }
 }

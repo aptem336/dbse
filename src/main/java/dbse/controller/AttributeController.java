@@ -1,6 +1,6 @@
-package dbse.view;
+package dbse.controller;
 
-import dbse.entity.AttributeEntity;
+import dbse.model.AttributeEntity;
 import dbse.persist.AbstractPersistService;
 import dbse.persist.AttributePersistService;
 
@@ -10,7 +10,7 @@ import javax.inject.Named;
 
 @ViewScoped
 @Named
-public class AttributeViewController extends AbstractViewController<AttributeEntity> {
+public class AttributeController extends AbstractController<AttributeEntity> {
 
     @Override
     AttributeEntity getEntity() {

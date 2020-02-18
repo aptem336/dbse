@@ -7,7 +7,7 @@ import javax.persistence.PersistenceContext;
 
 @DataSourceDefinition(name = "java:global/jdbc/dbse_db",
         className = "org.sqlite.JDBC",
-        url = "jdbc:sqlite:dbse_db.db"
+        url = "jdbc:sqlite:D:\\dbse_db.db"
 )
 public class DataSourceProducer {
     @Produces

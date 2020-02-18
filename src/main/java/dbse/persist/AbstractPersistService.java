@@ -1,40 +1,39 @@
 package dbse.persist;
 
+import dbse.model.AbstractEntity;
+
 import javax.persistence.EntityManager;
 import java.util.List;
 
-public abstract class AbstractPersistService<AbstractEntity> {
-
-    private final Class<AbstractEntity> abstractEntityClass;
-
-    AbstractPersistService(Class<AbstractEntity> abstractEntityClass, String getAllNamedQueryName) {
-        this.abstractEntityClass = abstractEntityClass;
-        this.getAllNamedQueryName = getAllNamedQueryName;
-    }
+public abstract class AbstractPersistService<T extends AbstractEntity> {
 
     protected abstract EntityManager getEntityManager();
 
-    public AbstractEntity persist(AbstractEntity abstractEntity) {
-        getEntityManager().persist(abstractEntity);
-        return abstractEntity;
+    public void persist(T t) {
+        getEntityManager().persist(t);
     }
 
-    public AbstractEntity merge(AbstractEntity abstractEntity) {
-        return getEntityManager().merge(abstractEntity);
+    public void detach(T t) {
+        getEntityManager().detach(t);
     }
 
-    public AbstractEntity remove(AbstractEntity abstractEntity) {
-        getEntityManager().remove(getEntityManager().merge(abstractEntity));
-        return abstractEntity;
+    public T merge(T t) {
+        return getEntityManager().merge(t);
     }
 
-    public List<AbstractEntity> getAll() {
-        return getEntityManager().createNamedQuery(getAllNamedQueryName, abstractEntityClass).getResultList();
+    public void remove(T t) {
+        getEntityManager().remove(getEntityManager().merge(t));
     }
 
-    private final String getAllNamedQueryName;
+    protected abstract String getAllNamedQueryName();
 
-    public AbstractEntity getById(long id) {
-        return getEntityManager().find(abstractEntityClass, id);
+    protected abstract Class<T> getAbstractEntityClass();
+
+    public List<T> selectAll() {
+        return getEntityManager().createNamedQuery(getAllNamedQueryName(), getAbstractEntityClass()).getResultList();
+    }
+
+    public T getById(String id) {
+        return getEntityManager().find(getAbstractEntityClass(), id);
     }
 }

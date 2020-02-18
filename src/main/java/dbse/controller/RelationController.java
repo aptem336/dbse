@@ -1,6 +1,6 @@
-package dbse.view;
+package dbse.controller;
 
-import dbse.entity.RelationEntity;
+import dbse.model.RelationEntity;
 import dbse.persist.AbstractPersistService;
 import dbse.persist.RelationPersistService;
 
@@ -10,7 +10,7 @@ import javax.inject.Named;
 
 @ViewScoped
 @Named
-public class RelationViewController extends AbstractViewController<RelationEntity> {
+public class RelationController extends AbstractController<RelationEntity> {
 
     @Override
     RelationEntity getEntity() {

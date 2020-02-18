@@ -1,4 +1,4 @@
-package dbse.entity;
+package dbse.model;
 
 import dbse.persist.RelationPersistService;
 
@@ -8,7 +8,7 @@ import java.util.List;
 
 @Entity
 @NamedQueries({
-        @NamedQuery(name = RelationPersistService.getAllNamedQueryName, query = "SELECT r FROM RelationEntity r")
+        @NamedQuery(name = RelationPersistService.allNamedQueryName, query = "SELECT r FROM RelationEntity r")
 })
 public class RelationEntity extends AbstractEntity {
 
@@ -52,14 +52,6 @@ public class RelationEntity extends AbstractEntity {
         this.attributes = attributes;
     }
 
-    public void addAttribute(AttributeEntity attribute) {
-        attributes.add(attribute);
-    }
-
-    public void removeAttribute(AttributeEntity attribute) {
-        attributes.remove(attribute);
-    }
-
     @Override
     public String toString() {
         return "Relation{" +
@@ -67,5 +59,11 @@ public class RelationEntity extends AbstractEntity {
                 ", x=" + x +
                 ", y=" + y +
                 '}';
+    }
+
+    @Transient
+    public void shift(int x, int y) {
+        this.x += x;
+        this.y += y;
     }
 }

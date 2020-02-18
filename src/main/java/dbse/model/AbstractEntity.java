@@ -1,4 +1,4 @@
-package dbse.entity;
+package dbse.model;
 
 import javax.persistence.*;
 
@@ -19,14 +19,14 @@ public abstract class AbstractEntity {
     }
 
     @Transient
-    private boolean delete;
+    private boolean present;//TODO: true
 
-    public boolean isDelete() {
-        return delete;
+    public boolean isPresent() {
+        return present;
     }
 
-    public void setDelete(boolean delete) {
-        this.delete = delete;
+    public void setPresent(boolean present) {
+        this.present = present;
     }
 
     @Override
