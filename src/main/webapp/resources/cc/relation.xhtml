@@ -5,18 +5,26 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:composite="http://xmlns.jcp.org/jsf/composite">
 <composite:interface>
+    <composite:attribute name="state"/>
     <composite:attribute name="x"/>
     <composite:attribute name="y"/>
+    <composite:attribute name="remove" method-signature="void remove(dbse.model.RelationEntity)"/>
 </composite:interface>
 <composite:implementation>
-    <h:panelGroup layout="block"
-                  styleClass="relation"
-                  style="left:#{cc.attrs.y}px; top:#{cc.attrs.x}">
-        <h:inputText value="#{cc.attrs.x}"/>
-        <h:inputText value="#{cc.attrs.y}"/>
-        <h:commandButton>
-            <f:ajax render="${cc.clientId}" execute="${cc.clientId}"/>
+    <h:panelGroup id="relation-block"
+                  layout="block"
+                  styleClass="relation-block ${cc.attrs.state}"
+                  style="left:${cc.attrs.x}px; top:${cc.attrs.y}px">
+        <h:inputText id="x"
+                     value="${cc.attrs.x}"/>
+        <h:inputText id="y"
+                     value="${cc.attrs.y}"/>
+        <h:commandButton id="remove"
+                         value="remove"
+                         action="${cc.attrs.remove}">
+            <f:ajax render="${cc.clientId}:relation-block"/>
         </h:commandButton>
+        <h:outputScript>animateRelation("${cc.clientId}:x","${cc.clientId}:y","${cc.clientId}:relation-block");</h:outputScript>
     </h:panelGroup>
 </composite:implementation>
 </html>

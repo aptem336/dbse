@@ -1,6 +1,21 @@
-.relation {
+.relation-block {
     position: absolute;
     border: 1px solid gray;
-    height: 100px;
-    width: 100px;
+}
+
+/*Q states naming*/
+.added {
+    box-shadow: 0 0 5px green;
+}
+
+.changed {
+    box-shadow: 0 0 5px blue;
+}
+
+.removed {
+    opacity: 0.25;
+    pointer-events: none;
+}
+
+.persisted {
 }

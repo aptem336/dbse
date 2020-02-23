@@ -1,6 +1,7 @@
 package dbse.model;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @MappedSuperclass
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -19,14 +20,14 @@ public abstract class AbstractEntity {
     }
 
     @Transient
-    private boolean present;//TODO: true
+    private AbstractEntityState state = AbstractEntityState.persisted;
 
-    public boolean isPresent() {
-        return present;
+    public AbstractEntityState getState() {
+        return state;
     }
 
-    public void setPresent(boolean present) {
-        this.present = present;
+    public void setState(AbstractEntityState state) {
+        this.state = state;
     }
 
     @Override
@@ -34,5 +35,16 @@ public abstract class AbstractEntity {
         return "AbstractEntity{" +
                 "id=" + id +
                 '}';
+    }
+
+    public enum AbstractEntityState {
+        //Q STATES NAMING:
+        // TRANSIENT,
+        // DETACHED,
+        // PERSISTED?
+        added,
+        changed,
+        removed,
+        persisted
     }
 }

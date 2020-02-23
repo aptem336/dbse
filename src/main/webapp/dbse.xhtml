@@ -6,19 +6,33 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:cc="http://xmlns.jcp.org/jsf/composite/cc">
 <h:head>
+    <h:outputStylesheet library="css" name="dbse.css"/>
     <h:outputStylesheet library="css" name="relation.css"/>
+    <h:outputScript library="js" name="dbse.js"/>
+    <h:outputScript library="js" name="relation.js"/>
 </h:head>
 <f:view>
-    <h:form id="relations-wrapper">
+    <h:form id="schema-form"
+            style="height: 100%; width: 100%;">
         <h:commandButton value="+"
                          action="${relationController.create()}">
-            <f:ajax render=":relations-wrapper"/>
+            <f:ajax render=":schema-form:relations-wrapper"/>
         </h:commandButton>
-        <ui:repeat var="relation"
-                   value="${relationController.list}">
-            <cc:relation x="#{relation.x}"
-                         y="#{relation.y}"/>
-        </ui:repeat>
+        <h:commandButton value="save"
+                         action="${relationController.writeAll()}">
+            <f:ajax render=":schema-form:relations-wrapper"/>
+        </h:commandButton>
+        <h:panelGroup id="relations-wrapper">
+            <ui:repeat id="relations-repeater"
+                       var="relation"
+                       value="${relationController.list}">
+                <cc:relation state="${relation.state}"
+                             x="${relation.x}"
+                             y="${relation.y}"
+                             remove="${relationController.remove(relation)}"/>
+            </ui:repeat>
+        </h:panelGroup>
+        <h:outputScript>animateSchemaForm("schema-form");</h:outputScript>
     </h:form>
 </f:view>
 </html>

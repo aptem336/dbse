@@ -4,14 +4,10 @@ import dbse.model.AbstractEntity;
 import dbse.persist.AbstractPersistService;
 
 import javax.annotation.PostConstruct;
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.convert.Converter;
 import java.io.Serializable;
 import java.util.List;
-import java.util.stream.Collectors;
 
-public abstract class AbstractController<T extends AbstractEntity> implements Converter<T>, Serializable {
+public abstract class AbstractController<T extends AbstractEntity> implements Serializable {
 
     abstract T getEntity();
 
@@ -21,6 +17,7 @@ public abstract class AbstractController<T extends AbstractEntity> implements Co
 
     public T create() {
         T t = getEntity();
+        t.setState(AbstractEntity.AbstractEntityState.added);
         add(t);
         return t;
     }
@@ -29,8 +26,8 @@ public abstract class AbstractController<T extends AbstractEntity> implements Co
         list.add(t);
     }
 
-    public void delete(T t) {
-        t.setPresent(false);
+    public void remove(T t) {
+        t.setState(AbstractEntity.AbstractEntityState.removed);
     }
 
     @PostConstruct
@@ -38,32 +35,32 @@ public abstract class AbstractController<T extends AbstractEntity> implements Co
         list = getService().selectAll();
     }
 
-    private void writeAll() {
-        list.forEach(t -> {
-            if (t.isPresent()) {
+    public void writeAll() {
+        list.forEach(this::write);
+        readAll();
+    }
+
+    public void write(T t) {
+        switch (t.getState()) {
+            case added:
+                getService().persist(t);
+                break;
+            case changed:
                 getService().merge(t);
-            } else {
+                break;
+            case removed:
                 getService().remove(t);
-            }
-        });
+                break;
+            case persisted:
+                break;
+        }
     }
 
     public List<T> getList() {
-        return list/*.stream().filter(AbstractEntity::isPresent).collect(Collectors.toList())*/;
+        return list;
     }
 
     public void setList(List<T> list) {
         this.list = list;
-    }
-
-
-    @Override
-    public String getAsString(FacesContext context, UIComponent component, T t) {
-        return t.toString();
-    }
-
-    @Override
-    public T getAsObject(FacesContext context, UIComponent component, String id) {
-        return getService().getById(id);
     }
 }
