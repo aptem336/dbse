@@ -1,6 +1,5 @@
 .relation-block {
     position: absolute;
-    border: 1px solid gray;
 }
 
 /*Q states naming*/
@@ -18,4 +17,5 @@
 }
 
 .persisted {
+    box-shadow: 0 0 5px gray;
 }

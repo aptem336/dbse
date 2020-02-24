@@ -43,8 +43,8 @@ public abstract class AbstractController<T extends AbstractEntity> implements Se
     public void write(T t) {
         switch (t.getState()) {
             case added:
-                getService().persist(t);
-                break;
+//                getService().persist(t);
+//                break;
             case changed:
                 getService().merge(t);
                 break;

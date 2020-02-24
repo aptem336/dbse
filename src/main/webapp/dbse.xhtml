@@ -26,13 +26,14 @@
             <ui:repeat id="relations-repeater"
                        var="relation"
                        value="${relationController.list}">
-                <cc:relation state="${relation.state}"
-                             x="${relation.x}"
+                <cc:relation x="${relation.x}"
                              y="${relation.y}"
-                             remove="${relationController.remove(relation)}"/>
+                             state="${relation.state}"
+                             remove="${relationController.remove(relation)}"
+                             shift="${relationController.shift(relation)}"/>
             </ui:repeat>
         </h:panelGroup>
-        <h:outputScript>animateSchemaForm("schema-form");</h:outputScript>
+        <h:outputScript>animateSchemaForm("schema-form")</h:outputScript>
     </h:form>
 </f:view>
 </html>
