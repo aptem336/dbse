@@ -37,14 +37,16 @@ public abstract class AbstractController<T extends AbstractEntity> implements Se
 
     public void writeAll() {
         list.forEach(this::write);
-        readAll();
+        readAll();//Q STATES PROCESSING?
     }
 
     public void write(T t) {
+        //Q STATES PROCESSING?
         switch (t.getState()) {
             case added:
-//                getService().persist(t);
-//                break;
+                t.setState(AbstractEntity.AbstractEntityState.persisted);
+                getService().persist(t);
+                break;
             case changed:
                 getService().merge(t);
                 break;
