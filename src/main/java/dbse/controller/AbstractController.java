@@ -13,6 +13,14 @@ public abstract class AbstractController<T extends AbstractEntity> implements Se
 
     private List<T> list;
 
+    public List<T> getList() {
+        return list;
+    }
+
+    public void setList(List<T> list) {
+        this.list = list;
+    }
+
     public void add(T t) {
         list.add(t);
     }
@@ -47,13 +55,5 @@ public abstract class AbstractController<T extends AbstractEntity> implements Se
             case persisted:
                 break;
         }
-    }
-
-    public List<T> getList() {
-        return list;
-    }
-
-    public void setList(List<T> list) {
-        this.list = list;
     }
 }

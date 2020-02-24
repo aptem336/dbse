@@ -1,21 +1,3 @@
 .relation-block {
     position: absolute;
 }
-
-/*Q STATES NAMING*/
-.added {
-    box-shadow: 0 0 3px green;
-}
-
-.changed {
-    box-shadow: 0 0 3px blue;
-}
-
-.removed {
-    opacity: 0.25;
-    pointer-events: none;
-}
-
-.persisted {
-    box-shadow: 0 0 1px gray;
-}

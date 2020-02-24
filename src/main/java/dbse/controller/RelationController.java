@@ -24,20 +24,20 @@ public class RelationController extends AbstractController<RelationEntity> {
         return service;
     }
 
-    public void createXY() {
+    public void create() {
         Map<String, String> requestParameterMap = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
         RelationEntity relationEntity = new RelationEntity(Integer.parseInt(requestParameterMap.get("x")), Integer.parseInt(requestParameterMap.get("y")));
         add(relationEntity);
         relationEntity.setState(AbstractEntity.AbstractEntityState.added);//Q STATES PROCESSING?
     }
     
-    public void shiftXY(RelationEntity relationEntity) {
+    public void shift(RelationEntity relationEntity) {
         Map<String, String> requestParameterMap = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
         relationEntity.shift(Integer.parseInt(requestParameterMap.get("x")), Integer.parseInt(requestParameterMap.get("y")));
         relationEntity.setState(AbstractEntity.AbstractEntityState.changed);//Q STATES PROCESSING?
     }
 
-    public void addAttribute(RelationEntity relationEntity) {
+    public void create(RelationEntity relationEntity) {
         relationEntity.getAttributes().add(new AttributeEntity(relationEntity));
         relationEntity.setState(AbstractEntity.AbstractEntityState.changed);//Q STATES PROCESSING?
     }

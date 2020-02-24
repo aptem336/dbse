@@ -1,9 +1,9 @@
 let schema_form;
-const animateSchemaForm = (schema_form_, createXY) => {
+const animateSchemaForm = (schema_form_, create) => {
     schema_form = schema_form_;
     schema_form.ondblclick = (e) => {
         if (e.target === schema_form) {
-            createXY({x: e.pageX, y: e.pageY})
+            create({x: e.pageX, y: e.pageY})
         }
     };
 };
@@ -13,7 +13,7 @@ const relationSchemaFormDragOverListener = (e) => {
 const relationSchemaDropListener = (e) => {
     const data = JSON.parse(e.dataTransfer.getData("text/plain"));
     const relation_block = document.getElementById(data.relation_block_id);
-    relation_block.shiftXY(e.pageX - data.pageX, e.pageY - data.pageY);
+    relation_block.shift(e.pageX - data.pageX, e.pageY - data.pageY);
 };
 const startRelationSchemaFormDragging = () => {
     schema_form.addEventListener("drop", relationSchemaDropListener);

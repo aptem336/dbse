@@ -4,43 +4,37 @@
 <html xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:composite="http://xmlns.jcp.org/jsf/composite">
+      xmlns:composite="http://xmlns.jcp.org/jsf/composite"
+      xmlns:cc="http://xmlns.jcp.org/jsf/composite/cc">
 <composite:interface>
-    <composite:attribute name="x" type="java.lang.Integer"/>
-    <composite:attribute name="y" type="java.lang.Integer"/>
-    <composite:attribute name="state" type="java.lang.String"/>
-    <composite:attribute name="remove" method-signature="void remove(dbse.model.RelationEntity)"/>
-    <composite:attribute name="shiftXY" method-signature="void shiftXY(dbse.model.RelationEntity)"/>
-    <composite:attribute name="relationAttributes" type="java.util.List"/>
-    <composite:attribute name="addAttribute" method-signature="void addAttribute(dbse.model.RelationEntity)"/>
+    <composite:attribute name="relation" type="dbse.model.RelationEntity"/>
 </composite:interface>
 <composite:implementation>
     <h:panelGroup id="relation-block"
                   layout="block"
-                  styleClass="relation-block ${cc.attrs.state}"
-                  style="left:${cc.attrs.x}px; top:${cc.attrs.y}px">
-        <h:commandButton id="remove"
-                         value="remove"
-                         action="${cc.attrs.remove}">
+                  styleClass="relation-block ${cc.attrs.relation.state}"
+                  style="left:${cc.attrs.relation.x}px; top:${cc.attrs.relation.y}px">
+        <h:commandButton value="x"
+                         action="${relationController.remove(cc.attrs.relation)}">
             <f:ajax render="${cc.clientId}:relation-block"/>
         </h:commandButton>
-        <h:commandScript name="shiftXY"
-                         render="${cc.clientId}:relation-block"
-                         action="${cc.attrs.shiftXY}"/>
-        <h:outputScript>animateRelation(document.getElementById("${cc.clientId}:relation-block"), shiftXY)</h:outputScript>
 
-        <h:commandButton id="addAttribute"
-                         value="addAttribute"
-                         action="${cc.attrs.addAttribute}">
-            <f:ajax render="${cc.clientId}:attributes-wrapper"/>
-        </h:commandButton>
-        <h:panelGroup id="attributes-wrapper">
-            <ui:repeat id="attributes-repeater"
-                       var="attribute"
-                       value="${cc.attrs.relationAttributes}">
-                <h:inputText value="${attribute.name}"/>
+        <h:panelGroup id="attributes-wrapper"
+                      layout="block">
+            <ui:repeat var="attribute"
+                       value="${cc.attrs.relation.attributes}">
+                <cc:attribute attribute="${attribute}"/>
             </ui:repeat>
         </h:panelGroup>
+        <h:commandButton value="+"
+                         action="${relationController.create(cc.attrs.relation)}">
+            <f:ajax render="${cc.clientId}:attributes-wrapper"/>
+        </h:commandButton>
+
+        <h:commandScript name="shift"
+                         render="${cc.clientId}:relation-block"
+                         action="${relationController.shift(cc.attrs.relation)}"/>
+        <h:outputScript>animateRelation(document.getElementById("${cc.clientId}:relation-block"), shift)</h:outputScript>
     </h:panelGroup>
 </composite:implementation>
 </html>

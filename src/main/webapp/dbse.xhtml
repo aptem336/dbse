@@ -8,33 +8,31 @@
 <h:head>
     <h:outputStylesheet library="css" name="dbse.css"/>
     <h:outputStylesheet library="css" name="relation.css"/>
+    <h:outputStylesheet library="css" name="attribute.css"/>
+
     <h:outputScript library="js" name="dbse.js"/>
     <h:outputScript library="js" name="relation.js"/>
+    <h:outputScript library="js" name="attribute.js"/>
 </h:head>
 <f:view>
     <h:form id="schema-form"
             style="height: 100%; width: 100%;">
-        <h:commandScript name="createXY"
-                         render=":schema-form:relations-wrapper"
-                         action="${relationController.createXY()}"/>
         <h:commandButton value="save"
                          action="${relationController.writeAll()}">
             <f:ajax render=":schema-form:relations-wrapper"/>
         </h:commandButton>
+
         <h:panelGroup id="relations-wrapper">
-            <ui:repeat id="relations-repeater"
-                       var="relation"
+            <ui:repeat var="attribute"
                        value="${relationController.list}">
-                <cc:relation x="${relation.x}"
-                             y="${relation.y}"
-                             state="${relation.state.toString()}"
-                             remove="${relationController.remove(relation)}"
-                             shiftXY="${relationController.shiftXY(relation)}"
-                             relationAttributes="${relation.attributes}"
-                             addAttribute="${relationController.addAttribute(relation)}"/>
+                <cc:relation relation="${attribute}"/>
             </ui:repeat>
         </h:panelGroup>
-        <h:outputScript>animateSchemaForm(document.getElementById("schema-form"), createXY)</h:outputScript>
+
+        <h:commandScript name="create"
+                         render=":schema-form:relations-wrapper"
+                         action="${relationController.create()}"/>
+        <h:outputScript>animateSchemaForm(document.getElementById("schema-form"), create)</h:outputScript>
     </h:form>
 </f:view>
 </html>
