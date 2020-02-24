@@ -27,9 +27,11 @@
                        value="${relationController.list}">
                 <cc:relation x="${relation.x}"
                              y="${relation.y}"
-                             state="${relation.state}"
+                             state="${relation.state.toString()}"
                              remove="${relationController.remove(relation)}"
-                             shiftXY="${relationController.shiftXY(relation)}"/>
+                             shiftXY="${relationController.shiftXY(relation)}"
+                             relationAttributes="${relation.attributes}"
+                             addAttribute="${relationController.addAttribute(relation)}"/>
             </ui:repeat>
         </h:panelGroup>
         <h:outputScript>animateSchemaForm(document.getElementById("schema-form"), createXY)</h:outputScript>

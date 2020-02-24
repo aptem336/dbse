@@ -1,7 +1,11 @@
 let schema_form;
 const animateSchemaForm = (schema_form_, createXY) => {
     schema_form = schema_form_;
-    schema_form.ondblclick = (e) => createXY({x: e.pageX, y: e.pageY});
+    schema_form.ondblclick = (e) => {
+        if (e.target === schema_form) {
+            createXY({x: e.pageX, y: e.pageY})
+        }
+    };
 };
 const relationSchemaFormDragOverListener = (e) => {
     e.preventDefault();

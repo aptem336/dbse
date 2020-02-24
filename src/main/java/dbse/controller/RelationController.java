@@ -1,6 +1,7 @@
 package dbse.controller;
 
 import dbse.model.AbstractEntity;
+import dbse.model.AttributeEntity;
 import dbse.model.RelationEntity;
 import dbse.persist.AbstractPersistService;
 import dbse.persist.RelationPersistService;
@@ -33,6 +34,11 @@ public class RelationController extends AbstractController<RelationEntity> {
     public void shiftXY(RelationEntity relationEntity) {
         Map<String, String> requestParameterMap = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
         relationEntity.shift(Integer.parseInt(requestParameterMap.get("x")), Integer.parseInt(requestParameterMap.get("y")));
+        relationEntity.setState(AbstractEntity.AbstractEntityState.changed);//Q STATES PROCESSING?
+    }
+
+    public void addAttribute(RelationEntity relationEntity) {
+        relationEntity.getAttributes().add(new AttributeEntity(relationEntity));
         relationEntity.setState(AbstractEntity.AbstractEntityState.changed);//Q STATES PROCESSING?
     }
 }
