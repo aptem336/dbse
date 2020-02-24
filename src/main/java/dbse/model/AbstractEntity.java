@@ -1,11 +1,14 @@
 package dbse.model;
 
 import javax.persistence.*;
-import java.util.Objects;
 
 @MappedSuperclass
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class AbstractEntity {
+
+    {
+        state = AbstractEntityState.persisted;//Q STATES PROCESSING?
+    }
 
     @Id
     @GeneratedValue
@@ -20,7 +23,7 @@ public abstract class AbstractEntity {
     }
 
     @Transient
-    private AbstractEntityState state = AbstractEntityState.persisted;
+    private AbstractEntityState state;
 
     public AbstractEntityState getState() {
         return state;

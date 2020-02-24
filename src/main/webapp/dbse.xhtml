@@ -14,10 +14,9 @@
 <f:view>
     <h:form id="schema-form"
             style="height: 100%; width: 100%;">
-        <h:commandButton value="+"
-                         action="${relationController.create()}">
-            <f:ajax render=":schema-form:relations-wrapper"/>
-        </h:commandButton>
+        <h:commandScript name="createXY"
+                         render=":schema-form:relations-wrapper"
+                         action="${relationController.createXY()}"/>
         <h:commandButton value="save"
                          action="${relationController.writeAll()}">
             <f:ajax render=":schema-form:relations-wrapper"/>
@@ -30,10 +29,10 @@
                              y="${relation.y}"
                              state="${relation.state}"
                              remove="${relationController.remove(relation)}"
-                             shift="${relationController.shift(relation)}"/>
+                             shiftXY="${relationController.shiftXY(relation)}"/>
             </ui:repeat>
         </h:panelGroup>
-        <h:outputScript>animateSchemaForm("schema-form")</h:outputScript>
+        <h:outputScript>animateSchemaForm(document.getElementById("schema-form"), createXY)</h:outputScript>
     </h:form>
 </f:view>
 </html>

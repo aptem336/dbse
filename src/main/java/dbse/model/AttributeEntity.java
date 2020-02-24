@@ -17,6 +17,10 @@ public class AttributeEntity extends AbstractEntity {
     public AttributeEntity() {
     }
 
+    public AttributeEntity(RelationEntity relation) {
+        this.relation = relation;
+    }
+
     public String getName() {
         return name;
     }

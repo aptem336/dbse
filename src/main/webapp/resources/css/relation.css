@@ -4,11 +4,11 @@
 
 /*Q STATES NAMING*/
 .added {
-    box-shadow: 0 0 5px green;
+    box-shadow: 0 0 3px green;
 }
 
 .changed {
-    box-shadow: 0 0 5px blue;
+    box-shadow: 0 0 3px blue;
 }
 
 .removed {
@@ -17,5 +17,5 @@
 }
 
 .persisted {
-    box-shadow: 0 0 5px gray;
+    box-shadow: 0 0 1px gray;
 }

@@ -1,4 +1,4 @@
-const animateRelation = (relation_block, shift) => {
+const animateRelation = (relation_block, shiftXY) => {
     relation_block.draggable = true;
     relation_block.ondragstart = (e) => {
         e.dataTransfer.setData("text/plain", JSON.stringify({
@@ -11,5 +11,5 @@ const animateRelation = (relation_block, shift) => {
     relation_block.ondragend = (e) => {
         stopRelationSchemaFormDragging();
     };
-    relation_block.shift = (x, y) => shift({x: x, y: y});
+    relation_block.shiftXY = (x, y) => shiftXY({x: x, y: y});
 };

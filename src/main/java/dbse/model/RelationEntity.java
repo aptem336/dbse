@@ -18,8 +18,6 @@ public class RelationEntity extends AbstractEntity {
     private List<AttributeEntity> attributes = new ArrayList<>();
 
     public RelationEntity() {
-        this.x = (int) (Math.random() * 500);
-        this.y = (int) (Math.random() * 500);
     }
 
     public RelationEntity(int x, int y) {

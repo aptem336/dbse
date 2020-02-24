@@ -12,11 +12,6 @@ import javax.inject.Named;
 @Named
 public class AttributeController extends AbstractController<AttributeEntity> {
 
-    @Override
-    AttributeEntity getEntity() {
-        return new AttributeEntity();
-    }
-
     @Inject
     private AttributePersistService service;
 

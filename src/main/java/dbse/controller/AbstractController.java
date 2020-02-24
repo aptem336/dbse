@@ -9,18 +9,9 @@ import java.util.List;
 
 public abstract class AbstractController<T extends AbstractEntity> implements Serializable {
 
-    abstract T getEntity();
-
     abstract AbstractPersistService<T> getService();
 
     private List<T> list;
-
-    public T create() {
-        T t = getEntity();
-        t.setState(AbstractEntity.AbstractEntityState.added);
-        add(t);
-        return t;
-    }
 
     public void add(T t) {
         list.add(t);

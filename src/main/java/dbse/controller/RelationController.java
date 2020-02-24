@@ -15,11 +15,6 @@ import java.util.Map;
 @Named
 public class RelationController extends AbstractController<RelationEntity> {
 
-    @Override
-    RelationEntity getEntity() {
-        return new RelationEntity();
-    }
-
     @Inject
     private RelationPersistService service;
 
@@ -28,9 +23,16 @@ public class RelationController extends AbstractController<RelationEntity> {
         return service;
     }
 
-    public void shift(RelationEntity relationEntity) {
+    public void createXY() {
+        Map<String, String> requestParameterMap = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+        RelationEntity relationEntity = new RelationEntity(Integer.parseInt(requestParameterMap.get("x")), Integer.parseInt(requestParameterMap.get("y")));
+        add(relationEntity);
+        relationEntity.setState(AbstractEntity.AbstractEntityState.added);//Q STATES PROCESSING?
+    }
+    
+    public void shiftXY(RelationEntity relationEntity) {
         Map<String, String> requestParameterMap = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
         relationEntity.shift(Integer.parseInt(requestParameterMap.get("x")), Integer.parseInt(requestParameterMap.get("y")));
-        relationEntity.setState(AbstractEntity.AbstractEntityState.changed);
+        relationEntity.setState(AbstractEntity.AbstractEntityState.changed);//Q STATES PROCESSING?
     }
 }
