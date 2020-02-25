@@ -36,11 +36,10 @@ public abstract class AbstractController<T extends AbstractEntity> implements Se
 
     public void writeAll() {
         list.forEach(this::write);
-        readAll();//Q STATES PROCESSING?
+        readAll();
     }
 
     public void write(T t) {
-        //Q STATES PROCESSING?
         switch (t.getState()) {
             case added:
                 t.setState(AbstractEntity.AbstractEntityState.persisted);

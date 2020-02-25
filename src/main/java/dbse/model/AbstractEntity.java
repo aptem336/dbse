@@ -7,7 +7,7 @@ import javax.persistence.*;
 public abstract class AbstractEntity {
 
     {
-        state = AbstractEntityState.persisted;//Q STATES PROCESSING?
+        state = AbstractEntityState.persisted;
     }
 
     @Id
@@ -41,10 +41,6 @@ public abstract class AbstractEntity {
     }
 
     public enum AbstractEntityState {
-        //Q STATES NAMING:
-        // TRANSIENT,
-        // DETACHED,
-        // PERSISTED?
         added,
         changed,
         removed,

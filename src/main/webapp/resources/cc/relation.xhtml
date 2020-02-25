@@ -18,6 +18,10 @@
                          action="${relationController.remove(cc.attrs.relation)}">
             <f:ajax render="${cc.clientId}:relation-block"/>
         </h:commandButton>
+        <h:commandButton value="+"
+                         action="${relationController.create(cc.attrs.relation)}">
+            <f:ajax render="${cc.clientId}:relation-block"/>
+        </h:commandButton>
 
         <h:panelGroup id="attributes-wrapper"
                       layout="block">
@@ -26,10 +30,6 @@
                 <cc:attribute attribute="${attribute}"/>
             </ui:repeat>
         </h:panelGroup>
-        <h:commandButton value="+"
-                         action="${relationController.create(cc.attrs.relation)}">
-            <f:ajax render="${cc.clientId}:attributes-wrapper"/>
-        </h:commandButton>
 
         <h:commandScript name="shift"
                          render="${cc.clientId}:relation-block"
