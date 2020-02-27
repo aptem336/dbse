@@ -8,21 +8,31 @@ import java.util.List;
 
 @Entity
 @NamedQueries({
-        @NamedQuery(name = RelationPersistService.allNamedQueryName, query = "SELECT r FROM RelationEntity r")
+        @NamedQuery(name = RelationPersistService.allNamedQueryName, query = "SELECT r FROM Relation r")
 })
-public class RelationEntity extends AbstractEntity {
+public class Relation extends AbstractEntity {
 
-    private String name;
-    private int x, y;
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "relation")
-    private List<AttributeEntity> attributes = new ArrayList<>();
-
-    public RelationEntity() {
+    @Transient
+    public void shift(int x, int y) {//Q
+        this.x += x;
+        this.y += y;
     }
 
-    public RelationEntity(int x, int y) {
-        this.x = x;
-        this.y = y;
+    private String name;
+
+    private int x, y;
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "relation")
+    private List<Attribute> attributes = new ArrayList<>();
+    @ManyToOne
+    private Schema schema;
+
+    public Relation() {
+    }
+
+    public Relation(Schema schema, int x, int y) {
+        setSchema(schema);
+        setX(x);
+        setY(y);
     }
 
     public String getName() {
@@ -49,12 +59,20 @@ public class RelationEntity extends AbstractEntity {
         this.y = y;
     }
 
-    public List<AttributeEntity> getAttributes() {
+    public List<Attribute> getAttributes() {
         return attributes;
     }
 
-    public void setAttributes(List<AttributeEntity> attributes) {
+    public void setAttributes(List<Attribute> attributes) {
         this.attributes = attributes;
+    }
+
+    public Schema getSchema() {
+        return schema;
+    }
+
+    public void setSchema(Schema schema) {
+        this.schema = schema;
     }
 
     @Override
@@ -64,11 +82,5 @@ public class RelationEntity extends AbstractEntity {
                 ", x=" + x +
                 ", y=" + y +
                 '}';
-    }
-
-    @Transient
-    public void shift(int x, int y) {
-        this.x += x;
-        this.y += y;
     }
 }

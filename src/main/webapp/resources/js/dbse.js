@@ -7,6 +7,7 @@ const animateSchemaForm = (schema_form_, create) => {
         }
     };
 };
+
 const relationSchemaFormDragOverListener = (e) => {
     e.preventDefault();
 };
@@ -22,4 +23,21 @@ const startRelationSchemaFormDragging = () => {
 const stopRelationSchemaFormDragging = () => {
     schema_form.removeEventListener("drop", relationSchemaDropListener);
     schema_form.removeEventListener("dragover", relationSchemaFormDragOverListener);
+};
+
+const attributeSchemaFormDragOverListener = (e) => {
+    e.preventDefault();
+};
+const attributeSchemaDropListener = (e) => {
+    const data = JSON.parse(e.dataTransfer.getData("text/plain"));
+    const attribute_block = document.getElementById(data.attribute_block_id);
+    attribute_block.remove();
+};
+const startAttributeSchemaFormDragging = () => {
+    schema_form.addEventListener("drop", attributeSchemaDropListener);
+    schema_form.addEventListener("dragover", attributeSchemaFormDragOverListener);
+};
+const stopAttributeSchemaFormDragging = () => {
+    schema_form.removeEventListener("drop", attributeSchemaDropListener);
+    schema_form.removeEventListener("dragover", attributeSchemaFormDragOverListener);
 };

@@ -15,6 +15,7 @@ html, body {
 .removed {
     opacity: 0.25;
     pointer-events: none;
+    border: 5px solid #b15b2e;
 }
 
 .persisted {

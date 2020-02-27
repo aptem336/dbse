@@ -1,13 +1,13 @@
 package dbse.persist;
 
-import dbse.model.AttributeEntity;
+import dbse.model.Attribute;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 
 @Stateless
-public class AttributePersistService extends AbstractPersistService<AttributeEntity> {
+public class AttributePersistService extends AbstractPersistService<Attribute> {
 
     @Inject
     private EntityManager em;
@@ -17,7 +17,7 @@ public class AttributePersistService extends AbstractPersistService<AttributeEnt
         return em;
     }
 
-    public static final String allNamedQueryName = "getAllAttribute";
+    public static final String allNamedQueryName = "getAllAttributes";
 
     @Override
     protected String getAllNamedQueryName() {
@@ -25,7 +25,7 @@ public class AttributePersistService extends AbstractPersistService<AttributeEnt
     }
 
     @Override
-    protected Class<AttributeEntity> getAbstractEntityClass() {
-        return AttributeEntity.class;
+    protected Class<Attribute> getAbstractEntityClass() {
+        return Attribute.class;
     }
 }

@@ -1,13 +1,13 @@
 package dbse.persist;
 
-import dbse.model.Relation;
+import dbse.model.Schema;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 
 @Stateless
-public class RelationPersistService extends AbstractPersistService<Relation> {
+public class SchemaPersistService extends AbstractPersistService<Schema> {
 
     @Inject
     private EntityManager em;
@@ -17,7 +17,7 @@ public class RelationPersistService extends AbstractPersistService<Relation> {
         return em;
     }
 
-    public static final String allNamedQueryName = "getAllRelations";
+    public static final String allNamedQueryName = "getAllSchemas";
 
     @Override
     protected String getAllNamedQueryName() {
@@ -25,7 +25,7 @@ public class RelationPersistService extends AbstractPersistService<Relation> {
     }
 
     @Override
-    protected Class<Relation> getAbstractEntityClass() {
-        return Relation.class;
+    protected Class<Schema> getAbstractEntityClass() {
+        return Schema.class;
     }
 }

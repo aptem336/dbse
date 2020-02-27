@@ -7,7 +7,7 @@
       xmlns:composite="http://xmlns.jcp.org/jsf/composite"
       xmlns:cc="http://xmlns.jcp.org/jsf/composite/cc">
 <composite:interface>
-    <composite:attribute name="relation" type="dbse.model.RelationEntity"/>
+    <composite:attribute name="relation" type="dbse.model.Relation"/>
 </composite:interface>
 <composite:implementation>
     <h:panelGroup id="relation-block"
@@ -19,7 +19,7 @@
             <f:ajax render="${cc.clientId}:relation-block"/>
         </h:commandButton>
         <h:commandButton value="+"
-                         action="${relationController.create(cc.attrs.relation)}">
+                         action="${attributeController.create(cc.attrs.relation)}">
             <f:ajax render="${cc.clientId}:relation-block"/>
         </h:commandButton>
 

@@ -9,37 +9,7 @@ import java.util.List;
 
 public abstract class AbstractController<T extends AbstractEntity> implements Serializable {
 
-    abstract AbstractPersistService<T> getService();
-
-    private List<T> list;
-
-    public List<T> getList() {
-        return list;
-    }
-
-    public void setList(List<T> list) {
-        this.list = list;
-    }
-
-    public void add(T t) {
-        list.add(t);
-    }
-
-    public void remove(T t) {
-        t.setState(AbstractEntity.AbstractEntityState.removed);
-    }
-
-    @PostConstruct
-    private void readAll() {
-        list = getService().selectAll();
-    }
-
-    public void writeAll() {
-        list.forEach(this::write);
-        readAll();
-    }
-
-    public void write(T t) {
+    public void syncWithDataSource(T t) {
         switch (t.getState()) {
             case added:
                 t.setState(AbstractEntity.AbstractEntityState.persisted);
@@ -55,4 +25,30 @@ public abstract class AbstractController<T extends AbstractEntity> implements Se
                 break;
         }
     }
+
+    @PostConstruct
+    private void getListFromDataSource() {
+        list = getService().selectAll();
+    }
+
+    private List<T> list;
+
+    public List<T> getList() {
+        return list;
+    }
+
+    public void setList(List<T> list) {
+        this.list = list;
+    }
+
+    public void add(T t) {
+        list.add(t);
+        t.setState(AbstractEntity.AbstractEntityState.added);
+    }
+
+    public void remove(T t) {
+        t.setState(AbstractEntity.AbstractEntityState.removed);
+    }
+
+    protected abstract AbstractPersistService<T> getService();
 }

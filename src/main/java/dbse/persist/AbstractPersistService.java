@@ -7,8 +7,6 @@ import java.util.List;
 
 public abstract class AbstractPersistService<T extends AbstractEntity> {
 
-    protected abstract EntityManager getEntityManager();
-
     public void persist(T t) {
         getEntityManager().persist(t);
     }
@@ -36,4 +34,6 @@ public abstract class AbstractPersistService<T extends AbstractEntity> {
     public T getById(String id) {
         return getEntityManager().find(getAbstractEntityClass(), id);
     }
+
+    protected abstract EntityManager getEntityManager();
 }
