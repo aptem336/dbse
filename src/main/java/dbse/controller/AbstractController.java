@@ -17,7 +17,6 @@ public abstract class AbstractController<T extends AbstractEntity> implements Se
                 getService().merge(t);
                 break;
             case REMOVED:
-                break;
             case DETACHED:
                 break;
         }

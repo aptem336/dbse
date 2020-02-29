@@ -19,6 +19,7 @@
             <f:ajax render="${cc.clientId}:relation-block"/>
         </h:commandButton>
         <h:commandButton value="save"
+                         rendered="#{cc.attrs.relation.schema.persisted}"
                          action="${relationController.commit(cc.attrs.relation)}">
             <f:ajax render="${cc.clientId}:relation-block"/>
         </h:commandButton>

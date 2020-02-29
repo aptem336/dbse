@@ -14,6 +14,7 @@
                   styleClass="attribute-block ${cc.attrs.attribute.state}">
         <h:inputText value="${cc.attrs.attribute.name}"/>
         <h:commandButton value="save"
+                         rendered="#{cc.attrs.attribute.relation.persisted}"
                          action="${attributeController.commit(cc.attrs.attribute)}">
             <f:ajax render="${cc.clientId}:attribute-block"/>
         </h:commandButton>
