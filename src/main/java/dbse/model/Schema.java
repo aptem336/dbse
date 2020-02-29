@@ -12,7 +12,18 @@ import java.util.List;
 })
 public class Schema extends AbstractEntity {
 
+    public void addRelation(Relation relation) {
+        relations.add(relation);
+        relation.setSchema(this);
+    }
+
+    public void removeRelation(Relation relation) {
+        relations.remove(relation);
+        relation.setSchema(null);
+    }
+
     private String name;
+
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "schema")
     private List<Relation> relations = new ArrayList<>();
 
@@ -31,4 +42,5 @@ public class Schema extends AbstractEntity {
     public void setRelations(List<Relation> relations) {
         this.relations = relations;
     }
+
 }

@@ -14,12 +14,12 @@
     <h:outputScript library="js" name="relation.js"/>
     <h:outputScript library="js" name="attribute.js"/>
 </h:head>
-<c:set var="schema" value="#{schemaController.list.get(0)}"/>
+<c:set var="schema" value="#{schemaController.schema}"/>
 <f:view>
     <h:form id="schema-form"
             style="height: 100%; width: 100%;">
         <h:commandButton value="save"
-                         action="${schemaController.syncWithDataSource(schema)}">
+                         action="${schemaController.commit(schema)}">
             <f:ajax render=":schema-form:relations-wrapper"/>
         </h:commandButton>
         <h:panelGroup id="relations-wrapper">

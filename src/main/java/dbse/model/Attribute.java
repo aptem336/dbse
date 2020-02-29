@@ -19,10 +19,6 @@ public class Attribute extends AbstractEntity {
     public Attribute() {
     }
 
-    public Attribute(Relation relation) {
-        this.relation = relation;
-    }
-
     public String getName() {
         return name;
     }

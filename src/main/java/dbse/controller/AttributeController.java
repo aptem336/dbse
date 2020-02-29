@@ -15,8 +15,9 @@ import javax.inject.Named;
 public class AttributeController extends AbstractController<Attribute> {
 
     public void create(Relation relation) {
-        relation.getAttributes().add(new Attribute(relation));
-        relation.setState(AbstractEntity.AbstractEntityState.changed);
+        Attribute attribute = new Attribute();
+        relation.addAttribute(attribute);
+        attribute.setState(AbstractEntity.AbstractEntityState.TRANSIENT);
     }
 
     @Inject

@@ -13,6 +13,10 @@
                   layout="block"
                   styleClass="attribute-block ${cc.attrs.attribute.state}">
         <h:inputText value="${cc.attrs.attribute.name}"/>
+        <h:commandButton value="save"
+                         action="${attributeController.commit(cc.attrs.attribute)}">
+            <f:ajax render="${cc.clientId}:attribute-block"/>
+        </h:commandButton>
         <h:commandButton id="remove"
                          value="x"
                          action="${attributeController.remove(cc.attrs.attribute)}">

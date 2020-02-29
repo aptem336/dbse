@@ -4,22 +4,23 @@ html, body {
     margin: 0;
     background: #313335;
 }
-.added {
+
+.TRANSIENT {
     border: 5px solid #384c38;
 }
 
-.changed {
-    border: 5px solid #374752;
+.PERSISTENT {
+    border: 5px solid #313335;
 }
 
-.removed {
+.REMOVED {
     opacity: 0.25;
     pointer-events: none;
     border: 5px solid #b15b2e;
 }
 
-.persisted {
-    border: 5px solid #323232;
+.DETACHED {
+    border: 5px solid #313335;
 }
 
 input {

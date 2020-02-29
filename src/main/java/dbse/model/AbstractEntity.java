@@ -7,7 +7,7 @@ import javax.persistence.*;
 public abstract class AbstractEntity {
 
     {
-        state = AbstractEntityState.persisted;
+        state = AbstractEntityState.PERSISTENT;
     }
 
     @Id
@@ -41,9 +41,9 @@ public abstract class AbstractEntity {
     }
 
     public enum AbstractEntityState {
-        added,
-        changed,
-        removed,
-        persisted
+        TRANSIENT,
+        PERSISTENT,
+        REMOVED,
+        DETACHED
     }
 }

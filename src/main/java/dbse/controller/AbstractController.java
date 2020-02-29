@@ -3,51 +3,28 @@ package dbse.controller;
 import dbse.model.AbstractEntity;
 import dbse.persist.AbstractPersistService;
 
-import javax.annotation.PostConstruct;
 import java.io.Serializable;
-import java.util.List;
 
 public abstract class AbstractController<T extends AbstractEntity> implements Serializable {
 
-    public void syncWithDataSource(T t) {
+    public void commit(T t) {
         switch (t.getState()) {
-            case added:
-                t.setState(AbstractEntity.AbstractEntityState.persisted);
+            case TRANSIENT:
+                t.setState(AbstractEntity.AbstractEntityState.PERSISTENT);
                 getService().persist(t);
                 break;
-            case changed:
+            case PERSISTENT:
                 getService().merge(t);
                 break;
-            case removed:
-                getService().remove(t);
+            case REMOVED:
                 break;
-            case persisted:
+            case DETACHED:
                 break;
         }
     }
 
-    @PostConstruct
-    private void getListFromDataSource() {
-        list = getService().selectAll();
-    }
-
-    private List<T> list;
-
-    public List<T> getList() {
-        return list;
-    }
-
-    public void setList(List<T> list) {
-        this.list = list;
-    }
-
-    public void add(T t) {
-        list.add(t);
-        t.setState(AbstractEntity.AbstractEntityState.added);
-    }
-
     public void remove(T t) {
-        t.setState(AbstractEntity.AbstractEntityState.removed);
+        t.setState(AbstractEntity.AbstractEntityState.REMOVED);
     }
 
     protected abstract AbstractPersistService<T> getService();

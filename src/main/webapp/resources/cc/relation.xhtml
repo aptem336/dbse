@@ -18,6 +18,10 @@
                          action="${relationController.remove(cc.attrs.relation)}">
             <f:ajax render="${cc.clientId}:relation-block"/>
         </h:commandButton>
+        <h:commandButton value="save"
+                         action="${relationController.commit(cc.attrs.relation)}">
+            <f:ajax render="${cc.clientId}:relation-block"/>
+        </h:commandButton>
         <h:commandButton value="+"
                          action="${attributeController.create(cc.attrs.relation)}">
             <f:ajax render="${cc.clientId}:relation-block"/>

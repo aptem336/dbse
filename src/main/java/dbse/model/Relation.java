@@ -12,6 +12,16 @@ import java.util.List;
 })
 public class Relation extends AbstractEntity {
 
+    public void addAttribute(Attribute attribute) {
+        attributes.add(attribute);
+        attribute.setRelation(this);
+    }
+
+    public void removeAttribute(Attribute attribute) {
+        attributes.remove(attribute);
+        attribute.setRelation(null);
+    }
+
     @Transient
     public void shift(int x, int y) {//Q
         this.x += x;
@@ -29,8 +39,7 @@ public class Relation extends AbstractEntity {
     public Relation() {
     }
 
-    public Relation(Schema schema, int x, int y) {
-        setSchema(schema);
+    public Relation(int x, int y) {
         setX(x);
         setY(y);
     }

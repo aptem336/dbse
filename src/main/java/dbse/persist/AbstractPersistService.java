@@ -15,8 +15,8 @@ public abstract class AbstractPersistService<T extends AbstractEntity> {
         getEntityManager().detach(t);
     }
 
-    public void merge(T t) {
-        getEntityManager().merge(t);
+    public T merge(T t) {
+        return getEntityManager().merge(t);
     }
 
     public void remove(T t) {
