@@ -23,16 +23,24 @@ public class RelationController extends AbstractController<Relation> {
     private AttributeController attributeController;
 
     @Override
+    void prepareToCommit(Relation relation) {
+        List<Attribute> attributes = new ArrayList<>(relation.getAttributes());
+        attributes.stream()
+                .filter(attribute -> attribute.getState() == AbstractEntity.AbstractEntityState.REMOVED)
+                .forEach(relation::removeAttribute);
+        attributes.forEach(attribute -> {
+            attributeController.prepareToCommit(attribute);
+            attribute.setState(AbstractEntity.AbstractEntityState.PERSISTENT);
+        });
+    }
+
+    @Override
     public void commit(Relation relation) {
         List<Attribute> attributes = new ArrayList<>(relation.getAttributes());
         attributes.stream()
                 .filter(attribute -> attribute.getState() == AbstractEntity.AbstractEntityState.REMOVED)
                 .forEach(relation::removeAttribute);
         super.commit(relation);
-        relation.getAttributes().forEach(attribute -> {
-            attribute.setState(AbstractEntity.AbstractEntityState.PERSISTENT);
-            attributeController.commit(attribute);
-        });
     }
 
     public void create(Schema schema) {
