@@ -19,30 +19,6 @@ import java.util.Map;
 @Named
 public class RelationController extends AbstractController<Relation> {
 
-    @Inject
-    private AttributeController attributeController;
-
-    @Override
-    void prepareToCommit(Relation relation) {
-        List<Attribute> attributes = new ArrayList<>(relation.getAttributes());
-        attributes.stream()
-                .filter(attribute -> attribute.getState() == AbstractEntity.AbstractEntityState.REMOVED)
-                .forEach(relation::removeAttribute);
-        attributes.forEach(attribute -> {
-            attributeController.prepareToCommit(attribute);
-            attribute.setState(AbstractEntity.AbstractEntityState.PERSISTENT);
-        });
-    }
-
-    @Override
-    public void commit(Relation relation) {
-        List<Attribute> attributes = new ArrayList<>(relation.getAttributes());
-        attributes.stream()
-                .filter(attribute -> attribute.getState() == AbstractEntity.AbstractEntityState.REMOVED)
-                .forEach(relation::removeAttribute);
-        super.commit(relation);
-    }
-
     public void create(Schema schema) {
         Map<String, String> requestParameterMap = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
         Relation relation = new Relation(Integer.parseInt(requestParameterMap.get("x")), Integer.parseInt(requestParameterMap.get("y")));

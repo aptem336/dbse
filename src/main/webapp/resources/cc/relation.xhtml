@@ -14,17 +14,13 @@
                   layout="block"
                   styleClass="relation-block ${cc.attrs.relation.state}"
                   style="left:${cc.attrs.relation.x}px; top:${cc.attrs.relation.y}px">
-        <h:commandButton value="x"
-                         action="${relationController.remove(cc.attrs.relation)}">
-            <f:ajax render="${cc.clientId}:relation-block"/>
-        </h:commandButton>
-        <h:commandButton value="save"
-                         rendered="#{cc.attrs.relation.schema.persisted}"
-                         action="${relationController.commit(cc.attrs.relation)}">
-            <f:ajax render="${cc.clientId}:relation-block"/>
-        </h:commandButton>
+        <h:outputLabel value="${cc.attrs.relation.id}"/>
         <h:commandButton value="+"
                          action="${attributeController.create(cc.attrs.relation)}">
+            <f:ajax render="${cc.clientId}:relation-block"/>
+        </h:commandButton>
+        <h:commandButton value="x"
+                         action="${relationController.remove(cc.attrs.relation)}">
             <f:ajax render="${cc.clientId}:relation-block"/>
         </h:commandButton>
 

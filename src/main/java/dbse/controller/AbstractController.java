@@ -7,24 +7,6 @@ import java.io.Serializable;
 
 public abstract class AbstractController<T extends AbstractEntity> implements Serializable {
 
-    abstract void prepareToCommit(T t);
-
-    public void commit(T t) {
-        prepareToCommit(t);
-        switch (t.getState()) {
-            case TRANSIENT:
-                t.setState(AbstractEntity.AbstractEntityState.PERSISTENT);
-                getService().persist(t);
-                break;
-            case PERSISTENT:
-                getService().merge(t);
-                break;
-            case REMOVED:
-            case DETACHED:
-                break;
-        }
-    }
-
     public void remove(T t) {
         t.setState(AbstractEntity.AbstractEntityState.REMOVED);
     }

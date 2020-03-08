@@ -14,10 +14,6 @@ import javax.inject.Named;
 @Named
 public class AttributeController extends AbstractController<Attribute> {
 
-    @Override
-    void prepareToCommit(Attribute attribute) {
-    }
-
     public void create(Relation relation) {
         Attribute attribute = new Attribute();
         relation.addAttribute(attribute);
