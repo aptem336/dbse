@@ -8,6 +8,8 @@
     <composite:attribute name="attribute" type="dbse.model.Attribute"/>
 </composite:interface>
 <composite:implementation>
+    <h:outputStylesheet library="css" name="attribute.css"/>
+    <h:outputScript library="js" name="attribute.js"/>
     <h:panelGroup id="attribute-block"
                   layout="block"
                   styleClass="attribute-block ${cc.attrs.attribute.state}">

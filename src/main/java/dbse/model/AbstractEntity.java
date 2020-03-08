@@ -10,10 +10,6 @@ public abstract class AbstractEntity {
         state = AbstractEntityState.PERSISTENT;
     }
 
-    public boolean isPersisted() {
-        return state == AbstractEntityState.PERSISTENT;
-    }
-
     @Id
     @GeneratedValue
     private String id;
