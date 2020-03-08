@@ -1,18 +1,12 @@
 package dbse.controller;
 
 import dbse.model.AbstractEntity;
-import dbse.model.Attribute;
 import dbse.model.Relation;
 import dbse.model.Schema;
-import dbse.persist.AbstractPersistService;
-import dbse.persist.RelationPersistService;
 
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
-import javax.inject.Inject;
 import javax.inject.Named;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 @ViewScoped
@@ -29,13 +23,5 @@ public class RelationController extends AbstractController<Relation> {
     public void shift(Relation relation) {
         Map<String, String> requestParameterMap = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
         relation.shift(Integer.parseInt(requestParameterMap.get("x")), Integer.parseInt(requestParameterMap.get("y")));
-    }
-
-    @Inject
-    private RelationPersistService service;
-
-    @Override
-    protected AbstractPersistService<Relation> getService() {
-        return service;
     }
 }

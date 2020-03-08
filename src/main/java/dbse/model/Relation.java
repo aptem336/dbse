@@ -23,7 +23,7 @@ public class Relation extends AbstractEntity {
     }
 
     @Transient
-    public void shift(int x, int y) {//Q
+    public void shift(int x, int y) {
         this.x += x;
         this.y += y;
     }
