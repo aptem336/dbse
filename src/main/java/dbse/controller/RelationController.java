@@ -23,5 +23,8 @@ public class RelationController extends AbstractController<Relation> {
     public void shift(Relation relation) {
         Map<String, String> requestParameterMap = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
         relation.shift(Integer.parseInt(requestParameterMap.get("x")), Integer.parseInt(requestParameterMap.get("y")));
+        if (relation.getState() != AbstractEntity.AbstractEntityState.TRANSIENT) {
+            relation.setState(AbstractEntity.AbstractEntityState.CHANGED);
+        }
     }
 }

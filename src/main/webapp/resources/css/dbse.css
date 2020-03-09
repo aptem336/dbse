@@ -1,32 +1,45 @@
 html, body {
     color: #808080;
+    background: #313335;
     height: 100%;
     width: 100%;
     margin: 0;
-    background: #313335;
-}
-
-.TRANSIENT {
-    border: 5px solid #384c38;
-}
-
-.PERSISTENT {
-    border: 5px solid #313335;
-}
-
-.REMOVED {
-    opacity: 0.25;
-    pointer-events: none;
-    border: 5px solid #b15b2e;
-}
-
-.DETACHED {
-    border: 5px solid #313335;
 }
 
 input {
     color: #a3a291;
     background: #313335;
+    font-family: monospace;
     border: 1px solid gray;
     border-radius: 2px;
+}
+
+.relation-block {
+    position: absolute;
+}
+
+.relation-block, .attribute-block {
+    border-style: solid;
+    border-width: 3px;
+}
+
+.TRANSIENT {
+    border-color: #384c38;
+}
+
+.CHANGED {
+    border-color: #374752;
+}
+
+.PERSISTENT {
+    border-color: transparent;
+}
+
+.REMOVED {
+    border-color: #b15b2e;
+    opacity: 0.25;
+    pointer-events: none;
+}
+
+.DETACHED {
 }

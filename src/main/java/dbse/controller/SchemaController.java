@@ -27,20 +27,10 @@ public class SchemaController extends AbstractController<Schema> {
             });
             relation.setState(AbstractEntity.AbstractEntityState.PERSISTENT);
         });
-        switch (schema.getState()) {
-            case TRANSIENT:
-                service.persist(schema);
-                break;
-            case PERSISTENT:
-                schema = service.merge(schema);
-                break;
-            case REMOVED:
-            case DETACHED:
-                break;
-        }
-        setSchema(schema);
+        setSchema(service.merge(schema));
     }
 
+    //TO DEL
     @PostConstruct
     private void readSchema() {
         setSchema(service.selectAll().get(0));

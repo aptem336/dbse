@@ -1,6 +1,7 @@
 package dbse.model;
 
 import javax.persistence.*;
+import java.util.UUID;
 
 @MappedSuperclass
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -12,13 +13,13 @@ public abstract class AbstractEntity {
 
     @Id
     @GeneratedValue
-    private String id;
+    private UUID id;
 
-    public String getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 
@@ -42,8 +43,8 @@ public abstract class AbstractEntity {
 
     public enum AbstractEntityState {
         TRANSIENT,
+        CHANGED,
         PERSISTENT,
-        REMOVED,
-        DETACHED
+        REMOVED
     }
 }

@@ -1,15 +1,10 @@
 package dbse.model;
 
-import dbse.persist.RelationPersistService;
-
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@NamedQueries({
-        @NamedQuery(name = RelationPersistService.allNamedQueryName, query = "SELECT r FROM Relation r")
-})
 public class Relation extends AbstractEntity {
 
     public void addAttribute(Attribute attribute) {

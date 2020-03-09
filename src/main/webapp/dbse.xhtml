@@ -8,7 +8,10 @@
       xmlns:cc="http://xmlns.jcp.org/jsf/composite/cc">
 <h:head>
     <h:outputStylesheet library="css" name="dbse.css"/>
+
     <h:outputScript library="js" name="dbse.js"/>
+    <h:outputScript library="js" name="relation.js"/>
+    <h:outputScript library="js" name="attribute.js"/>
 </h:head>
 <c:set var="schema" value="#{schemaController.schema}"/>
 <f:view>
@@ -16,7 +19,8 @@
             style="height: 100%; width: 100%;">
         <h:commandButton value="save"
                          action="${schemaController.commit(schema)}">
-            <f:ajax render=":schema-form"/>
+            <f:ajax execute=":schema-form:relations-wrapper"
+                    render=":schema-form:relations-wrapper"/>
         </h:commandButton>
         <h:panelGroup id="relations-wrapper">
             <ui:repeat var="relation"
@@ -26,6 +30,7 @@
         </h:panelGroup>
 
         <h:commandScript name="create"
+                         execute=":schema-form:relations-wrapper"
                          render=":schema-form:relations-wrapper"
                          action="${relationController.create(schema)}"/>
         <h:outputScript>animateSchemaForm(document.getElementById("schema-form"), create)</h:outputScript>

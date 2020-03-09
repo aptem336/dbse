@@ -1,15 +1,8 @@
 package dbse.model;
 
-import dbse.persist.AttributePersistService;
-
 import javax.persistence.*;
 
 @Entity
-
-
-@NamedQueries({
-        @NamedQuery(name = AttributePersistService.allNamedQueryName, query = "SELECT a FROM Attribute a"),
-})
 public class Attribute extends AbstractEntity {
 
     private String name;

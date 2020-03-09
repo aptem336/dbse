@@ -8,19 +8,22 @@
     <composite:attribute name="attribute" type="dbse.model.Attribute"/>
 </composite:interface>
 <composite:implementation>
-    <h:outputStylesheet library="css" name="attribute.css"/>
-    <h:outputScript library="js" name="attribute.js"/>
     <h:panelGroup id="attribute-block"
                   layout="block"
                   styleClass="attribute-block ${cc.attrs.attribute.state}">
-        <h:outputLabel value="${cc.attrs.attribute.id}"/>
         <h:inputText value="${cc.attrs.attribute.name}"/>
         <h:commandButton id="remove"
                          value="x"
                          action="${attributeController.remove(cc.attrs.attribute)}">
-            <f:ajax render="${cc.clientId}:attribute-block"/>
+            <f:ajax execute="${cc.clientId}:attribute-block"
+                    render="${cc.clientId}:attribute-block"/>
         </h:commandButton>
-        <h:outputScript>animateAttribute(document.getElementById("${cc.clientId}:attribute-block"), () => document.getElementById("${cc.clientId}:remove").click())</h:outputScript>
+        <h:outputScript>
+            animateAttribute(
+            document.getElementById("${cc.clientId}:attribute-block"),
+            () => document.getElementById("${cc.clientId}:remove").click()
+            )
+        </h:outputScript>
     </h:panelGroup>
 </composite:implementation>
 </html>

@@ -10,20 +10,20 @@
     <composite:attribute name="relation" type="dbse.model.Relation"/>
 </composite:interface>
 <composite:implementation>
-    <h:outputStylesheet library="css" name="relation.css"/>
-    <h:outputScript library="js" name="relation.js"/>
     <h:panelGroup id="relation-block"
                   layout="block"
                   styleClass="relation-block ${cc.attrs.relation.state}"
                   style="left:${cc.attrs.relation.x}px; top:${cc.attrs.relation.y}px">
-        <h:outputLabel value="${cc.attrs.relation.id}"/>
+        <h:inputText value="${cc.attrs.relation.name}"/>
         <h:commandButton value="+"
                          action="${attributeController.create(cc.attrs.relation)}">
-            <f:ajax render="${cc.clientId}:relation-block"/>
+            <f:ajax execute="${cc.clientId}:attributes-wrapper"
+                    render="${cc.clientId}:attributes-wrapper"/>
         </h:commandButton>
         <h:commandButton value="x"
                          action="${relationController.remove(cc.attrs.relation)}">
-            <f:ajax render="${cc.clientId}:relation-block"/>
+            <f:ajax execute="${cc.clientId}:relation-block"
+                    render="${cc.clientId}:relation-block"/>
         </h:commandButton>
 
         <h:panelGroup id="attributes-wrapper"
@@ -35,9 +35,15 @@
         </h:panelGroup>
 
         <h:commandScript name="shift"
+                         execute="${cc.clientId}:relation-block"
                          render="${cc.clientId}:relation-block"
                          action="${relationController.shift(cc.attrs.relation)}"/>
-        <h:outputScript>animateRelation(document.getElementById("${cc.clientId}:relation-block"), shift)</h:outputScript>
+        <h:outputScript>
+            animateRelation(
+            document.getElementById("${cc.clientId}:relation-block"),
+            shift
+            )
+        </h:outputScript>
     </h:panelGroup>
 </composite:implementation>
 </html>
