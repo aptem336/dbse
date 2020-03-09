@@ -5,6 +5,7 @@ import dbse.model.Schema;
 import dbse.persist.SchemaPersistService;
 
 import javax.annotation.PostConstruct;
+import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -30,10 +31,9 @@ public class SchemaController extends AbstractController<Schema> {
         setSchema(service.merge(schema));
     }
 
-    //TO DEL
     @PostConstruct
-    private void readSchema() {
-        setSchema(service.selectAll().get(0));
+    private void loadSchema() {
+        setSchema(service.getById(FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("schema")));
     }
 
     private Schema schema;
@@ -48,4 +48,8 @@ public class SchemaController extends AbstractController<Schema> {
 
     @Inject
     private SchemaPersistService service;
+
+    public SchemaPersistService getService() {
+        return service;
+    }
 }

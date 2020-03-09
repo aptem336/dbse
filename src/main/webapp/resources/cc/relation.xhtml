@@ -38,12 +38,7 @@
                          execute="${cc.clientId}:relation-block"
                          render="${cc.clientId}:relation-block"
                          action="${relationController.shift(cc.attrs.relation)}"/>
-        <h:outputScript>
-            animateRelation(
-            document.getElementById("${cc.clientId}:relation-block"),
-            shift
-            )
-        </h:outputScript>
+        <h:outputScript>animateRelation(document.getElementById("${cc.clientId}:relation-block"), shift)</h:outputScript>
     </h:panelGroup>
 </composite:implementation>
 </html>
