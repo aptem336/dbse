@@ -2,17 +2,21 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:cc="http://xmlns.jcp.org/jsf/composite/cc">
 <h:head>
     <h:outputStylesheet library="css" name="dbse.css"/>
 </h:head>
 <f:view>
     <h:form>
+        <h:commandButton value="+"
+                         action="${schemaController.create()}">
+            <f:ajax render="@form"/>
+        </h:commandButton>
         <ui:repeat var="schema"
                    value="${schemaController.service.selectAll()}">
-            <h:link value="schema: ${schema.name}" outcome="dbse">
-                <f:param name="schema" value="${schema.id}"/>
-            </h:link>
+            <cc:schema schema="${schema}"/>
         </ui:repeat>
     </h:form>
 </f:view>

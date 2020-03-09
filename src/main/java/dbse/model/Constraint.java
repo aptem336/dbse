@@ -1,5 +1,8 @@
 package dbse.model;
 
-public class Constraint extends AbstractEntity {
+import javax.persistence.Entity;
 
+@Entity
+public class Constraint extends AbstractEntity {
+    
 }

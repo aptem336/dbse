@@ -31,9 +31,16 @@ public class SchemaController extends AbstractController<Schema> {
         setSchema(service.merge(schema));
     }
 
+    public void create() {
+        service.persist(new Schema());
+    }
+
     @PostConstruct
     private void loadSchema() {
-        setSchema(service.getById(FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("schema")));
+        String schema = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("schema");
+        if (schema != null) {
+            setSchema(service.getById(schema));
+        }
     }
 
     private Schema schema;
