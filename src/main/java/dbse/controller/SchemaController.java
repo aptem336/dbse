@@ -28,7 +28,10 @@ public class SchemaController extends AbstractController<Schema> {
                     schemasList.remove(schema);
                     service.remove(schema);
                 });
-        schemasList.forEach(this::commit);
+        schemasList.forEach(schema -> {
+            commit(schema);
+            schema.setState(AbstractEntity.AbstractEntityState.PERSISTENT);
+        });
     }
 
     public void commit(Schema schema) {

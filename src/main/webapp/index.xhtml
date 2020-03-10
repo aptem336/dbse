@@ -8,7 +8,7 @@
 <h:head>
     <h:outputStylesheet library="css" name="dbse.css"/>
 
-    <h:outputScript library="js" name="dbse.js"/>
+    <h:outputScript library="js" name="schema.js"/>
     <h:outputScript library="js" name="relation.js"/>
     <h:outputScript library="js" name="attribute.js"/>
 </h:head>
@@ -16,7 +16,8 @@
     <h:form id="form">
         <h:commandButton value="+"
                          action="${schemaController.create()}">
-            <f:ajax render=":form:schemas-wrapper"/>
+            <f:ajax execute=":form:schemas-wrapper"
+                    render=":form:schemas-wrapper"/>
         </h:commandButton>
         <h:commandButton value="save"
                          action="${schemaController.commit()}">
