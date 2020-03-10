@@ -3,25 +3,39 @@
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:composite="http://xmlns.jcp.org/jsf/composite">
+      xmlns:composite="http://xmlns.jcp.org/jsf/composite"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:cc="http://xmlns.jcp.org/jsf/composite/cc">
 <composite:interface>
     <composite:attribute name="schema" type="dbse.model.Schema"/>
 </composite:interface>
 <composite:implementation>
     <h:panelGroup id="schema-block"
-                  layout="block"
-                  styleClass="schema-block ${cc.attrs.attribute.state}">
+                  styleClass="schema-block ${cc.attrs.schema.state}">
         <h:inputText value="${cc.attrs.schema.name}"/>
         <h:commandButton value="save"
                          action="${schemaController.commit(cc.attrs.schema)}">
-            <f:ajax execute="${cc.clientId}:schema-block"
-                    render="${cc.clientId}:schema-block"/>
+            <f:ajax execute=":schema-form:relations-wrapper"
+                    render=":schema-form:relations-wrapper"/>
         </h:commandButton>
         <h:commandButton value="x"
                          action="${schemaController.remove(cc.attrs.schema)}">
             <f:ajax execute="${cc.clientId}:schema-block"
                     render="${cc.clientId}:schema-block"/>
         </h:commandButton>
+
+        <h:panelGroup id="relations-wrapper">
+            <ui:repeat var="relation"
+                       value="${cc.attrs.schema.relations}">
+                <cc:relation relation="${relation}"/>
+            </ui:repeat>
+        </h:panelGroup>
+
+        <h:commandScript name="create"
+                         execute=":schema-form:relations-wrapper"
+                         render=":schema-form:relations-wrapper"
+                         action="${relationController.create(cc.attrs.schema)}"/>
+        <h:outputScript>animateSchemaForm(document.getElementById("schema-form"), create)</h:outputScript>
     </h:panelGroup>
 </composite:implementation>
 </html>

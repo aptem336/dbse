@@ -7,17 +7,28 @@
       xmlns:cc="http://xmlns.jcp.org/jsf/composite/cc">
 <h:head>
     <h:outputStylesheet library="css" name="dbse.css"/>
+
+    <h:outputScript library="js" name="dbse.js"/>
+    <h:outputScript library="js" name="relation.js"/>
+    <h:outputScript library="js" name="attribute.js"/>
 </h:head>
 <f:view>
-    <h:form>
+    <h:form id="form">
         <h:commandButton value="+"
                          action="${schemaController.create()}">
-            <f:ajax render="@form"/>
+            <f:ajax render=":form:schemas-wrapper"/>
         </h:commandButton>
-        <ui:repeat var="schema"
-                   value="${schemaController.service.selectAll()}">
-            <cc:schema schema="${schema}"/>
-        </ui:repeat>
+        <h:commandButton value="save"
+                         action="${schemaController.commit()}">
+            <f:ajax execute=":form:schemas-wrapper"
+                    render=":form:schemas-wrapper"/>
+        </h:commandButton>
+        <h:panelGroup id="schemas-wrapper">
+            <ui:repeat var="schema"
+                       value="${schemaController.schemasList}">
+                <cc:schema schema="${schema}"/>
+            </ui:repeat>
+        </h:panelGroup>
     </h:form>
 </f:view>
 </html>

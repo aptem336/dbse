@@ -14,13 +14,13 @@ input {
     border-radius: 2px;
 }
 
-.relation-block {
-    position: absolute;
-}
-
-.relation-block, .attribute-block {
+.schema-block, .relation-block, .attribute-block {
     border-style: solid;
     border-width: 3px;
+}
+
+.relation-block {
+    position: absolute;
 }
 
 .TRANSIENT {

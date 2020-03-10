@@ -5,15 +5,31 @@ import dbse.model.Schema;
 import dbse.persist.SchemaPersistService;
 
 import javax.annotation.PostConstruct;
-import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.util.ArrayList;
+import java.util.List;
 
 @ViewScoped
 @Named
 public class SchemaController extends AbstractController<Schema> {
+
+    public void create() {
+        Schema schema = new Schema();
+        schemasList.add(schema);
+        schema.setState(AbstractEntity.AbstractEntityState.TRANSIENT);
+    }
+
+    public void commit() {
+        new ArrayList<>(schemasList).stream()
+                .filter(schema -> schema.getState() == AbstractEntity.AbstractEntityState.REMOVED)
+                .forEach(schema -> {
+                    schemasList.remove(schema);
+                    service.remove(schema);
+                });
+        schemasList.forEach(this::commit);
+    }
 
     public void commit(Schema schema) {
         new ArrayList<>(schema.getRelations()).stream()
@@ -28,35 +44,32 @@ public class SchemaController extends AbstractController<Schema> {
             });
             relation.setState(AbstractEntity.AbstractEntityState.PERSISTENT);
         });
-        setSchema(service.merge(schema));
-    }
-
-    public void create() {
-        service.persist(new Schema());
-    }
-
-    @PostConstruct
-    private void loadSchema() {
-        String schema = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("schema");
-        if (schema != null) {
-            setSchema(service.getById(schema));
+        switch (schema.getState()) {
+            case TRANSIENT:
+                service.persist(schema);
+                break;
+            case PERSISTENT:
+            case CHANGED:
+                service.merge(schema);
+                break;
         }
     }
 
-    private Schema schema;
-
-    public Schema getSchema() {
-        return schema;
+    @PostConstruct
+    private void postConstruct() {
+        schemasList = service.selectAll();
     }
 
-    public void setSchema(Schema schema) {
-        this.schema = schema;
+    private List<Schema> schemasList;
+
+    public List<Schema> getSchemasList() {
+        return schemasList;
+    }
+
+    public void setSchemasList(List<Schema> schemasList) {
+        this.schemasList = schemasList;
     }
 
     @Inject
     private SchemaPersistService service;
-
-    public SchemaPersistService getService() {
-        return service;
-    }
 }

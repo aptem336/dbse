@@ -45,6 +45,7 @@ public abstract class AbstractEntity {
         TRANSIENT,
         CHANGED,
         PERSISTENT,
-        REMOVED
+        REMOVED,
+        DETACHED
     }
 }
