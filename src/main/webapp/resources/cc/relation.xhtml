@@ -39,6 +39,7 @@
                          render="${cc.clientId}:relation-block"
                          action="${relationController.shift(cc.attrs.relation)}"/>
         <h:outputScript>
+            //Q передавать индекс
             animateRelation(
             document.getElementById("${cc.clientId}:relation-block"),
             shift

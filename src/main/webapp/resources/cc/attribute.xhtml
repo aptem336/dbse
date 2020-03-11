@@ -20,7 +20,7 @@
         </h:commandButton>
         <h:commandScript name="change_relation"
                          execute="dbse-form"
-                         render="dbse-form"
+                         render="${cc.parent.clientId}:relation-block"
                          action="${attributeController.changeRelation(cc.attrs.attribute)}">
         </h:commandScript>
         <h:outputScript>

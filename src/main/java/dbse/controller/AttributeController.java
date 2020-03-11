@@ -20,7 +20,11 @@ public class AttributeController extends AbstractController<Attribute> {
     }
 
     public void changeRelation(Attribute attribute) {
+        //TODO REWORK
         Map<String, String> requestParameterMap = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+        String relationBlockId = requestParameterMap.get("relation_block_id");
+        FacesContext.getCurrentInstance().getPartialViewContext().getExecuteIds().add(relationBlockId);
+        FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add(relationBlockId);
         //Q связь через index
         Relation newRelation = attribute.getRelation().getSchema().getRelations().get(Integer.parseInt(requestParameterMap.get("relation_index")));
         attribute.getRelation().removeAttribute(attribute);

@@ -13,5 +13,6 @@ const animateAttribute = (attribute_block, remove, change_relation) => {
         stopAttributeRelationDragging();
     };
     attribute_block.remove = remove;
-    attribute_block.change_relation = (relation_index) => change_relation({relation_index: relation_index});
+    //Q индекс <-> компонент
+    attribute_block.change_relation = (relation_block_id, relation_index) => change_relation({relation_block_id: relation_block_id, relation_index: relation_index});
 };
