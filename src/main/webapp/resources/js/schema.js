@@ -1,14 +1,14 @@
-let schema_form;
-const animateSchemaForm = (schema_form_, create) => {
-    schema_form = schema_form_;
-    schema_form.ondblclick = (e) => {
-        if (e.target === schema_form) {
+let schema_block;
+const animateSchema = (schema_block_, create) => {
+    schema_block = schema_block_;
+    schema_block.ondblclick = (e) => {
+        if (e.target === schema_block) {
             create({x: e.pageX, y: e.pageY})
         }
     };
 };
 
-const relationSchemaFormDragOverListener = (e) => {
+const relationSchemaDragOverListener = (e) => {
     e.preventDefault();
 };
 const relationSchemaDropListener = (e) => {
@@ -16,16 +16,16 @@ const relationSchemaDropListener = (e) => {
     const relation_block = document.getElementById(data.relation_block_id);
     relation_block.shift(e.pageX - data.pageX, e.pageY - data.pageY);
 };
-const startRelationSchemaFormDragging = () => {
-    schema_form.addEventListener("drop", relationSchemaDropListener);
-    schema_form.addEventListener("dragover", relationSchemaFormDragOverListener);
+const startRelationSchemaDragging = () => {
+    schema_block.addEventListener("drop", relationSchemaDropListener);
+    schema_block.addEventListener("dragover", relationSchemaDragOverListener);
 };
-const stopRelationSchemaFormDragging = () => {
-    schema_form.removeEventListener("drop", relationSchemaDropListener);
-    schema_form.removeEventListener("dragover", relationSchemaFormDragOverListener);
+const stopRelationSchemaDragging = () => {
+    schema_block.removeEventListener("drop", relationSchemaDropListener);
+    schema_block.removeEventListener("dragover", relationSchemaDragOverListener);
 };
 
-const attributeSchemaFormDragOverListener = (e) => {
+const attributeSchemaDragOverListener = (e) => {
     e.preventDefault();
 };
 const attributeSchemaDropListener = (e) => {
@@ -33,11 +33,11 @@ const attributeSchemaDropListener = (e) => {
     const attribute_block = document.getElementById(data.attribute_block_id);
     attribute_block.remove();
 };
-const startAttributeSchemaFormDragging = () => {
-    schema_form.addEventListener("drop", attributeSchemaDropListener);
-    schema_form.addEventListener("dragover", attributeSchemaFormDragOverListener);
+const startAttributeSchemaDragging = () => {
+    schema_block.addEventListener("drop", attributeSchemaDropListener);
+    schema_block.addEventListener("dragover", attributeSchemaDragOverListener);
 };
-const stopAttributeSchemaFormDragging = () => {
-    schema_form.removeEventListener("drop", attributeSchemaDropListener);
-    schema_form.removeEventListener("dragover", attributeSchemaFormDragOverListener);
+const stopAttributeSchemaDragging = () => {
+    schema_block.removeEventListener("drop", attributeSchemaDropListener);
+    schema_block.removeEventListener("dragover", attributeSchemaDragOverListener);
 };

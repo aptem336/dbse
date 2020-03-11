@@ -6,10 +6,32 @@ const animateRelation = (relation_block, shift) => {
             pageY: e.pageY,
             relation_block_id: relation_block.id
         }));
-        startRelationSchemaFormDragging();
+        startRelationSchemaDragging();
     };
-    relation_block.ondragend = (e) => {
-        stopRelationSchemaFormDragging();
+    relation_block.ondragend = () => {
+        stopRelationSchemaDragging();
     };
     relation_block.shift = (x, y) => shift({x: x, y: y});
+};
+
+const attributeRelationDragOverListener = (e) => {
+    e.preventDefault();
+};
+const attributeRelationDropListener = (e, relation_index) => {
+    e.stopPropagation();
+    const data = JSON.parse(e.dataTransfer.getData("text/plain"));
+    const attribute_block = document.getElementById(data.attribute_block_id);
+    attribute_block.change_relation(relation_index);
+};
+const startAttributeRelationDragging = () => {
+    [...schema_block.getElementsByClassName('relation-block')].forEach((relation_block, relation_index) => {
+        relation_block.addEventListener('dragover', attributeRelationDragOverListener);
+        relation_block.addEventListener('drop', e => attributeRelationDropListener(e, relation_index));
+    });
+};
+const stopAttributeRelationDragging = () => {
+    [...schema_block.getElementsByClassName('relation-block')].forEach((relation_block, index) => {
+        relation_block.removeEventListener('dragover', attributeRelationDragOverListener);
+        relation_block.removeEventListener('drop', e => attributeRelationDropListener(e, index));
+    });
 };

@@ -10,9 +10,10 @@
     <composite:attribute name="schema" type="dbse.model.Schema"/>
 </composite:interface>
 <composite:implementation>
-
+    <!--TODO current schema-->
     <h:panelGroup id="schema-block"
-                  styleClass="schema-block ${cc.attrs.schema.state}">
+                  styleClass="schema-block ${cc.attrs.schema.state}"
+                  style="width: 100%; height: 100%; position: fixed">
         <h:inputText value="${cc.attrs.schema.name}"/>
         <h:commandButton value="save"
                          action="${schemaController.commit(cc.attrs.schema)}">
@@ -33,10 +34,10 @@
         </h:panelGroup>
 
         <h:commandScript name="create"
-                         execute=":schema-form:relations-wrapper"
-                         render=":schema-form:relations-wrapper"
+                         execute="${cc.clientId}:schema-block"
+                         render="${cc.clientId}:schema-block"
                          action="${relationController.create(cc.attrs.schema)}"/>
-        <h:outputScript>animateSchemaForm(document.getElementById("${cc.clientId}:schema-block"), create)</h:outputScript>
+        <h:outputScript>animateSchema(document.getElementById("${cc.clientId}:schema-block"), create)</h:outputScript>
     </h:panelGroup>
 </composite:implementation>
 </html>

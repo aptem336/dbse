@@ -28,10 +28,7 @@ public class SchemaController extends AbstractController<Schema> {
                     schemasList.remove(schema);
                     service.remove(schema);
                 });
-        schemasList.forEach(schema -> {
-            commit(schema);
-            schema.setState(AbstractEntity.AbstractEntityState.PERSISTENT);
-        });
+        schemasList.forEach(this::commit);
     }
 
     public void commit(Schema schema) {
@@ -56,6 +53,7 @@ public class SchemaController extends AbstractController<Schema> {
                 service.merge(schema);
                 break;
         }
+        schema.setState(AbstractEntity.AbstractEntityState.PERSISTENT);
     }
 
     @PostConstruct

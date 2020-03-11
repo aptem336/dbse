@@ -10,17 +10,26 @@ public class Relation extends AbstractEntity {
     public void addAttribute(Attribute attribute) {
         attributes.add(attribute);
         attribute.setRelation(this);
+        if (getState() != AbstractEntity.AbstractEntityState.TRANSIENT) {
+            setState(AbstractEntity.AbstractEntityState.CHANGED);
+        }
     }
 
     public void removeAttribute(Attribute attribute) {
         attributes.remove(attribute);
         attribute.setRelation(null);
+        if (getState() != AbstractEntity.AbstractEntityState.TRANSIENT) {
+            setState(AbstractEntity.AbstractEntityState.CHANGED);
+        }
     }
 
     @Transient
     public void shift(int x, int y) {
         this.x += x;
         this.y += y;
+        if (getState() != AbstractEntity.AbstractEntityState.TRANSIENT) {
+            setState(AbstractEntity.AbstractEntityState.CHANGED);
+        }
     }
 
     private String name;

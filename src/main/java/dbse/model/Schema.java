@@ -15,11 +15,17 @@ public class Schema extends AbstractEntity {
     public void addRelation(Relation relation) {
         relations.add(relation);
         relation.setSchema(this);
+        if (getState() != AbstractEntity.AbstractEntityState.TRANSIENT) {
+            setState(AbstractEntity.AbstractEntityState.CHANGED);
+        }
     }
 
     public void removeRelation(Relation relation) {
         relations.remove(relation);
         relation.setSchema(null);
+        if (getState() != AbstractEntity.AbstractEntityState.TRANSIENT) {
+            setState(AbstractEntity.AbstractEntityState.CHANGED);
+        }
     }
 
     private String name;

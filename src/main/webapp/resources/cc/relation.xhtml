@@ -17,8 +17,8 @@
         <h:inputText value="${cc.attrs.relation.name}"/>
         <h:commandButton value="+"
                          action="${attributeController.create(cc.attrs.relation)}">
-            <f:ajax execute="${cc.clientId}:attributes-wrapper"
-                    render="${cc.clientId}:attributes-wrapper"/>
+            <f:ajax execute="${cc.clientId}:relation-block"
+                    render="${cc.clientId}:relation-block"/>
         </h:commandButton>
         <h:commandButton value="x"
                          action="${relationController.remove(cc.attrs.relation)}">
@@ -38,7 +38,12 @@
                          execute="${cc.clientId}:relation-block"
                          render="${cc.clientId}:relation-block"
                          action="${relationController.shift(cc.attrs.relation)}"/>
-        <h:outputScript>animateRelation(document.getElementById("${cc.clientId}:relation-block"), shift)</h:outputScript>
+        <h:outputScript>
+            animateRelation(
+            document.getElementById("${cc.clientId}:relation-block"),
+            shift
+            )
+        </h:outputScript>
     </h:panelGroup>
 </composite:implementation>
 </html>

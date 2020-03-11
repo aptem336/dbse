@@ -1,7 +1,6 @@
 package dbse.model;
 
 import javax.persistence.*;
-import java.util.UUID;
 
 @MappedSuperclass
 @Inheritance(strategy = InheritanceType.JOINED)

@@ -1,3 +1,4 @@
+/*TODO REWORK*/
 html, body {
     color: #808080;
     background: #313335;
@@ -12,31 +13,34 @@ input {
     font-family: monospace;
     border: 1px solid gray;
     border-radius: 2px;
+    margin: 3px;
 }
 
 .schema-block, .relation-block, .attribute-block {
-    border-style: solid;
-    border-width: 3px;
+    outline-style: solid;
+    outline-width: 3px;
+    outline-offset: -3px;
 }
 
 .relation-block {
+    background: #2b2b2b;
     position: absolute;
 }
 
 .TRANSIENT {
-    border-color: #384c38;
+    outline-color: #384c38;
 }
 
 .CHANGED {
-    border-color: #374752;
+    outline-color: #374752;
 }
 
 .PERSISTENT {
-    border-color: transparent;
+    outline-color: transparent;
 }
 
 .REMOVED {
-    border-color: #b15b2e;
+    outline-color: #b15b2e;
     opacity: 0.25;
     pointer-events: none;
 }

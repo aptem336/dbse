@@ -18,10 +18,16 @@
             <f:ajax execute="${cc.clientId}:attribute-block"
                     render="${cc.clientId}:attribute-block"/>
         </h:commandButton>
+        <h:commandScript name="change_relation"
+                         execute="dbse-form"
+                         render="dbse-form"
+                         action="${attributeController.changeRelation(cc.attrs.attribute)}">
+        </h:commandScript>
         <h:outputScript>
             animateAttribute(
             document.getElementById("${cc.clientId}:attribute-block"),
-            () => document.getElementById("${cc.clientId}:remove").click()
+            () => document.getElementById("${cc.clientId}:remove").click(),
+            change_relation
             )
         </h:outputScript>
     </h:panelGroup>
