@@ -32,6 +32,7 @@ const startAttributeRelationDragging = () => {
 const stopAttributeRelationDragging = () => {
     [...schema_block.getElementsByClassName('relation-block')].forEach((relation_block, relation_index) => {
         relation_block.removeEventListener('dragover', attributeRelationDragOverListener);
+        //FIXME: not deleted!
         relation_block.removeEventListener('drop', e => attributeRelationDropListener(e, relation_block.id, relation_index));
     });
 };

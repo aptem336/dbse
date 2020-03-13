@@ -20,14 +20,14 @@ public class AttributeController extends AbstractController<Attribute> {
     }
 
     public void changeRelation(Attribute attribute) {
-        //TODO REWORK
+        //Q best way to get parameter?
         Map<String, String> requestParameterMap = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
         String relationBlockId = requestParameterMap.get("relation_block_id");
-        FacesContext.getCurrentInstance().getPartialViewContext().getExecuteIds().add(relationBlockId);
-        FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add(relationBlockId);
-        //Q связь через index
-        Relation newRelation = attribute.getRelation().getSchema().getRelations().get(Integer.parseInt(requestParameterMap.get("relation_index")));
+        int relationIndex = Integer.parseInt(requestParameterMap.get("relation_index"));
+        //Q связь через index?
+        Relation newRelation = attribute.getRelation().getSchema().getRelations().get(relationIndex);
         attribute.getRelation().removeAttribute(attribute);
         newRelation.addAttribute(attribute);
+        FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add(relationBlockId);
     }
 }
