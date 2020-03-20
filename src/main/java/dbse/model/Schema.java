@@ -11,7 +11,6 @@ import java.util.List;
         @NamedQuery(name = SchemaPersistService.ALL_NAMED_QUERY_NAME, query = "SELECT s FROM Schema s"),
 })
 public class Schema extends AbstractEntity {
-
     private String name;
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "schema")
     private List<Relation> relations = new ArrayList<>();

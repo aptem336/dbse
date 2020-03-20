@@ -11,7 +11,6 @@ import java.util.Map;
 @ViewScoped
 @Named
 public class AttributeController extends AbstractController<Attribute> {
-
     public void create(Relation relation) {
         new Attribute(relation);
     }

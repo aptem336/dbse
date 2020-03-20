@@ -6,7 +6,6 @@ import java.util.List;
 
 @Entity
 public class Relation extends AbstractEntity {
-
     private String name;
     private int x, y;
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "relation")

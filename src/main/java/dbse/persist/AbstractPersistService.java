@@ -6,7 +6,6 @@ import javax.persistence.EntityManager;
 import java.util.List;
 
 public abstract class AbstractPersistService<T extends AbstractEntity> {
-
     public void persist(T t) {
         getEntityManager().persist(t);
     }

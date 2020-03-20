@@ -14,7 +14,6 @@ import java.util.List;
 @ViewScoped
 @Named
 public class SchemaController extends AbstractController<Schema> {
-
     private List<Schema> schemasList;
     @Inject
     private SchemaPersistService service;

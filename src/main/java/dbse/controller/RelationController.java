@@ -11,7 +11,6 @@ import java.util.Map;
 @ViewScoped
 @Named
 public class RelationController extends AbstractController<Relation> {
-
     public void create(Schema schema) {
         //Q best way to get parameter?
         Map<String, String> requestParameterMap = FacesContext.getCurrentInstance()
