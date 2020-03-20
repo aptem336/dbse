@@ -1,6 +1,5 @@
 package dbse.controller;
 
-import dbse.model.AbstractEntity;
 import dbse.model.Attribute;
 import dbse.model.Relation;
 

@@ -15,6 +15,10 @@ import java.util.List;
 @Named
 public class SchemaController extends AbstractController<Schema> {
 
+    private List<Schema> schemasList;
+    @Inject
+    private SchemaPersistService service;
+
     public void create() {
         Schema schema = new Schema();
         schemasList.add(schema);
@@ -61,8 +65,6 @@ public class SchemaController extends AbstractController<Schema> {
         schemasList = service.selectAll();
     }
 
-    private List<Schema> schemasList;
-
     public List<Schema> getSchemasList() {
         return schemasList;
     }
@@ -70,7 +72,4 @@ public class SchemaController extends AbstractController<Schema> {
     public void setSchemasList(List<Schema> schemasList) {
         this.schemasList = schemasList;
     }
-
-    @Inject
-    private SchemaPersistService service;
 }

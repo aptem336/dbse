@@ -12,6 +12,10 @@ import java.util.List;
 })
 public class Schema extends AbstractEntity {
 
+    private String name;
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "schema")
+    private List<Relation> relations = new ArrayList<>();
+
     public void addRelation(Relation relation) {
         relations.add(relation);
         relation.setSchema(this);
@@ -27,11 +31,6 @@ public class Schema extends AbstractEntity {
             setState(AbstractEntity.AbstractEntityState.CHANGED);
         }
     }
-
-    private String name;
-
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "schema")
-    private List<Relation> relations = new ArrayList<>();
 
     public String getName() {
         return name;

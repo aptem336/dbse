@@ -1,10 +1,10 @@
 package dbse.model;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Attribute extends AbstractEntity {
-
     private String name;
     @ManyToOne
     private Relation relation;

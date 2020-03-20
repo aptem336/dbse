@@ -6,13 +6,15 @@ import javax.persistence.*;
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class AbstractEntity {
 
-    {
-        state = AbstractEntityState.PERSISTENT;
-    }
-
     @Id
     @GeneratedValue
     private String id;
+    @Transient
+    private AbstractEntityState state;
+
+    {
+        state = AbstractEntityState.PERSISTENT;
+    }
 
     public String getId() {
         return id;
@@ -21,9 +23,6 @@ public abstract class AbstractEntity {
     public void setId(String id) {
         this.id = id;
     }
-
-    @Transient
-    private AbstractEntityState state;
 
     public AbstractEntityState getState() {
         return state;

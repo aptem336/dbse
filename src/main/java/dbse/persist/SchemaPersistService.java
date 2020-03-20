@@ -9,6 +9,7 @@ import javax.persistence.EntityManager;
 @Stateless
 public class SchemaPersistService extends AbstractPersistService<Schema> {
 
+    public static final String ALL_NAMED_QUERY_NAME = "getAllSchemas";
     @Inject
     private EntityManager em;
 
@@ -16,8 +17,6 @@ public class SchemaPersistService extends AbstractPersistService<Schema> {
     protected EntityManager getEntityManager() {
         return em;
     }
-
-    public static final String ALL_NAMED_QUERY_NAME = "getAllSchemas";
 
     @Override
     protected String getAllNamedQueryName() {

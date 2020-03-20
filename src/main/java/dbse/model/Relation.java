@@ -7,6 +7,21 @@ import java.util.List;
 @Entity
 public class Relation extends AbstractEntity {
 
+    private String name;
+    private int x, y;
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "relation")
+    private List<Attribute> attributes = new ArrayList<>();
+    @ManyToOne
+    private Schema schema;
+    public Relation() {
+    }
+    public Relation(Schema schema, int x, int y) {
+        setX(x);
+        setY(y);
+        schema.addRelation(this);
+        setState(AbstractEntity.AbstractEntityState.TRANSIENT);
+    }
+
     public void addAttribute(Attribute attribute) {
         attributes.add(attribute);
         attribute.setRelation(this);
@@ -30,23 +45,6 @@ public class Relation extends AbstractEntity {
         if (getState() != AbstractEntity.AbstractEntityState.TRANSIENT) {
             setState(AbstractEntity.AbstractEntityState.CHANGED);
         }
-    }
-
-    private String name;
-    private int x, y;
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "relation")
-    private List<Attribute> attributes = new ArrayList<>();
-    @ManyToOne
-    private Schema schema;
-
-    public Relation() {
-    }
-
-    public Relation(Schema schema, int x, int y) {
-        setX(x);
-        setY(y);
-        schema.addRelation(this);
-        setState(AbstractEntity.AbstractEntityState.TRANSIENT);
     }
 
     public String getName() {
