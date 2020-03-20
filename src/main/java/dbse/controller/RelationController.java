@@ -14,14 +14,17 @@ import java.util.Map;
 public class RelationController extends AbstractController<Relation> {
 
     public void create(Schema schema) {
-        Map<String, String> requestParameterMap = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
-        Relation relation = new Relation(Integer.parseInt(requestParameterMap.get("x")), Integer.parseInt(requestParameterMap.get("y")));
+        Map<String, String> requestParameterMap = FacesContext.getCurrentInstance()
+                .getExternalContext().getRequestParameterMap();
+        Relation relation = new Relation(Integer.parseInt(requestParameterMap.get("x")),
+                Integer.parseInt(requestParameterMap.get("y")));
         schema.addRelation(relation);
         relation.setState(AbstractEntity.AbstractEntityState.TRANSIENT);
     }
 
     public void shift(Relation relation) {
-        Map<String, String> requestParameterMap = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+        Map<String, String> requestParameterMap = FacesContext.getCurrentInstance()
+                .getExternalContext().getRequestParameterMap();
         relation.shift(Integer.parseInt(requestParameterMap.get("x")), Integer.parseInt(requestParameterMap.get("y")));
     }
 }

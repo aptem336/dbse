@@ -8,7 +8,7 @@ import java.util.List;
 
 @Entity
 @NamedQueries({
-        @NamedQuery(name = SchemaPersistService.allNamedQueryName, query = "SELECT s FROM Schema s"),
+        @NamedQuery(name = SchemaPersistService.ALL_NAMED_QUERY_NAME, query = "SELECT s FROM Schema s"),
 })
 public class Schema extends AbstractEntity {
 

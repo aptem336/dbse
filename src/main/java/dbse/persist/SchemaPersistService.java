@@ -17,11 +17,11 @@ public class SchemaPersistService extends AbstractPersistService<Schema> {
         return em;
     }
 
-    public static final String allNamedQueryName = "getAllSchemas";
+    public static final String ALL_NAMED_QUERY_NAME = "getAllSchemas";
 
     @Override
     protected String getAllNamedQueryName() {
-        return allNamedQueryName;
+        return ALL_NAMED_QUERY_NAME;
     }
 
     @Override

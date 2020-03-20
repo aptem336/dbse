@@ -21,7 +21,8 @@ public class AttributeController extends AbstractController<Attribute> {
 
     public void changeRelation(Attribute attribute) {
         //Q best way to get parameter?
-        Map<String, String> requestParameterMap = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+        Map<String, String> requestParameterMap = FacesContext.getCurrentInstance()
+                .getExternalContext().getRequestParameterMap();
         String relationBlockId = requestParameterMap.get("relation_block_id");
         int relationIndex = Integer.parseInt(requestParameterMap.get("relation_index"));
         //Q связь через index?
