@@ -1,6 +1,5 @@
 package dbse.controller;
 
-import dbse.model.AbstractEntity;
 import dbse.model.Relation;
 import dbse.model.Schema;
 
@@ -14,17 +13,24 @@ import java.util.Map;
 public class RelationController extends AbstractController<Relation> {
 
     public void create(Schema schema) {
+        //Q best way to get parameter?
         Map<String, String> requestParameterMap = FacesContext.getCurrentInstance()
                 .getExternalContext().getRequestParameterMap();
-        Relation relation = new Relation(Integer.parseInt(requestParameterMap.get("x")),
-                Integer.parseInt(requestParameterMap.get("y")));
-        schema.addRelation(relation);
-        relation.setState(AbstractEntity.AbstractEntityState.TRANSIENT);
+        create(schema, Integer.parseInt(requestParameterMap.get("x")), Integer.parseInt(requestParameterMap.get("y")));
+    }
+
+    public void create(Schema schema, int x, int y) {
+        new Relation(schema, x, y);
     }
 
     public void shift(Relation relation) {
+        //Q best way to get parameter?
         Map<String, String> requestParameterMap = FacesContext.getCurrentInstance()
                 .getExternalContext().getRequestParameterMap();
-        relation.shift(Integer.parseInt(requestParameterMap.get("x")), Integer.parseInt(requestParameterMap.get("y")));
+        shift(relation, Integer.parseInt(requestParameterMap.get("x")), Integer.parseInt(requestParameterMap.get("y")));
+    }
+
+    public void shift(Relation relation, int x, int y) {
+        relation.shift(x, y);
     }
 }

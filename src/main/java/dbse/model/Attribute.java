@@ -12,6 +12,11 @@ public class Attribute extends AbstractEntity {
     public Attribute() {
     }
 
+    public Attribute(Relation relation) {
+        relation.addAttribute(this);
+        setState(AbstractEntity.AbstractEntityState.TRANSIENT);
+    }
+
     public String getName() {
         return name;
     }

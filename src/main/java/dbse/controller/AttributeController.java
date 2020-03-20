@@ -14,11 +14,10 @@ import java.util.Map;
 public class AttributeController extends AbstractController<Attribute> {
 
     public void create(Relation relation) {
-        Attribute attribute = new Attribute();
-        relation.addAttribute(attribute);
-        attribute.setState(AbstractEntity.AbstractEntityState.TRANSIENT);
+        new Attribute(relation);
     }
 
+    //TODO simplify
     public void changeRelation(Attribute attribute) {
         //Q best way to get parameter?
         Map<String, String> requestParameterMap = FacesContext.getCurrentInstance()

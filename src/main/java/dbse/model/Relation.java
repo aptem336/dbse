@@ -42,9 +42,11 @@ public class Relation extends AbstractEntity {
     public Relation() {
     }
 
-    public Relation(int x, int y) {
+    public Relation(Schema schema, int x, int y) {
         setX(x);
         setY(y);
+        schema.addRelation(this);
+        setState(AbstractEntity.AbstractEntityState.TRANSIENT);
     }
 
     public String getName() {
