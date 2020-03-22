@@ -1,10 +1,13 @@
 package dbse.model;
 
 import dbse.model.constraint.ConstraintTarget;
+import dbse.model.constraint.PrimaryKeyConstraint;
+import dbse.model.constraint.UniqueConstraint;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 public class Relation extends AbstractEntity implements ConstraintTarget {
@@ -12,6 +15,10 @@ public class Relation extends AbstractEntity implements ConstraintTarget {
     private int x, y;
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "relation")
     private List<Attribute> attributes = new ArrayList<>();
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "target")
+    private PrimaryKeyConstraint primaryKeyConstraint;
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "target")
+    private List<UniqueConstraint> uniqueConstraintConstraints = new ArrayList<>();
     @ManyToOne
     private Schema schema;
 
@@ -35,7 +42,32 @@ public class Relation extends AbstractEntity implements ConstraintTarget {
 
     public void removeAttribute(Attribute attribute) {
         attributes.remove(attribute);
+        primaryKeyConstraint.getAttributes().remove(attribute);
         attribute.setRelation(null);
+        if (getState() != AbstractEntity.AbstractEntityState.TRANSIENT) {
+            setState(AbstractEntity.AbstractEntityState.CHANGED);
+        }
+    }
+
+    public void addPrimaryKeyConstraint(PrimaryKeyConstraint primaryKeyConstraint) {
+        setPrimaryKeyConstraint(primaryKeyConstraint);
+    }
+
+    public void removePrimaryKeyConstraint() {
+        setPrimaryKeyConstraint(null);
+    }
+
+    public void addUniqueConstraint(UniqueConstraint uniqueConstraint) {
+        uniqueConstraintConstraints.add(uniqueConstraint);
+        uniqueConstraint.setTarget(this);
+        if (getState() != AbstractEntity.AbstractEntityState.TRANSIENT) {
+            setState(AbstractEntity.AbstractEntityState.CHANGED);
+        }
+    }
+
+    public void removeUniqueConstraint(UniqueConstraint uniqueConstraint) {
+        uniqueConstraintConstraints.remove(uniqueConstraint);
+        uniqueConstraint.setTarget(null);
         if (getState() != AbstractEntity.AbstractEntityState.TRANSIENT) {
             setState(AbstractEntity.AbstractEntityState.CHANGED);
         }
@@ -82,6 +114,22 @@ public class Relation extends AbstractEntity implements ConstraintTarget {
         this.attributes = attributes;
     }
 
+    public PrimaryKeyConstraint getPrimaryKeyConstraint() {
+        return primaryKeyConstraint;
+    }
+
+    public void setPrimaryKeyConstraint(PrimaryKeyConstraint primaryKeyConstraint) {
+        this.primaryKeyConstraint = primaryKeyConstraint;
+    }
+
+    public List<UniqueConstraint> getUniqueConstraintConstraints() {
+        return uniqueConstraintConstraints;
+    }
+
+    public void setUniqueConstraintConstraints(List<UniqueConstraint> uniqueConstraintConstraints) {
+        this.uniqueConstraintConstraints = uniqueConstraintConstraints;
+    }
+
     public Schema getSchema() {
         return schema;
     }
@@ -97,5 +145,14 @@ public class Relation extends AbstractEntity implements ConstraintTarget {
                 ", x=" + x +
                 ", y=" + y +
                 '}';
+    }
+
+    public List<Attribute> getNotPrimaryKeyAttributes() {
+        if (primaryKeyConstraint != null) {
+            return attributes.stream()
+                    .filter(attribute -> !primaryKeyConstraint.getAttributes().contains(attribute))
+                    .collect(Collectors.toList());
+        }
+        return attributes;
     }
 }

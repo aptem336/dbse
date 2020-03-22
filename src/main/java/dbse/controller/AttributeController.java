@@ -28,4 +28,19 @@ public class AttributeController extends AbstractController<Attribute> {
         newRelation.addAttribute(attribute);
         FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add(relationBlockId);
     }
+
+    //TODO simplify
+    public void changePrimaryKey(Attribute attribute) {
+        //Q best way to get parameter?
+        Map<String, String> requestParameterMap = FacesContext.getCurrentInstance()
+                .getExternalContext().getRequestParameterMap();
+        String relationBlockId = requestParameterMap.get("relation_block_id");
+        int relationIndex = Integer.parseInt(requestParameterMap.get("relation_index"));
+        //Q связь через index?
+        Relation newRelation = attribute.getRelation().getSchema().getRelations().get(relationIndex);
+        attribute.getRelation().removeAttribute(attribute);
+        newRelation.addAttribute(attribute);
+        newRelation.getPrimaryKeyConstraint().getAttributes().add(attribute);
+        FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add(relationBlockId);
+    }
 }

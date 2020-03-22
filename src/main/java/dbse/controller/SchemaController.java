@@ -51,7 +51,7 @@ public class SchemaController extends AbstractController<Schema> {
             case TRANSIENT:
                 service.persist(schema);
                 break;
-            case PERSISTENT:/*DEL*/
+            case PERSISTENT:
             case CHANGED:
                 service.merge(schema);
                 break;

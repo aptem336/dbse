@@ -3,7 +3,8 @@
     <persistence-unit name="dbse_pu">
         <jta-data-source>java:global/jdbc/dbse_db</jta-data-source>
         <properties>
-            <property name="javax.persistence.schema-generation.database.action" value="none"/>
+            <property
+                    name="javax.persistence.schema-generation.database.action" value="none"/>
         </properties>
     </persistence-unit>
 </persistence>

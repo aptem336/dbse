@@ -18,16 +18,23 @@
             <f:ajax execute="${cc.clientId}:attribute-block"
                     render="${cc.clientId}:attribute-block"/>
         </h:commandButton>
+
         <h:commandScript name="change_relation"
                          execute="@form"
                          render="${cc.parent.clientId}:relation-block"
                          action="${attributeController.changeRelation(cc.attrs.attribute)}">
         </h:commandScript>
+        <h:commandScript name="change_primary_key"
+                         execute="@form"
+                         render="${cc.parent.clientId}:relation-block"
+                         action="${attributeController.changePrimaryKey(cc.attrs.attribute)}">
+        </h:commandScript>
         <h:outputScript>
             animateAttribute(
             document.getElementById("${cc.clientId}:attribute-block"),
             () => document.getElementById("${cc.clientId}:remove").click(),
-            change_relation
+            change_relation,
+            change_primary_key
             )
         </h:outputScript>
     </h:panelGroup>
