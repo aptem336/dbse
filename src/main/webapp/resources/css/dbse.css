@@ -29,6 +29,7 @@ input {
 
 .PrimaryKeyConstraint {
     border: 2px solid #808080;
+    min-height: 10px;
 }
 
 .TRANSIENT {

@@ -24,7 +24,7 @@ const attributeRelationDropListener = (e, relation_block_id, relation_index) => 
     attribute_block.change_relation(relation_block_id, relation_index);
 };
 const startAttributeRelationDragging = () => {
-    [...schema_block.getElementsByClassName('relation-block')]
+    [...schema_block.getElementsByClassName('Relation')]
         .forEach((relation_block, relation_index) => {
         relation_block.addEventListener('dragover', attributeRelationDragOverListener);
         relation_block.addEventListener('drop', e =>
@@ -32,7 +32,7 @@ const startAttributeRelationDragging = () => {
     });
 };
 const stopAttributeRelationDragging = () => {
-    [...schema_block.getElementsByClassName('relation-block')]
+    [...schema_block.getElementsByClassName('Relation')]
         .forEach((relation_block, relation_index) => {
         relation_block.removeEventListener('dragover', attributeRelationDragOverListener);
         //FIXME: not deleted!

@@ -2,6 +2,7 @@ package dbse.controller;
 
 import dbse.model.Attribute;
 import dbse.model.Relation;
+import dbse.model.constraint.PrimaryKeyConstraint;
 
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
@@ -40,7 +41,11 @@ public class AttributeController extends AbstractController<Attribute> {
         Relation newRelation = attribute.getRelation().getSchema().getRelations().get(relationIndex);
         attribute.getRelation().removeAttribute(attribute);
         newRelation.addAttribute(attribute);
-        newRelation.getPrimaryKeyConstraint().getAttributes().add(attribute);
+        if (newRelation.getPrimaryKeyConstraint() != null) {
+            newRelation.getPrimaryKeyConstraint().getAttributes().add(attribute);
+        } else {
+            newRelation.addPrimaryKeyConstraint(new PrimaryKeyConstraint(newRelation, attribute));
+        }
         FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add(relationBlockId);
     }
 }

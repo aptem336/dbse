@@ -11,7 +11,7 @@
 </composite:interface>
 <composite:implementation>
     <h:panelGroup id="primary-key-block"
-                  styleClass="${cc.attrs.primary_key.cssStyle}"
+                  styleClass="${cc.attrs.primary_key != null ? cc.attrs.primary_key.cssStyle : 'PrimaryKeyConstraint'}"
                   layout="block">
         <ui:repeat var="attribute"
                    value="${cc.attrs.primary_key.attributes}">
