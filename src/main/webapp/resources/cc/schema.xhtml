@@ -12,8 +12,7 @@
 <composite:implementation>
     <!--TODO current schema-->
     <h:panelGroup id="schema-block"
-                  styleClass="${cc.attrs.schema.cssStyle}"
-                  style="width: 100%; height: 100%; position: fixed">
+                  styleClass="Schema ${cc.attrs.schema.state}">
         <h:inputText value="${cc.attrs.schema.name}"/>
         <h:commandButton value="save"
                          action="${schemaController.commit(cc.attrs.schema)}">

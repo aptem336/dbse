@@ -13,7 +13,7 @@
 <composite:implementation>
     <h:panelGroup id="relation-block"
                   layout="block"
-                  styleClass="${cc.attrs.relation.cssStyle}"
+                  styleClass="Relation ${cc.attrs.relation.state}"
                   style="left:${cc.attrs.relation.x}px; top:${cc.attrs.relation.y}px">
         <h:inputText value="${cc.attrs.relation.name}"/>
         <h:commandButton value="+"

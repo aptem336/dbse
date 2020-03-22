@@ -42,9 +42,6 @@ public class Relation extends AbstractEntity implements ConstraintTarget {
 
     public void removeAttribute(Attribute attribute) {
         attributes.remove(attribute);
-        if (primaryKeyConstraint != null) {
-            primaryKeyConstraint.getAttributes().remove(attribute);
-        }
         attribute.setRelation(null);
         if (getState() != AbstractEntity.AbstractEntityState.TRANSIENT) {
             setState(AbstractEntity.AbstractEntityState.CHANGED);

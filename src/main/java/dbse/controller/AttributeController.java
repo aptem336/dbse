@@ -21,13 +21,19 @@ public class AttributeController extends AbstractController<Attribute> {
         //Q best way to get parameter?
         Map<String, String> requestParameterMap = FacesContext.getCurrentInstance()
                 .getExternalContext().getRequestParameterMap();
-        String relationBlockId = requestParameterMap.get("relation_block_id");
-        int relationIndex = Integer.parseInt(requestParameterMap.get("relation_index"));
+        Relation relation = attribute.getRelation();
+        relation.removeAttribute(attribute);
+        if (relation.getPrimaryKeyConstraint() != null) {
+            relation.getPrimaryKeyConstraint().getAttributes().remove(attribute);
+        }
         //Q связь через index?
-        Relation newRelation = attribute.getRelation().getSchema().getRelations().get(relationIndex);
-        attribute.getRelation().removeAttribute(attribute);
+        int relationIndex = Integer.parseInt(requestParameterMap.get("relation_index"));
+        Relation newRelation = relation.getSchema().getRelations().get(relationIndex);
         newRelation.addAttribute(attribute);
+        String relationBlockId = requestParameterMap.get("relation_block_id");
+        String newRelationBlockId = requestParameterMap.get("new_relation_block_id");
         FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add(relationBlockId);
+        FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add(newRelationBlockId);
     }
 
     //TODO simplify
@@ -35,17 +41,23 @@ public class AttributeController extends AbstractController<Attribute> {
         //Q best way to get parameter?
         Map<String, String> requestParameterMap = FacesContext.getCurrentInstance()
                 .getExternalContext().getRequestParameterMap();
-        String relationBlockId = requestParameterMap.get("relation_block_id");
-        int relationIndex = Integer.parseInt(requestParameterMap.get("relation_index"));
+        Relation relation = attribute.getRelation();
+        relation.removeAttribute(attribute);
+        if (relation.getPrimaryKeyConstraint() != null) {
+            relation.getPrimaryKeyConstraint().getAttributes().remove(attribute);
+        }
         //Q связь через index?
-        Relation newRelation = attribute.getRelation().getSchema().getRelations().get(relationIndex);
-        attribute.getRelation().removeAttribute(attribute);
+        int relationIndex = Integer.parseInt(requestParameterMap.get("relation_index"));
+        Relation newRelation = relation.getSchema().getRelations().get(relationIndex);
         newRelation.addAttribute(attribute);
         if (newRelation.getPrimaryKeyConstraint() != null) {
             newRelation.getPrimaryKeyConstraint().getAttributes().add(attribute);
         } else {
             newRelation.addPrimaryKeyConstraint(new PrimaryKeyConstraint(newRelation, attribute));
         }
+        String relationBlockId = requestParameterMap.get("relation_block_id");
+        String newRelationBlockId = requestParameterMap.get("new_relation_block_id");
         FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add(relationBlockId);
+        FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add(newRelationBlockId);
     }
 }

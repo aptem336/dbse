@@ -38,11 +38,6 @@ public abstract class AbstractEntity {
                 '}';
     }
 
-    @Transient
-    public String getCssStyle() {
-        return getClass().getSimpleName() + " " + state;
-    }
-
     public enum AbstractEntityState {
         TRANSIENT,
         CHANGED,

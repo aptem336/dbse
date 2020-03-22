@@ -10,7 +10,7 @@
 <composite:implementation>
     <h:panelGroup id="attribute-block"
                   layout="block"
-                  styleClass="${cc.attrs.attribute.cssStyle}">
+                  styleClass="Attribute ${cc.attrs.attribute.state}">
         <h:inputText value="${cc.attrs.attribute.name}"/>
         <h:commandButton id="remove"
                          value="x"
@@ -21,12 +21,10 @@
 
         <h:commandScript name="change_relation"
                          execute="@form"
-                         render="${cc.parent.clientId}:relation-block"
                          action="${attributeController.changeRelation(cc.attrs.attribute)}">
         </h:commandScript>
         <h:commandScript name="change_primary_key"
                          execute="@form"
-                         render="${cc.parent.clientId}:relation-block"
                          action="${attributeController.changePrimaryKey(cc.attrs.attribute)}">
         </h:commandScript>
         <h:outputScript>
