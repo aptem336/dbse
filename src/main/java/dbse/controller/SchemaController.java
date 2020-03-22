@@ -45,6 +45,9 @@ public class SchemaController extends AbstractController<Schema> {
             relation.getAttributes().forEach(attribute -> {
                 attribute.setState(AbstractEntity.AbstractEntityState.PERSISTENT);
             });
+            relation.getUniqueConstraintConstraints().forEach(uniqueConstraint -> {
+                uniqueConstraint.setState(AbstractEntity.AbstractEntityState.PERSISTENT);
+            });
             relation.setState(AbstractEntity.AbstractEntityState.PERSISTENT);
         });
         switch (schema.getState()) {

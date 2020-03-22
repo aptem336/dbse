@@ -15,8 +15,8 @@ const animateAttribute = (attribute_block, remove, change_relation, change_prima
         stopAttributePrimaryKeyDragging();
     };
     attribute_block.remove = remove;
-    attribute_block.change_relation = (relation_block_id, new_relation_block_id, relation_index) =>
-        change_relation({relation_block_id: relation_block_id, new_relation_block_id: new_relation_block_id, relation_index: relation_index});
-    attribute_block.change_primary_key = (relation_block_id, new_relation_block_id, relation_index) =>
-        change_primary_key({relation_block_id: relation_block_id, new_relation_block_id: new_relation_block_id, relation_index: relation_index});
+    attribute_block.change_relation = (new_relation_block_id, relation_index) =>
+        change_relation({relation_block_id: attribute_block.parentElement.id, new_relation_block_id: new_relation_block_id, relation_index: relation_index});
+    attribute_block.change_primary_key = (new_relation_block_id, relation_index) =>
+        change_primary_key({relation_block_id: attribute_block.parentElement.id, new_relation_block_id: new_relation_block_id, relation_index: relation_index});
 };

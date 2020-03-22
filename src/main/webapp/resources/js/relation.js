@@ -21,7 +21,7 @@ const attributeRelationDropListener = (e, relation_block_id, relation_index) => 
     e.stopPropagation();
     const data = JSON.parse(e.dataTransfer.getData("text/plain"));
     const attribute_block = document.getElementById(data.attribute_block_id);
-    attribute_block.change_relation(attribute_block.parentElement.id, relation_block_id, relation_index);
+    attribute_block.change_relation(relation_block_id, relation_index);
 };
 const startAttributeRelationDragging = () => {
     [...schema_block.getElementsByClassName('Relation')]
