@@ -16,13 +16,13 @@ input {
     margin: 3px;
 }
 
-.schema-block, .relation-block, .attribute-block {
+.Schema, .Relation, .Attribute {
     outline-style: solid;
     outline-width: 3px;
     outline-offset: -3px;
 }
 
-.relation-block {
+.Relation {
     background: #2b2b2b;
     position: absolute;
 }

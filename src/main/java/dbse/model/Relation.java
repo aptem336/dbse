@@ -1,19 +1,23 @@
 package dbse.model;
 
+import dbse.model.constraint.ConstraintTarget;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class Relation extends AbstractEntity {
+public class Relation extends AbstractEntity implements ConstraintTarget {
     private String name;
     private int x, y;
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "relation")
     private List<Attribute> attributes = new ArrayList<>();
     @ManyToOne
     private Schema schema;
+
     public Relation() {
     }
+
     public Relation(Schema schema, int x, int y) {
         setX(x);
         setY(y);

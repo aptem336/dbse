@@ -46,5 +46,4 @@ public class Schema extends AbstractEntity {
     public void setRelations(List<Relation> relations) {
         this.relations = relations;
     }
-
 }

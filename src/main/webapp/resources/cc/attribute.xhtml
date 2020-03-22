@@ -10,7 +10,7 @@
 <composite:implementation>
     <h:panelGroup id="attribute-block"
                   layout="block"
-                  styleClass="attribute-block ${cc.attrs.attribute.state}">
+                  styleClass="${cc.attrs.attribute.cssStyle}">
         <h:inputText value="${cc.attrs.attribute.name}"/>
         <h:commandButton id="remove"
                          value="x"
