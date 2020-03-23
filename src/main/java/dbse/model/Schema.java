@@ -10,7 +10,7 @@ import java.util.List;
 @NamedQueries({
         @NamedQuery(name = SchemaPersistService.ALL_NAMED_QUERY_NAME, query = "SELECT s FROM Schema s"),
 })
-public class Schema extends AbstractEntity {
+public class Schema extends AbstractModel {
     private String name;
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "schema")
     private List<Relation> relations = new ArrayList<>();
@@ -18,16 +18,16 @@ public class Schema extends AbstractEntity {
     public void addRelation(Relation relation) {
         relations.add(relation);
         relation.setSchema(this);
-        if (getState() != AbstractEntity.AbstractEntityState.TRANSIENT) {
-            setState(AbstractEntity.AbstractEntityState.CHANGED);
+        if (getState() != AbstractModel.AbstractEntityState.TRANSIENT) {
+            setState(AbstractModel.AbstractEntityState.CHANGED);
         }
     }
 
     public void removeRelation(Relation relation) {
         relations.remove(relation);
         relation.setSchema(null);
-        if (getState() != AbstractEntity.AbstractEntityState.TRANSIENT) {
-            setState(AbstractEntity.AbstractEntityState.CHANGED);
+        if (getState() != AbstractModel.AbstractEntityState.TRANSIENT) {
+            setState(AbstractModel.AbstractEntityState.CHANGED);
         }
     }
 

@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Entity
-public class Relation extends AbstractEntity implements ConstraintTarget {
+public class Relation extends AbstractModel implements ConstraintTarget {
     private String name;
     private int x, y;
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "relation")
@@ -29,22 +29,22 @@ public class Relation extends AbstractEntity implements ConstraintTarget {
         setX(x);
         setY(y);
         schema.addRelation(this);
-        setState(AbstractEntity.AbstractEntityState.TRANSIENT);
+        setState(AbstractModel.AbstractEntityState.TRANSIENT);
     }
 
     public void addAttribute(Attribute attribute) {
         attributes.add(attribute);
         attribute.setRelation(this);
-        if (getState() != AbstractEntity.AbstractEntityState.TRANSIENT) {
-            setState(AbstractEntity.AbstractEntityState.CHANGED);
+        if (getState() != AbstractModel.AbstractEntityState.TRANSIENT) {
+            setState(AbstractModel.AbstractEntityState.CHANGED);
         }
     }
 
     public void removeAttribute(Attribute attribute) {
         attributes.remove(attribute);
         attribute.setRelation(null);
-        if (getState() != AbstractEntity.AbstractEntityState.TRANSIENT) {
-            setState(AbstractEntity.AbstractEntityState.CHANGED);
+        if (getState() != AbstractModel.AbstractEntityState.TRANSIENT) {
+            setState(AbstractModel.AbstractEntityState.CHANGED);
         }
     }
 
@@ -59,16 +59,16 @@ public class Relation extends AbstractEntity implements ConstraintTarget {
     public void addUniqueConstraint(UniqueConstraint uniqueConstraint) {
         uniqueConstraintConstraints.add(uniqueConstraint);
         uniqueConstraint.setTarget(this);
-        if (getState() != AbstractEntity.AbstractEntityState.TRANSIENT) {
-            setState(AbstractEntity.AbstractEntityState.CHANGED);
+        if (getState() != AbstractModel.AbstractEntityState.TRANSIENT) {
+            setState(AbstractModel.AbstractEntityState.CHANGED);
         }
     }
 
     public void removeUniqueConstraint(UniqueConstraint uniqueConstraint) {
         uniqueConstraintConstraints.remove(uniqueConstraint);
         uniqueConstraint.setTarget(null);
-        if (getState() != AbstractEntity.AbstractEntityState.TRANSIENT) {
-            setState(AbstractEntity.AbstractEntityState.CHANGED);
+        if (getState() != AbstractModel.AbstractEntityState.TRANSIENT) {
+            setState(AbstractModel.AbstractEntityState.CHANGED);
         }
     }
 
@@ -76,8 +76,8 @@ public class Relation extends AbstractEntity implements ConstraintTarget {
     public void shift(int x, int y) {
         this.x += x;
         this.y += y;
-        if (getState() != AbstractEntity.AbstractEntityState.TRANSIENT) {
-            setState(AbstractEntity.AbstractEntityState.CHANGED);
+        if (getState() != AbstractModel.AbstractEntityState.TRANSIENT) {
+            setState(AbstractModel.AbstractEntityState.CHANGED);
         }
     }
 

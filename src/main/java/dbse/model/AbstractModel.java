@@ -4,7 +4,7 @@ import javax.persistence.*;
 
 @MappedSuperclass
 @Inheritance(strategy = InheritanceType.JOINED)
-public abstract class AbstractEntity {
+public abstract class AbstractModel {
     @Id
     @GeneratedValue
     private String id;

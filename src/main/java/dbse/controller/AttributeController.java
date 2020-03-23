@@ -1,6 +1,6 @@
 package dbse.controller;
 
-import dbse.model.AbstractEntity;
+import dbse.model.AbstractModel;
 import dbse.model.Attribute;
 import dbse.model.Relation;
 import dbse.model.constraint.PrimaryKeyConstraint;
@@ -27,9 +27,9 @@ public class AttributeController extends AbstractController<Attribute> {
         if (relation.getPrimaryKeyConstraint() != null) {
             relation.getPrimaryKeyConstraint().getAttributes().remove(attribute);
             if (relation.getPrimaryKeyConstraint().getAttributes().isEmpty()){
-                relation.getPrimaryKeyConstraint().setState(AbstractEntity.AbstractEntityState.REMOVED);
+                relation.getPrimaryKeyConstraint().setState(AbstractModel.AbstractEntityState.REMOVED);
             } else {
-                relation.getPrimaryKeyConstraint().setState(AbstractEntity.AbstractEntityState.CHANGED);
+                relation.getPrimaryKeyConstraint().setState(AbstractModel.AbstractEntityState.CHANGED);
             }
         }
         //Q связь через index?
@@ -52,9 +52,9 @@ public class AttributeController extends AbstractController<Attribute> {
         if (relation.getPrimaryKeyConstraint() != null) {
             relation.getPrimaryKeyConstraint().getAttributes().remove(attribute);
             if (relation.getPrimaryKeyConstraint().getAttributes().isEmpty()){
-                relation.getPrimaryKeyConstraint().setState(AbstractEntity.AbstractEntityState.REMOVED);
+                relation.getPrimaryKeyConstraint().setState(AbstractModel.AbstractEntityState.REMOVED);
             } else {
-                relation.getPrimaryKeyConstraint().setState(AbstractEntity.AbstractEntityState.CHANGED);
+                relation.getPrimaryKeyConstraint().setState(AbstractModel.AbstractEntityState.CHANGED);
             }
         }
         //Q связь через index?
@@ -63,7 +63,7 @@ public class AttributeController extends AbstractController<Attribute> {
         newRelation.addAttribute(attribute);
         if (newRelation.getPrimaryKeyConstraint() != null) {
             newRelation.getPrimaryKeyConstraint().getAttributes().add(attribute);
-            newRelation.getPrimaryKeyConstraint().setState(AbstractEntity.AbstractEntityState.CHANGED);
+            newRelation.getPrimaryKeyConstraint().setState(AbstractModel.AbstractEntityState.CHANGED);
         } else {
             newRelation.addPrimaryKeyConstraint(new PrimaryKeyConstraint(newRelation, attribute));
         }

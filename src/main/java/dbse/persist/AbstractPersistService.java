@@ -1,11 +1,11 @@
 package dbse.persist;
 
-import dbse.model.AbstractEntity;
+import dbse.model.AbstractModel;
 
 import javax.persistence.EntityManager;
 import java.util.List;
 
-public abstract class AbstractPersistService<T extends AbstractEntity> {
+public abstract class AbstractPersistService<T extends AbstractModel> {
     public void persist(T t) {
         getEntityManager().persist(t);
     }

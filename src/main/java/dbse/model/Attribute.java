@@ -4,7 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 
 @Entity
-public class Attribute extends AbstractEntity {
+public class Attribute extends AbstractModel {
     private String name;
     @ManyToOne
     private Relation relation;
@@ -14,7 +14,7 @@ public class Attribute extends AbstractEntity {
 
     public Attribute(Relation relation) {
         relation.addAttribute(this);
-        setState(AbstractEntity.AbstractEntityState.TRANSIENT);
+        setState(AbstractModel.AbstractEntityState.TRANSIENT);
     }
 
     public String getName() {

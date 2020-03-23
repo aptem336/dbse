@@ -1,6 +1,6 @@
 package dbse.controller;
 
-import dbse.model.AbstractEntity;
+import dbse.model.AbstractModel;
 import dbse.model.Schema;
 import dbse.persist.SchemaPersistService;
 
@@ -21,12 +21,12 @@ public class SchemaController extends AbstractController<Schema> {
     public void create() {
         Schema schema = new Schema();
         schemasList.add(schema);
-        schema.setState(AbstractEntity.AbstractEntityState.TRANSIENT);
+        schema.setState(AbstractModel.AbstractEntityState.TRANSIENT);
     }
 
     public void commit() {
         new ArrayList<>(schemasList).stream()
-                .filter(schema -> schema.getState() == AbstractEntity.AbstractEntityState.REMOVED)
+                .filter(schema -> schema.getState() == AbstractModel.AbstractEntityState.REMOVED)
                 .forEach(schema -> {
                     schemasList.remove(schema);
                     service.remove(schema);
@@ -36,19 +36,19 @@ public class SchemaController extends AbstractController<Schema> {
 
     public void commit(Schema schema) {
         new ArrayList<>(schema.getRelations()).stream()
-                .filter(relation -> relation.getState() == AbstractEntity.AbstractEntityState.REMOVED)
+                .filter(relation -> relation.getState() == AbstractModel.AbstractEntityState.REMOVED)
                 .forEach(schema::removeRelation);
         schema.getRelations().forEach(relation -> {
             new ArrayList<>(relation.getAttributes()).stream()
-                    .filter(attribute -> attribute.getState() == AbstractEntity.AbstractEntityState.REMOVED)
+                    .filter(attribute -> attribute.getState() == AbstractModel.AbstractEntityState.REMOVED)
                     .forEach(relation::removeAttribute);
             relation.getAttributes().forEach(attribute -> {
-                attribute.setState(AbstractEntity.AbstractEntityState.PERSISTENT);
+                attribute.setState(AbstractModel.AbstractEntityState.PERSISTENT);
             });
             relation.getUniqueConstraintConstraints().forEach(uniqueConstraint -> {
-                uniqueConstraint.setState(AbstractEntity.AbstractEntityState.PERSISTENT);
+                uniqueConstraint.setState(AbstractModel.AbstractEntityState.PERSISTENT);
             });
-            relation.setState(AbstractEntity.AbstractEntityState.PERSISTENT);
+            relation.setState(AbstractModel.AbstractEntityState.PERSISTENT);
         });
         switch (schema.getState()) {
             case TRANSIENT:
@@ -59,7 +59,7 @@ public class SchemaController extends AbstractController<Schema> {
                 service.merge(schema);
                 break;
         }
-        schema.setState(AbstractEntity.AbstractEntityState.PERSISTENT);
+        schema.setState(AbstractModel.AbstractEntityState.PERSISTENT);
     }
 
     @PostConstruct

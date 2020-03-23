@@ -1,6 +1,6 @@
 package dbse.model.constraint;
 
-import dbse.model.AbstractEntity;
+import dbse.model.AbstractModel;
 
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
@@ -9,7 +9,7 @@ import javax.persistence.MappedSuperclass;
 
 @MappedSuperclass
 @Inheritance(strategy = InheritanceType.JOINED)
-public class Constraint<T extends ConstraintTarget> extends AbstractEntity {
+public class Constraint<T extends ConstraintTarget> extends AbstractModel {
     @ManyToOne
     private T target;
 
