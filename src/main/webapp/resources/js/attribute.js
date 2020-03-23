@@ -1,4 +1,4 @@
-const animateAttribute = (attribute_block, remove, change_relation, change_primary_key) => {
+const animateAttribute = (attribute_block, remove, change_attribute_container) => {
     attribute_block.draggable = true;
     attribute_block.ondragstart = (e) => {
         e.stopPropagation();
@@ -15,8 +15,9 @@ const animateAttribute = (attribute_block, remove, change_relation, change_prima
         stopAttributePrimaryKeyDragging();
     };
     attribute_block.remove = remove;
-    attribute_block.change_relation = (new_relation_block_id, relation_index) =>
-        change_relation({relation_block_id: attribute_block.parentElement.id, new_relation_block_id: new_relation_block_id, relation_index: relation_index});
-    attribute_block.change_primary_key = (new_relation_block_id, relation_index) =>
-        change_primary_key({relation_block_id: attribute_block.parentElement.id, new_relation_block_id: new_relation_block_id, relation_index: relation_index});
+    attribute_block.change_attribute_container = (new_container_block_id, container_index, is_primary_key) =>
+        change_attribute_container({container_block_id: attribute_block.parentElement.id,
+            new_container_block_id: new_container_block_id,
+            container_index: container_index,
+            is_primary_key: is_primary_key});
 };

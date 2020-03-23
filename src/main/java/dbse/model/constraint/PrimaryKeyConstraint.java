@@ -11,9 +11,7 @@ public class PrimaryKeyConstraint extends UniqueConstraint {
     }
 
     public PrimaryKeyConstraint(Relation relation, Attribute attribute) {
-        relation.addUniqueConstraint(this);
+        super(relation, attribute);
         relation.addPrimaryKeyConstraint(this);
-        getAttributes().add(attribute);
-        setState(AbstractEntityState.TRANSIENT);
     }
 }

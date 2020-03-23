@@ -19,20 +19,16 @@
                     render="${cc.clientId}:attribute-block"/>
         </h:commandButton>
 
-        <h:commandScript name="change_relation"
+        <h:commandScript name="change_attribute_container"
                          execute="@form"
-                         action="${attributeController.changeRelation(cc.attrs.attribute)}">
-        </h:commandScript>
-        <h:commandScript name="change_primary_key"
-                         execute="@form"
-                         action="${attributeController.changePrimaryKey(cc.attrs.attribute)}">
+                         render="${cc.parent.clientId}:relation-block"
+                         action="${attributeController.changeAttributeContainer(cc.attrs.attribute)}">
         </h:commandScript>
         <h:outputScript>
             animateAttribute(
             document.getElementById("${cc.clientId}:attribute-block"),
             () => document.getElementById("${cc.clientId}:remove").click(),
-            change_relation,
-            change_primary_key
+            change_attribute_container,
             )
         </h:outputScript>
     </h:panelGroup>

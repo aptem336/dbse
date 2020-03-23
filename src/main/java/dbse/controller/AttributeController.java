@@ -1,6 +1,5 @@
 package dbse.controller;
 
-import dbse.model.AbstractModel;
 import dbse.model.Attribute;
 import dbse.model.Relation;
 import dbse.model.constraint.PrimaryKeyConstraint;
@@ -18,58 +17,36 @@ public class AttributeController extends AbstractController<Attribute> {
     }
 
     //TODO simplify
-    public void changeRelation(Attribute attribute) {
+    public void changeAttributeContainer(Attribute attribute) {
         //Q best way to get parameter?
         Map<String, String> requestParameterMap = FacesContext.getCurrentInstance()
                 .getExternalContext().getRequestParameterMap();
         Relation relation = attribute.getRelation();
-        relation.removeAttribute(attribute);
-        if (relation.getPrimaryKeyConstraint() != null) {
-            relation.getPrimaryKeyConstraint().getAttributes().remove(attribute);
-            if (relation.getPrimaryKeyConstraint().getAttributes().isEmpty()){
-                relation.getPrimaryKeyConstraint().setState(AbstractModel.AbstractEntityState.REMOVED);
-            } else {
-                relation.getPrimaryKeyConstraint().setState(AbstractModel.AbstractEntityState.CHANGED);
-            }
-        }
-        //Q связь через index?
-        int relationIndex = Integer.parseInt(requestParameterMap.get("relation_index"));
-        Relation newRelation = relation.getSchema().getRelations().get(relationIndex);
-        newRelation.addAttribute(attribute);
-        String relationBlockId = requestParameterMap.get("relation_block_id");
-        String newRelationBlockId = requestParameterMap.get("new_relation_block_id");
-        FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add(relationBlockId);
-        FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add(newRelationBlockId);
-    }
-
-    //TODO simplify
-    public void changePrimaryKey(Attribute attribute) {
-        //Q best way to get parameter?
-        Map<String, String> requestParameterMap = FacesContext.getCurrentInstance()
-                .getExternalContext().getRequestParameterMap();
-        Relation relation = attribute.getRelation();
-        relation.removeAttribute(attribute);
-        if (relation.getPrimaryKeyConstraint() != null) {
-            relation.getPrimaryKeyConstraint().getAttributes().remove(attribute);
-            if (relation.getPrimaryKeyConstraint().getAttributes().isEmpty()){
-                relation.getPrimaryKeyConstraint().setState(AbstractModel.AbstractEntityState.REMOVED);
-            } else {
-                relation.getPrimaryKeyConstraint().setState(AbstractModel.AbstractEntityState.CHANGED);
-            }
-        }
-        //Q связь через index?
-        int relationIndex = Integer.parseInt(requestParameterMap.get("relation_index"));
-        Relation newRelation = relation.getSchema().getRelations().get(relationIndex);
-        newRelation.addAttribute(attribute);
-        if (newRelation.getPrimaryKeyConstraint() != null) {
-            newRelation.getPrimaryKeyConstraint().getAttributes().add(attribute);
-            newRelation.getPrimaryKeyConstraint().setState(AbstractModel.AbstractEntityState.CHANGED);
+        PrimaryKeyConstraint primaryKeyConstraint = relation.getPrimaryKeyConstraint();
+        if (primaryKeyConstraint != null && primaryKeyConstraint.getAttributes().contains(attribute)) {
+            primaryKeyConstraint.removeAttribute(attribute);
         } else {
-            newRelation.addPrimaryKeyConstraint(new PrimaryKeyConstraint(newRelation, attribute));
+            relation.removeAttribute(attribute);
         }
-        String relationBlockId = requestParameterMap.get("relation_block_id");
-        String newRelationBlockId = requestParameterMap.get("new_relation_block_id");
-        FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add(relationBlockId);
-        FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add(newRelationBlockId);
+        //Q связь через index?
+        int relationIndex = Integer.parseInt(requestParameterMap.get("container_index"));
+        Relation newRelation = relation.getSchema().getRelations().get(relationIndex);
+
+        boolean isPrimaryKey = Boolean.parseBoolean(requestParameterMap.get("is_primary_key"));
+        if (isPrimaryKey) {
+            PrimaryKeyConstraint newRelationPrimaryKeyConstraint = newRelation.getPrimaryKeyConstraint();
+            if (newRelationPrimaryKeyConstraint != null) {
+                newRelationPrimaryKeyConstraint.addAttribute(attribute);
+            } else {
+                new PrimaryKeyConstraint(newRelation, attribute);
+            }
+        } else {
+            newRelation.addAttribute(attribute);
+        }
+
+        String containerBlockId = requestParameterMap.get("container_block_id");
+        String newContainerBlockId = requestParameterMap.get("new_container_block_id");
+        FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add(containerBlockId);
+        FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add(newContainerBlockId);
     }
 }
