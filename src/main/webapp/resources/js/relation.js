@@ -26,17 +26,17 @@ const attributeRelationDropListener = (e, relation_block_id, relation_index) => 
 const startAttributeRelationDragging = () => {
     [...schema_block.getElementsByClassName('Relation')]
         .forEach((relation_block, relation_index) => {
-        relation_block.addEventListener('dragover', attributeRelationDragOverListener);
-        relation_block.addEventListener('drop', e =>
-            attributeRelationDropListener(e, relation_block.id, relation_index));
-    });
+            relation_block.addEventListener('dragover', attributeRelationDragOverListener);
+            relation_block.addEventListener('drop', e =>
+                attributeRelationDropListener(e, relation_block.id, relation_index));
+        });
 };
 const stopAttributeRelationDragging = () => {
     [...schema_block.getElementsByClassName('Relation')]
         .forEach((relation_block, relation_index) => {
-        relation_block.removeEventListener('dragover', attributeRelationDragOverListener);
-        //FIXME: not deleted!
-        relation_block.removeEventListener('drop', e =>
-            attributeRelationDropListener(e, relation_block.id, relation_index));
-    });
+            relation_block.removeEventListener('dragover', attributeRelationDragOverListener);
+            //FIXME: not deleted!
+            relation_block.removeEventListener('drop', e =>
+                attributeRelationDropListener(e, relation_block.id, relation_index));
+        });
 };

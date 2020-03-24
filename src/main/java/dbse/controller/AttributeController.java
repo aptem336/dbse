@@ -23,15 +23,19 @@ public class AttributeController extends AbstractController<Attribute> {
                 .getExternalContext().getRequestParameterMap();
         Relation relation = attribute.getRelation();
         PrimaryKeyConstraint primaryKeyConstraint = relation.getPrimaryKeyConstraint();
-        if (primaryKeyConstraint != null && primaryKeyConstraint.getAttributes().contains(attribute)) {
-            primaryKeyConstraint.removeAttribute(attribute);
+        if (primaryKeyConstraint != null) {
+            if (primaryKeyConstraint.getAttributes().contains(attribute)) {
+                primaryKeyConstraint.removeAttribute(attribute);
+            } else {
+                relation.removeAttribute(attribute);
+            }
         } else {
             relation.removeAttribute(attribute);
         }
         //Q связь через index?
         int relationIndex = Integer.parseInt(requestParameterMap.get("container_index"));
         Relation newRelation = relation.getSchema().getRelations().get(relationIndex);
-
+        //Q другой способ разделения?
         boolean isPrimaryKey = Boolean.parseBoolean(requestParameterMap.get("is_primary_key"));
         if (isPrimaryKey) {
             PrimaryKeyConstraint newRelationPrimaryKeyConstraint = newRelation.getPrimaryKeyConstraint();

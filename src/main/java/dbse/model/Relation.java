@@ -32,6 +32,15 @@ public class Relation extends AbstractModel implements ConstraintTarget {
         setState(AbstractModel.AbstractEntityState.TRANSIENT);
     }
 
+    public List<Attribute> getNotPrimaryKeyAttributes() {
+        if (primaryKeyConstraint != null) {
+            return attributes.stream()
+                    .filter(attribute -> !primaryKeyConstraint.getAttributes().contains(attribute))
+                    .collect(Collectors.toList());
+        }
+        return attributes;
+    }
+
     public void addAttribute(Attribute attribute) {
         attributes.add(attribute);
         attribute.setRelation(this);
@@ -48,14 +57,6 @@ public class Relation extends AbstractModel implements ConstraintTarget {
         }
     }
 
-    public void addPrimaryKeyConstraint(PrimaryKeyConstraint primaryKeyConstraint) {
-        setPrimaryKeyConstraint(primaryKeyConstraint);
-    }
-
-    public void removePrimaryKeyConstraint() {
-        setPrimaryKeyConstraint(null);
-    }
-
     public void addUniqueConstraint(UniqueConstraint uniqueConstraint) {
         uniqueConstraintConstraints.add(uniqueConstraint);
         uniqueConstraint.setTarget(this);
@@ -66,6 +67,9 @@ public class Relation extends AbstractModel implements ConstraintTarget {
 
     public void removeUniqueConstraint(UniqueConstraint uniqueConstraint) {
         uniqueConstraintConstraints.remove(uniqueConstraint);
+        if (uniqueConstraint instanceof PrimaryKeyConstraint) {
+            setPrimaryKeyConstraint(null);
+        }
         uniqueConstraint.setTarget(null);
         if (getState() != AbstractModel.AbstractEntityState.TRANSIENT) {
             setState(AbstractModel.AbstractEntityState.CHANGED);
@@ -144,14 +148,5 @@ public class Relation extends AbstractModel implements ConstraintTarget {
                 ", x=" + x +
                 ", y=" + y +
                 '}';
-    }
-
-    public List<Attribute> getNotPrimaryKeyAttributes() {
-        if (primaryKeyConstraint != null) {
-            return attributes.stream()
-                    .filter(attribute -> !primaryKeyConstraint.getAttributes().contains(attribute))
-                    .collect(Collectors.toList());
-        }
-        return attributes;
     }
 }

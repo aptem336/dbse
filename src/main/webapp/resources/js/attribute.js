@@ -16,7 +16,7 @@ const animateAttribute = (attribute_block, remove, change_attribute_container) =
     };
     attribute_block.remove = remove;
     attribute_block.change_attribute_container = (new_container_block_id, container_index, is_primary_key) =>
-        change_attribute_container({container_block_id: attribute_block.parentElement.id,
+        change_attribute_container({container_block_id: attribute_block.parentElement.parentElement.id,
             new_container_block_id: new_container_block_id,
             container_index: container_index,
             is_primary_key: is_primary_key});

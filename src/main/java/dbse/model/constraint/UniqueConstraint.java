@@ -18,17 +18,15 @@ public class UniqueConstraint extends Constraint<Relation> {
     }
 
     public UniqueConstraint(Relation relation, Attribute attribute) {
-        relation.addUniqueConstraint(this);
         attributes.add(attribute);
-        getTarget().getAttributes().add(attribute);
-        attribute.setRelation(getTarget());
+        relation.addAttribute(attribute);
+        relation.addUniqueConstraint(this);
         setState(AbstractEntityState.TRANSIENT);
     }
 
     public void addAttribute(Attribute attribute) {
         attributes.add(attribute);
-        getTarget().getAttributes().add(attribute);
-        attribute.setRelation(getTarget());
+        getTarget().addAttribute(attribute);
         if (getState() != AbstractModel.AbstractEntityState.TRANSIENT) {
             setState(AbstractModel.AbstractEntityState.CHANGED);
         }
@@ -36,10 +34,10 @@ public class UniqueConstraint extends Constraint<Relation> {
 
     public void removeAttribute(Attribute attribute) {
         attributes.remove(attribute);
-        if (attributes.isEmpty()) {
-            getTarget().setPrimaryKeyConstraint(null);
-        }
         getTarget().removeAttribute(attribute);
+        if (attributes.isEmpty()) {
+            getTarget().removeUniqueConstraint(this);
+        }
         if (getState() != AbstractModel.AbstractEntityState.TRANSIENT) {
             setState(AbstractModel.AbstractEntityState.CHANGED);
         }
