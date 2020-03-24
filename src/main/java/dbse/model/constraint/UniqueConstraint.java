@@ -2,6 +2,7 @@ package dbse.model.constraint;
 
 import dbse.model.AbstractModel;
 import dbse.model.Attribute;
+import dbse.model.AttributesContainer;
 import dbse.model.Relation;
 
 import javax.persistence.Entity;
@@ -10,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class UniqueConstraint extends Constraint<Relation> {
+public class UniqueConstraint extends Constraint<Relation> implements AttributesContainer {
     @OneToMany
     private List<Attribute> attributes = new ArrayList<>();
 

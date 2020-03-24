@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Entity
-public class Relation extends AbstractModel implements ConstraintTarget {
+public class Relation extends AbstractModel implements AttributesContainer, ConstraintTarget {
     private String name;
     private int x, y;
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "relation")
