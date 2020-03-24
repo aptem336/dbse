@@ -45,6 +45,14 @@ public class SchemaController extends AbstractController<Schema> {
             relation.getAttributes().forEach(attribute -> {
                 attribute.setState(AbstractModel.AbstractEntityState.PERSISTENT);
             });
+            new ArrayList<>(relation.getUniqueConstraintConstraints()).stream()
+                    .filter(attribute -> attribute.getState() == AbstractModel.AbstractEntityState.REMOVED)
+                    .forEach(relation::removeUniqueConstraint);
+            if (relation.getPrimaryKeyConstraint() != null) {
+                if (relation.getPrimaryKeyConstraint().getState() == AbstractModel.AbstractEntityState.REMOVED) {
+                    relation.setPrimaryKeyConstraint(null);
+                }
+            }
             relation.getUniqueConstraintConstraints().forEach(uniqueConstraint -> {
                 uniqueConstraint.setState(AbstractModel.AbstractEntityState.PERSISTENT);
             });

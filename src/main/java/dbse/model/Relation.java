@@ -67,9 +67,6 @@ public class Relation extends AbstractModel implements ConstraintTarget {
 
     public void removeUniqueConstraint(UniqueConstraint uniqueConstraint) {
         uniqueConstraintConstraints.remove(uniqueConstraint);
-        if (uniqueConstraint instanceof PrimaryKeyConstraint) {
-            setPrimaryKeyConstraint(null);
-        }
         uniqueConstraint.setTarget(null);
         if (getState() != AbstractModel.AbstractEntityState.TRANSIENT) {
             setState(AbstractModel.AbstractEntityState.CHANGED);

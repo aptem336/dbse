@@ -35,11 +35,11 @@ public class UniqueConstraint extends Constraint<Relation> {
     public void removeAttribute(Attribute attribute) {
         attributes.remove(attribute);
         getTarget().removeAttribute(attribute);
-        if (attributes.isEmpty()) {
-            getTarget().removeUniqueConstraint(this);
-        }
         if (getState() != AbstractModel.AbstractEntityState.TRANSIENT) {
             setState(AbstractModel.AbstractEntityState.CHANGED);
+        }
+        if (attributes.isEmpty()) {
+            setState(AbstractEntityState.REMOVED);
         }
     }
 
