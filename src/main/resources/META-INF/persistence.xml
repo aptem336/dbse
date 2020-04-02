@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://java.sun.com/xml/ns/persistence">
+    <persistence-unit name="dbse_pu">
+        <jta-data-source>jdbc/__default</jta-data-source>
+        <properties>
+            <property name="javax.persistence.schemaModel-generation.database.action" value="drop-and-create"/>
+        </properties>
+    </persistence-unit>
+</persistence>
