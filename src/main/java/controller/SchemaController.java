@@ -1,5 +1,6 @@
 package controller;
 
+import model.RelationModel;
 import model.SchemaModel;
 
 import javax.annotation.PostConstruct;
@@ -25,6 +26,8 @@ public class SchemaController extends Controller<SchemaModel> {
     @PostConstruct
     private void readSchemas() {
         schema = new SchemaModel();
+        schema.addRelation(new RelationModel(100, 100));
+        schema.addRelation(new RelationModel(200, 200));
     }
 
     public List<SchemaModel> getSchemas() {

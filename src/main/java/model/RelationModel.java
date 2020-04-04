@@ -1,12 +1,24 @@
 package model;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
+import view.Positional;
+import view.draggable.Draggable;
+import view.draggable.PositionalDragging;
+
+import javax.persistence.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.function.Consumer;
 
 @Entity
-public class RelationModel extends AttributeContainerModel {
+public class RelationModel extends AttributeContainerModel
+        implements Draggable<RelationModel>, Positional<RelationModel> {
+    @Transient
+    private static final Map<Class<? extends Model>, Consumer<RelationModel>> dragMap = new HashMap<>();
+
+    static {
+        dragMap.put(SchemaModel.class, PositionalDragging::drag);
+    }
+
     private String name;
     @ManyToOne
     private SchemaModel schema;
@@ -20,6 +32,11 @@ public class RelationModel extends AttributeContainerModel {
     public RelationModel(int x, int y) {
         this.x = x;
         this.y = y;
+    }
+
+    @Override
+    public Map<Class<? extends Model>, Consumer<RelationModel>> getDragMap() {
+        return dragMap;
     }
 
     public String getName() {
