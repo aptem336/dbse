@@ -1,2 +1,2 @@
 # dbse
-db schema editor with ee7
+db schemaModel editor with ee7
