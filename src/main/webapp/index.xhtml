@@ -8,12 +8,11 @@
 <h:head/>
 <h:body>
     <h:form id="schema-form">
-        <h:outputScript>const schema_form = document.getElementById("schema-form")</h:outputScript>
         <ui:repeat value="${schemaController.schema.relations}"
                    var="relation">
-            <cc:draggable draggable="${relation}">
+            <cc:dragSource dragSource="${relation}">
                 <h:panelGroup> * </h:panelGroup>
-            </cc:draggable>
+            </cc:dragSource>
         </ui:repeat>
     </h:form>
 </h:body>

@@ -1,16 +1,26 @@
 package model;
 
+import view.draggable.DragTarget;
+import view.draggable.PositionedDragMethod;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 
 @Entity
-public class SchemaModel extends Model {
+public class SchemaModel extends Model
+        implements DragTarget<RelationModel> {
     private String name;
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "schema")
     private List<RelationModel> relations = new ArrayList<>();
+
+    @Override
+    public Consumer<RelationModel> getDragMethod() {
+        return PositionedDragMethod::accept;
+    }
 
     public void addRelation(RelationModel relation) {
         relations.add(relation);

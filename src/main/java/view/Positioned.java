@@ -1,8 +1,6 @@
 package view;
 
-import model.Model;
-
-public interface Positional<T extends Model> {
+public interface Positioned {
     int getX();
 
     void setX(int x);

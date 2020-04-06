@@ -1,23 +1,13 @@
 package model;
 
-import view.Positional;
-import view.draggable.Draggable;
-import view.draggable.PositionalDragging;
+import view.Positioned;
+import view.draggable.DragSource;
 
 import javax.persistence.*;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.function.Consumer;
 
 @Entity
 public class RelationModel extends AttributeContainerModel
-        implements Draggable<RelationModel>, Positional<RelationModel> {
-    @Transient
-    private static final Map<Class<? extends Model>, Consumer<RelationModel>> dragMap = new HashMap<>();
-
-    static {
-        dragMap.put(SchemaModel.class, PositionalDragging::drag);
-    }
+        implements DragSource, Positioned {
 
     private String name;
     @ManyToOne
@@ -32,11 +22,6 @@ public class RelationModel extends AttributeContainerModel
     public RelationModel(int x, int y) {
         this.x = x;
         this.y = y;
-    }
-
-    @Override
-    public Map<Class<? extends Model>, Consumer<RelationModel>> getDragMap() {
-        return dragMap;
     }
 
     public String getName() {

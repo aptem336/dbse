@@ -6,22 +6,17 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:composite="http://xmlns.jcp.org/jsf/composite">
 <composite:interface>
-    <composite:attribute name="draggable" type="view.draggable.Draggable"/>
+    <composite:attribute name="dragSource" type="view.draggable.DragSource"/>
 </composite:interface>
 <composite:implementation>
-    <h:panelGroup id="draggable-block"
+    <h:panelGroup id="drag-source-block"
                   layout="block">
         <h:outputScript>
             {
-            const draggable_block = document.getElementById("${cc.clientId}:draggable-block");
-            draggable_block.draggable = true;
-            draggable_block.ondragstart = () => {
-            <ui:repeat value="${cc.attrs.draggable.dragMap}"
-                       var="ratio">
-                [...schema_form.getElementsByClassName("${ratio.key.simpleName}")].forEach(
-                schema =>
-                )
-            </ui:repeat>
+            const drag_source_block = document.getElementById("${cc.clientId}:drag-source-block");
+            drag_source_block.draggable = true;
+            drag_source_block.ondragstart = () => {
+                
             }
             }
         </h:outputScript>
