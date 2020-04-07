@@ -1,4 +1,4 @@
 package view.draggable;
 
-public interface DragSource {
+public interface DragSource<S> {
 }

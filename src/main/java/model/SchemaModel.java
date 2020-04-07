@@ -13,14 +13,16 @@ import java.util.function.Consumer;
 @Entity
 public class SchemaModel extends Model
         implements DragTarget<RelationModel> {
-    private String name;
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "schema")
-    private List<RelationModel> relations = new ArrayList<>();
 
     @Override
     public Consumer<RelationModel> getDragMethod() {
         return PositionedDragMethod::accept;
     }
+
+    private String name;
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "schema")
+    private List<RelationModel> relations = new ArrayList<>();
 
     public void addRelation(RelationModel relation) {
         relations.add(relation);

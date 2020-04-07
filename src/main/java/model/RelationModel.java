@@ -4,10 +4,11 @@ import view.Positioned;
 import view.draggable.DragSource;
 
 import javax.persistence.*;
+import java.util.Arrays;
 
 @Entity
 public class RelationModel extends AttributeContainerModel
-        implements DragSource, Positioned {
+        implements DragSource<RelationModel>, Positioned {
 
     private String name;
     @ManyToOne
@@ -15,7 +16,6 @@ public class RelationModel extends AttributeContainerModel
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "relation")
     private PrimaryKeyModel primaryKey;
     private int x, y;
-
     public RelationModel() {
     }
 
