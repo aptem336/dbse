@@ -2,10 +2,16 @@ package model;
 
 import java.util.List;
 
-public interface ModelContainer<C extends Model, E extends Model & ContainableModel<C>> {
-    void addContainedModel(E e);
+public interface ModelContainer<C extends Model & ModelContainer<C, M>, M extends Model & ContainableModel<C>> {
+    default void addContainedModel(M m) {
+        getContainedModels().add(m);
+        m.setContainer((C) this);//Q
+    }
 
-    void removeContainedModel(E e);
+    default void removeContainedModel(M m) {
+        getContainedModels().remove(m);
+        m.setContainer(null);
+    }
 
-    List<E> getContainedModels();
+    List<M> getContainedModels();
 }

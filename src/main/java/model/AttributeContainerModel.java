@@ -13,18 +13,6 @@ public class AttributeContainerModel extends Model
     private final List<AttributeModel> attributes = new ArrayList<>();
 
     @Override
-    public void addContainedModel(AttributeModel attribute) {
-        attributes.add(attribute);
-        attribute.setContainer(this);
-    }
-
-    @Override
-    public void removeContainedModel(AttributeModel attribute) {
-        attributes.remove(attribute);
-        attribute.setContainer(null);
-    }
-
-    @Override
     public List<AttributeModel> getContainedModels() {
         return attributes;
     }

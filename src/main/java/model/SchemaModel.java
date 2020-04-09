@@ -15,16 +15,6 @@ public class SchemaModel extends Model
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "schema")
     private final List<RelationModel> relations = new ArrayList<>();
 
-    public void addContainedModel(RelationModel relation) {
-        relations.add(relation);
-        relation.setContainer(this);
-    }
-
-    public void removeContainedModel(RelationModel relation) {
-        relations.remove(relation);
-        relation.setContainer(null);
-    }
-
     @Override
     public List<RelationModel> getContainedModels() {
         return relations;

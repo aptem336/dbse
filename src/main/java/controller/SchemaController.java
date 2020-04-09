@@ -25,6 +25,7 @@ public class SchemaController extends Controller<SchemaModel> {
 
     @PostConstruct
     private void readSchemas() {
+        new SchemaModel().addContainedModel(new RelationModel());
     }
 
     public List<SchemaModel> getSchemas() {
