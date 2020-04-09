@@ -4,7 +4,8 @@ import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 
 @Entity
-public class AttributeModel extends Model {
+public class AttributeModel extends Model
+        implements ContainableModel<AttributeContainerModel> {
     @ManyToOne
     private AttributeContainerModel container;
 

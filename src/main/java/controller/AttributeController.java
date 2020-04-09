@@ -8,6 +8,6 @@ import javax.inject.Named;
 @Named
 public class AttributeController extends Controller<AttributeModel> {
     public void create(RelationModel relation){
-        relation.addAttribute(new AttributeModel());
+        relation.addContainedModel(new AttributeModel());
     }
 }

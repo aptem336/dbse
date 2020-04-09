@@ -1,37 +1,33 @@
 package model;
 
-import view.draggable.DragTarget;
-import view.draggable.PositionedDragMethod;
+import view.drag.DragTarget;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Consumer;
 
 @Entity
 public class SchemaModel extends Model
-        implements DragTarget<RelationModel> {
+        implements DragTarget, ModelContainer<SchemaModel, RelationModel> {
+    private String name;
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "schema")
+    private final List<RelationModel> relations = new ArrayList<>();
+
+    public void addContainedModel(RelationModel relation) {
+        relations.add(relation);
+        relation.setContainer(this);
+    }
+
+    public void removeContainedModel(RelationModel relation) {
+        relations.remove(relation);
+        relation.setContainer(null);
+    }
 
     @Override
-    public Consumer<RelationModel> getDragMethod() {
-        return PositionedDragMethod::accept;
-    }
-
-    private String name;
-
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "schema")
-    private List<RelationModel> relations = new ArrayList<>();
-
-    public void addRelation(RelationModel relation) {
-        relations.add(relation);
-        relation.setSchema(this);
-    }
-
-    public void removeRelation(RelationModel relation) {
-        relations.remove(relation);
-        relation.setSchema(null);
+    public List<RelationModel> getContainedModels() {
+        return relations;
     }
 
     public String getName() {
@@ -40,13 +36,5 @@ public class SchemaModel extends Model
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public List<RelationModel> getRelations() {
-        return relations;
-    }
-
-    public void setRelations(List<RelationModel> relationModels) {
-        this.relations = relationModels;
     }
 }

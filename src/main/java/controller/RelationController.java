@@ -9,6 +9,6 @@ import javax.inject.Named;
 public class RelationController extends Controller<RelationModel> {
 
     public void create(SchemaModel schema, int x, int y) {
-        schema.addRelation(new RelationModel(x, y));
+        schema.addContainedModel(new RelationModel(x, y));
     }
 }

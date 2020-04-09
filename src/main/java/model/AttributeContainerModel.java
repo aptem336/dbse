@@ -7,25 +7,25 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class AttributeContainerModel extends Model {
+public class AttributeContainerModel extends Model
+        implements ModelContainer<AttributeContainerModel, AttributeModel> {
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "container")
-    private List<AttributeModel> attributes = new ArrayList<>();
+    private final List<AttributeModel> attributes = new ArrayList<>();
 
-    public void addAttribute(AttributeModel attribute){
+    @Override
+    public void addContainedModel(AttributeModel attribute) {
         attributes.add(attribute);
         attribute.setContainer(this);
     }
 
-    public void removeAttribute(AttributeModel attribute){
+    @Override
+    public void removeContainedModel(AttributeModel attribute) {
         attributes.remove(attribute);
         attribute.setContainer(null);
     }
 
-    public List<AttributeModel> getAttributes() {
+    @Override
+    public List<AttributeModel> getContainedModels() {
         return attributes;
-    }
-
-    public void setAttributes(List<AttributeModel> attributeModels) {
-        this.attributes = attributeModels;
     }
 }

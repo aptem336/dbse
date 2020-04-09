@@ -1,15 +1,13 @@
 package model;
 
 import view.Positioned;
-import view.draggable.DragSource;
+import view.drag.DragSource;
 
 import javax.persistence.*;
-import java.util.Arrays;
 
 @Entity
 public class RelationModel extends AttributeContainerModel
-        implements DragSource<RelationModel>, Positioned {
-
+        implements Positioned, DragSource, ContainableModel<SchemaModel> {
     private String name;
     @ManyToOne
     private SchemaModel schema;
@@ -32,12 +30,14 @@ public class RelationModel extends AttributeContainerModel
         this.name = name;
     }
 
-    public SchemaModel getSchema() {
+    @Override
+    public SchemaModel getContainer() {
         return schema;
     }
 
-    public void setSchema(SchemaModel schemaModel) {
-        this.schema = schemaModel;
+    @Override
+    public void setContainer(SchemaModel e) {
+        this.schema = e;
     }
 
     public PrimaryKeyModel getPrimaryKey() {
@@ -63,4 +63,6 @@ public class RelationModel extends AttributeContainerModel
     public void setY(int y) {
         this.y = y;
     }
+
+
 }
