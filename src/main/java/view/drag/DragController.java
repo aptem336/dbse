@@ -8,8 +8,12 @@ import java.util.function.BiConsumer;
 
 @Named
 public class DragController {
-    public BiConsumer<SchemaModel, RelationModel> getDragMethod(SchemaModel schemaTarget, RelationModel relationSource) {
+    public DragStrategy<SchemaModel, RelationModel> getDragStrategy(SchemaModel schemaTarget, RelationModel relationSource) {
         return (schemaModel, relationModel) -> {
+
         };
+    }
+
+    private interface DragStrategy<T extends DragTarget, S extends DragSource> extends BiConsumer<T, S> {
     }
 }
