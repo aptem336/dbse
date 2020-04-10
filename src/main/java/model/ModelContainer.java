@@ -1,7 +1,5 @@
 package model;
 
-import view.drag.DragSource;
-
 import java.util.List;
 
 public interface ModelContainer<C extends ModelContainer<C, M>, M extends ContainableModel<M, C>> {
