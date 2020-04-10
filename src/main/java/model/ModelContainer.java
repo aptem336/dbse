@@ -1,11 +1,21 @@
 package model;
 
+import view.drag.DragSource;
+
 import java.util.List;
 
-public interface ModelContainer<M extends Model> {
-    void addContainedModel(M m);
+public interface ModelContainer<C extends ModelContainer<C, M>, M extends ContainableModel<M, C>> {
+    default void addContainedModel(M m) {
+        getContainedModels().add(m);
+        m.setContainer(getSelf());
+    }
 
-    void removeContainedModel(M m);
+    default void removeContainedModel(M m) {
+        getContainedModels().remove(m);
+        m.setContainer(null);
+    }
+
+    C getSelf();
 
     List<M> getContainedModels();
 }

@@ -7,13 +7,14 @@ import javax.persistence.*;
 
 @Entity
 public class RelationModel extends AttributeContainerModel
-        implements Positioned, DragSource, ContainableModel<SchemaModel> {
+        implements ContainableModel<RelationModel, SchemaModel>, Positioned, DragSource {
     private String name;
     @ManyToOne
     private SchemaModel schema;
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "relation")
     private PrimaryKeyModel primaryKey;
     private int x, y;
+
     public RelationModel() {
     }
 

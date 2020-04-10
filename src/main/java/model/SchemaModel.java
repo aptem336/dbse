@@ -10,21 +10,14 @@ import java.util.List;
 
 @Entity
 public class SchemaModel extends Model
-        implements DragTarget, ModelContainer<RelationModel> {
+        implements DragTarget, ModelContainer<SchemaModel, RelationModel> {
     private String name;
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "schema")
     private final List<RelationModel> relations = new ArrayList<>();
 
     @Override
-    public void addContainedModel(RelationModel relationModel) {
-        getContainedModels().add(relationModel);
-        relationModel.setContainer(this);
-    }
-
-    @Override
-    public void removeContainedModel(RelationModel relationModel) {
-        getContainedModels().remove(relationModel);
-        relationModel.setContainer(null);
+    public SchemaModel getSelf() {
+        return this;
     }
 
     @Override
